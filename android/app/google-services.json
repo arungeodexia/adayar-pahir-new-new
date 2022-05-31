@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "217923597783",
+    "project_id": "aci-geodexia",
+    "storage_bucket": "aci-geodexia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217923597783:android:c4a166afbb7b7cf5024792",
+        "android_client_info": {
+          "package_name": "com.geodexia.aci"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217923597783-3m0vq37k5n081rp7jmb6nm3o5vl9pd0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQGcQ8_e8FafF65rPEhji-DU3lhg2LZbI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217923597783-3m0vq37k5n081rp7jmb6nm3o5vl9pd0n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

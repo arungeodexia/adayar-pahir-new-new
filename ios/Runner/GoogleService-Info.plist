@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>217923597783-2a9erclioltt4kvq8iirqkssklao9sdu.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.217923597783-2a9erclioltt4kvq8iirqkssklao9sdu</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD5dWHPPiUE6aauON4G3w0ZJhs8cPMylWs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>217923597783</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.geodexia.aci</string>
+	<key>PROJECT_ID</key>
+	<string>aci-geodexia</string>
+	<key>STORAGE_BUCKET</key>
+	<string>aci-geodexia.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:217923597783:ios:42c1494ed4d80441024792</string>
+</dict>
+</plist>
