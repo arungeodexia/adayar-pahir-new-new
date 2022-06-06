@@ -32,6 +32,7 @@ bool globalqr = false;
 String listKey = "Tamil Nadu";
 String listid = "";
 String unreads = "0";
+String notifyread = "0";
 AddResourceModel? globalAddResourceModel;
 //SearchResultDetailsModel globalSearchResourceModel;
 ResourceResults? globalSearchResourceModel;

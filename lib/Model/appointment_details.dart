@@ -25,7 +25,9 @@ class AppointmentDetails {
       String? institute,
       String? designation, 
       String? address, 
-      String? phone1, 
+      String? defaultText,
+      String? defaultContact,
+      String? phone1,
       dynamic phone2, 
       String? email,}){
     _appointmentId = appointmentId;
@@ -42,6 +44,8 @@ class AppointmentDetails {
     _phone1 = phone1;
     _phone2 = phone2;
     _email = email;
+    _defaultText = defaultText;
+    _defaultContact = defaultContact;
 }
 
   AppointmentDetails.fromJson(dynamic json) {
@@ -56,6 +60,8 @@ class AppointmentDetails {
     _institute = json['institute'];
     _designation = json['designation'];
     _address = json['address'];
+    _defaultText = json['defaultText'];
+    _defaultContact = json['defaultContact'];
     _phone1 = json['phone1'];
     _phone2 = json['phone2'];
     _email = json['email'];
@@ -71,6 +77,8 @@ class AppointmentDetails {
   String? _institute;
   String? _designation;
   String? _address;
+  String? _defaultContact;
+  String? _defaultText;
   String? _phone1;
   dynamic _phone2;
   String? _email;
@@ -86,6 +94,8 @@ class AppointmentDetails {
   String? get institute => _institute;
   String? get designation => _designation;
   String? get address => _address;
+  String? get defaultContact => _defaultContact;
+  String? get defaultText => _defaultText;
   String? get phone1 => _phone1;
   dynamic get phone2 => _phone2;
   String? get email => _email;

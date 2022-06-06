@@ -386,28 +386,33 @@ class _MydashboardState extends State<Mydashboard> {
           Map<String, dynamic> msgObject = json.decode(msgBodyData);
           print("msgBodyData froom :==>" + msgBodyData + listKey);
           print(msgObject['taskId'].toString());
-          CoolAlert.show(
-              context: context,
-              type: CoolAlertType.confirm,
-              title: msgObject['title'].toString().replaceAll("+", " "),
-              text: message.data['title'],
-              confirmBtnText: "Proceed",
-              cancelBtnText: "Do it Later!!",
-              loopAnimation: true,
-              onCancelBtnTap: ()async{
-                Navigator.of(context).pop();
-              },
-              onConfirmBtnTap: () async {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_)=>new ScreenCheck(
-                  title: msgObject['title'].toString().replaceAll("+", " "),
-                  id: msgObject['taskId'].toString(),
-                  page: "0",
-                )),)
-                    .then((val)=>getVersionNumber());
-                globalTaskID=int.parse(msgObject['taskId'].toString());
+          String notifyId=message.messageId!;
+          if(notifyread!=notifyId){
+            notifyread=notifyId;
+            CoolAlert.show(
+                context: context,
+                type: CoolAlertType.confirm,
+                title: msgObject['title'].toString().replaceAll("+", " "),
+                text: message.data['title'],
+                confirmBtnText: "Proceed",
+                cancelBtnText: "Do it Later!!",
+                loopAnimation: true,
+                onCancelBtnTap: ()async{
+                  Navigator.of(context).pop();
+                },
+                onConfirmBtnTap: () async {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_)=>new ScreenCheck(
+                    title: msgObject['title'].toString().replaceAll("+", " "),
+                    id: msgObject['taskId'].toString(),
+                    page: "0",
+                  )),)
+                      .then((val)=>getVersionNumber());
+                  globalTaskID=int.parse(msgObject['taskId'].toString());
 
-              });
+                });
+          }
+
         } else {
           if (Platform.isIOS) {
             // _navigateToItemDetailIOS(context, message, false);

@@ -334,7 +334,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
         children: <Widget>[
           appointmentDetails.name.toString() != "null"
               ? _buildHeaderNewUi()
-              : _buildHeaderNoAppointment(),
+              : _buildNoAppointmentHeaderNewUi(),
           // const SizedBox(height: 20.0),
 
           // Row(
@@ -639,7 +639,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
 
   Container _buildHeaderNewUi() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 10.0, 10, 10.0),
+      padding: const EdgeInsets.fromLTRB(10, 20.0, 10, 10.0),
       margin: const EdgeInsets.all(
         10,
       ),
@@ -673,7 +673,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                   fontWeight: FontWeight.bold,
                   height: 1.5,
                   color: Colors.white,
-                  fontSize: 22),
+                  fontSize: 18),
             ),
             subtitle: Row(
               children: [
@@ -803,71 +803,111 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
               ],
             ),
           ),
-          // Container(
-          //   margin: EdgeInsets.only(left: 15),
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-          //
-          //       Padding(
-          //         padding: const EdgeInsets.all(5),
-          //         child: Text(
-          //           appointmentDetails.institute.toString(),
-          //           overflow: TextOverflow.ellipsis,
-          //           softWrap: false,
-          //           maxLines: 3,
-          //           style:kSubtitleTextSyule1.copyWith(
-          //               fontWeight: FontWeight.w600,
-          //               height: 1,
-          //               color: AppColors.APP_WHITE
-          //           ),
-          //         ),
-          //       ),
-          //       Padding(
-          //         padding: const EdgeInsets.all(5),
-          //         child: Text(
-          //           appointmentDetails.address.toString(),
-          //           overflow: TextOverflow.ellipsis,
-          //           softWrap: false,
-          //           maxLines: 3,
-          //           style: kSubtitleTextSyule1.copyWith(
-          //               fontWeight: FontWeight.w600,
-          //               height: 1,
-          //               color: AppColors.APP_WHITE
-          //           ),
-          //         ),
-          //       ),
-          //       SizedBox(height: 5,),
-          //       GestureDetector(
-          //         onTap: (){
-          //           CallsAndMessagesService.call(appointmentDetails.phone1.toString().replaceAll(' ', ''));
-          //         },
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.start,
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           children: [
-          //             CircleAvatar(backgroundColor: AppColors.APP_WHITE,radius: 15,child: Icon(FontAwesomeIcons.phoneAlt,color: AppColors.APP_BLUE,size: 18,)),
-          //             Padding(
-          //               padding: const EdgeInsets.only(top: 5,bottom: 5,left: 5),
-          //               child: Text(
-          //                 appointmentDetails.phone1.toString(),
-          //                 overflow: TextOverflow.ellipsis,
-          //                 softWrap: false,
-          //                 maxLines: 3,
-          //                 style: kSubtitleTextSyule1.copyWith(
-          //                     fontWeight: FontWeight.w600,
-          //                     height: 1,
-          //                     color: AppColors.APP_WHITE
-          //                 ),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
+        ],
+      ),
+    );
+  }
+  Container _buildNoAppointmentHeaderNewUi() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 20.0, 10, 10.0),
+      margin: const EdgeInsets.all(
+        10,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: AppColors.APP_BLUE1,
+      ),
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            leading: GestureDetector(
+              child: Container(
+                child: CircleAvatar(
+                    radius: 30.0,
+                    backgroundColor: AppColors.APP_LIGHT_BLUE,
+                    backgroundImage: appointmentDetails.picture.toString() !=
+                                "null" &&
+                            appointmentDetails.picture != ""
+                        ? NetworkImage(appointmentDetails.picture.toString())
+                        : AssetImage("images/photo_avatar.png")
+                            as ImageProvider),
+              ),
+              onTap: () {},
+            ),
+            title: Text(
+              appointmentDetails.defaultText.toString(),
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+              maxLines: 3,
+              style: kSubtitleTextSyule1.copyWith(
+                  fontWeight: FontWeight.bold,
+                  height: 1.5,
+                  color: Colors.white,
+                  fontSize: 18),
+            ),
+            subtitle: Row(
+              children: [
+                Text(
+                  appointmentDetails.address.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  maxLines: 3,
+                  style: kSubtitleTextSyule1.copyWith(
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                      color: Colors.white,
+                      fontSize: 16),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      CallsAndMessagesService.call(appointmentDetails.defaultContact
+                          .toString()
+                          .replaceAll(' ', ''));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: IconButton(
+                          onPressed: () {
+                            CallsAndMessagesService.call(appointmentDetails.defaultContact
+                                .toString()
+                                .replaceAll(' ', ''));
+                          },
+                          icon: Row(
+                            children: [
+                              CircleAvatar(
+                                  backgroundColor: AppColors.APP_WHITE,
+                                  radius: 10,
+                                  child: Icon(
+                                    FontAwesomeIcons.phoneAlt,
+                                    color: AppColors.APP_BLUE,
+                                    size: 12,
+                                  )),
+                              Text(
+                                '  Call',
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                                style: kSubtitleTextSyule1.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.5,
+                                    color: Colors.white,
+                                    fontSize: 14),
+                              ),
+                            ],
+                          )),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            // trailing: CircleAvatar(
+            //   radius: 25.0,
+            //   backgroundImage: NetworkImage(avatar),
+            // ),
+          ),
         ],
       ),
     );
