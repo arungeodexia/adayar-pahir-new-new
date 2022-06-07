@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ACI/Screen/mydashboard.dart';
 import 'package:ACI/utils/constants.dart';
 import 'package:ACI/utils/language.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -167,6 +168,18 @@ class IShareAppDrawer extends StatelessWidget {
                         name: "/privacy",
                       )),
             );
+          }else if (d.route == "/mydashboard") {
+            Navigator.pop(context);
+            if(currentIndex!=0){
+              currentIndex=0;
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => Mydashboard()),
+                    (Route<dynamic> route) => false,
+              );
+            }
+
+
           }else if (d.route == "/language") {
             Navigator.pop(context);
             Navigator.push(

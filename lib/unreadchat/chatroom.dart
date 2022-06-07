@@ -336,7 +336,7 @@ class _ChatRoomState extends State<ChatRoom> {
                       );
 
                     },
-                    child: Icon(Icons.exit_to_app,color: Colors.red,),
+                    child: Icon(Icons.delete,color: Colors.red,),
                   ),
                 )
                 // createEditProfileModel == null

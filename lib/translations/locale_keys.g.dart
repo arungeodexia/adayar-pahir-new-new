@@ -53,5 +53,6 @@ abstract class  LocaleKeys {
   static const language = 'language';
   static const docdet = 'docdet';
   static const email = 'email';
+  static const task = 'task';
 
 }

@@ -11,7 +11,9 @@ import 'package:ACI/utils/calls_messages_services.dart';
 import 'package:ACI/utils/values/app_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -54,6 +56,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
   String expiry = "0";
   List<TextEditingController> _controllers = [];
 
+  var isFullNameChangeBtnStateTextBox=true;
+
   @override
   void initState() {
     super.initState();
@@ -81,6 +85,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
     if (surveyDetailsModel.question!.answerType.toString() == "textbox") {
       setState(() {
         isFullNameChangeBtnState = true;
+        isFullNameChangeBtnStateTextBox=false;
       });
     }
 
@@ -152,7 +157,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                 (Route<dynamic> route) => false,
               ),
             ),
-            title: Text('Task'),
+            title: Text(tr("task")),
             centerTitle: true,
             backgroundColor: AppColors.APP_BLUE,
             automaticallyImplyLeading: true,
@@ -334,10 +339,11 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.only(left: 10, top: 20, right: 10, bottom: 15,),
                     child: new LinearPercentIndicator(
                       width: MediaQuery.of(context).size.width / 1.3,
                       animation: true,
+
                       animationDuration: 1000,
                       lineHeight: 20.0,
                       leading: new Text(""),
@@ -351,14 +357,9 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                   Container(
                     width: MediaQuery.of(context).size.width / 1.1,
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        top: 0,
-                        right: 30,
-                        bottom: 5,
-                      ),
+                      padding: const EdgeInsets.only(left: 10, top: 0, right:40, bottom: 5,),
                       child: Text(
-                        "Screening Check Results exipres in ${expiry.replaceAll("-", "")} days",
+                        "Screening Check Results expire in ${expiry.replaceAll("-", "")} days",
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
                         maxLines: 3,
@@ -638,12 +639,13 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                         width:40,
                                                                         height:40,
                                                                         child: TextField(
-
-
                                                                         keyboardType: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
                                                                               "Others"
                                                                           ? TextInputType.name
                                                                           : TextInputType.number,
+                                                                          inputFormatters:[
+                                                                            LengthLimitingTextInputFormatter(3),
+                                                                          ],
                                                                         controller: surveyDetailsModel
                                                                           .question!
                                                                           .optionGroup![index]
@@ -1808,22 +1810,14 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                             AnswerModel(answers: []);
                                             List<Answer> answerslist = [];
 
-                                            if (surveyDetailsModel.question!.answerType
-                                                .toString() ==
-                                                "textbox") {
-                                              for (int i = 0;
-                                              i <
-                                                  surveyDetailsModel
-                                                      .question!.optionGroup!.length;
-                                              i++) {
-                                                for (int j = 0;
-                                                j <
-                                                    surveyDetailsModel
-                                                        .question!
-                                                        .optionGroup![i]
-                                                        .optionGroups!
-                                                        .length;
-                                                j++) {
+                                            if (surveyDetailsModel.question!.answerType.toString() == "textbox") {
+                                              for (int i = 0; i < surveyDetailsModel.question!.optionGroup!.length; i++) {
+                                                for (int j = 0; j < surveyDetailsModel.question!.optionGroup![i].optionGroups!.length; j++) {
+                                                  if(surveyDetailsModel.question!.optionGroup![i].optionGroups![j].textEditingController!.text.toString().length!=0){
+                                                    setState(() {
+                                                      isFullNameChangeBtnStateTextBox=true;
+                                                    });
+                                                  }
                                                   answermodel.answers.add(Answer(
                                                       optionId: int.parse(surveyDetailsModel
                                                           .question!
@@ -1926,64 +1920,72 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                               }
                                             }
 
-                                            log(answermodel.toJson().toString());
-                                            http.Response? response =
-                                            await resourceRepository.submitanswers(
-                                                surveyDetailsModel.question!.questionId
-                                                    .toString(),
-                                                answermodel);
-                                            if (response!.statusCode == 200) {
-                                              SuccessModel successmodel =
-                                              SuccessModel.fromJson(json.decode(
-                                                  utf8.decode(response.bodyBytes)));
+                                            if(isFullNameChangeBtnStateTextBox){
+                                              log(answermodel.toJson().toString());
+                                              http.Response? response =
+                                              await resourceRepository.submitanswers(
+                                                  surveyDetailsModel.question!.questionId
+                                                      .toString(),
+                                                  answermodel);
+                                              if (response!.statusCode == 200) {
+                                                SuccessModel successmodel =
+                                                SuccessModel.fromJson(json.decode(
+                                                    utf8.decode(response.bodyBytes)));
 
-                                              if (successmodel.nextQuestionId == 0) {
-                                                if (surveyDetailsModel
-                                                    .question!.nextQuestionId ==
-                                                    surveyDetailsModel
-                                                        .question!.questionId) {
+                                                if (successmodel.nextQuestionId == 0) {
+                                                  if (surveyDetailsModel
+                                                      .question!.nextQuestionId ==
+                                                      surveyDetailsModel
+                                                          .question!.questionId) {
 
-                                                  if(!successmodel.hasPendingQuestions!){
-                                                    Navigator.of(context)
-                                                        .pushReplacement(
-                                                      new MaterialPageRoute(
-                                                          builder: (_) => new ScreenCheck(
-                                                            title: "Successful",
-                                                            id: globalTaskID
-                                                                .toString(),
-                                                            page: "1",
-                                                          )),
-                                                    )
-                                                        .then((val) {});
-                                                  }else{
-                                                    backPressed();
+                                                    if(!successmodel.hasPendingQuestions!){
+                                                      Navigator.of(context)
+                                                          .pushReplacement(
+                                                        new MaterialPageRoute(
+                                                            builder: (_) => new ScreenCheck(
+                                                              title: "Successful",
+                                                              id: globalTaskID
+                                                                  .toString(),
+                                                              page: "1",
+                                                            )),
+                                                      )
+                                                          .then((val) {});
+                                                    }else{
+                                                      backPressed();
+                                                    }
+
+                                                  } else {
+                                                    Navigator.of(context).pushAndRemoveUntil(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              SurveymenuDetails(
+                                                                  questionId:
+                                                                  surveyDetailsModel
+                                                                      .question!
+                                                                      .nextQuestionId
+                                                                      .toString())),
+                                                          (Route<dynamic> route) => false,
+                                                    );
                                                   }
-
                                                 } else {
                                                   Navigator.of(context).pushAndRemoveUntil(
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             SurveymenuDetails(
-                                                                questionId:
-                                                                surveyDetailsModel
-                                                                    .question!
+                                                                questionId: successmodel
                                                                     .nextQuestionId
                                                                     .toString())),
                                                         (Route<dynamic> route) => false,
                                                   );
                                                 }
-                                              } else {
-                                                Navigator.of(context).pushAndRemoveUntil(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          SurveymenuDetails(
-                                                              questionId: successmodel
-                                                                  .nextQuestionId
-                                                                  .toString())),
-                                                      (Route<dynamic> route) => false,
-                                                );
                                               }
+
+                                            } else {
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                  "Please Fill answer to submit survey");
                                             }
+
                                           } else {
                                             Fluttertoast.showToast(
                                                 msg:
@@ -2043,25 +2045,17 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                               if (isFullNameChangeBtnState) {
                                 Answer answers = Answer();
                                 AnswerModel answermodel =
-                                    AnswerModel(answers: []);
+                                AnswerModel(answers: []);
                                 List<Answer> answerslist = [];
 
-                                if (surveyDetailsModel.question!.answerType
-                                        .toString() ==
-                                    "textbox") {
-                                  for (int i = 0;
-                                      i <
-                                          surveyDetailsModel
-                                              .question!.optionGroup!.length;
-                                      i++) {
-                                    for (int j = 0;
-                                        j <
-                                            surveyDetailsModel
-                                                .question!
-                                                .optionGroup![i]
-                                                .optionGroups!
-                                                .length;
-                                        j++) {
+                                if (surveyDetailsModel.question!.answerType.toString() == "textbox") {
+                                  for (int i = 0; i < surveyDetailsModel.question!.optionGroup!.length; i++) {
+                                    for (int j = 0; j < surveyDetailsModel.question!.optionGroup![i].optionGroups!.length; j++) {
+                                      if(surveyDetailsModel.question!.optionGroup![i].optionGroups![j].textEditingController!.text.toString().length!=0){
+                                        setState(() {
+                                          isFullNameChangeBtnStateTextBox=true;
+                                        });
+                                      }
                                       answermodel.answers.add(Answer(
                                           optionId: int.parse(surveyDetailsModel
                                               .question!
@@ -2083,17 +2077,17 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                     }
                                   }
                                 } else if (surveyDetailsModel
-                                        .question!.answerType ==
+                                    .question!.answerType ==
                                     "radio") {
                                   answers.questionId =
-                                      surveyDetailsModel.question!.questionId!;
+                                  surveyDetailsModel.question!.questionId!;
                                   for (int j = 0;
-                                      j <
-                                          surveyDetailsModel
-                                              .question!.options!.length;
-                                      j++) {
+                                  j <
+                                      surveyDetailsModel
+                                          .question!.options!.length;
+                                  j++) {
                                     if (surveyDetailsModel
-                                            .question!.options![j].select ==
+                                        .question!.options![j].select ==
                                         0) {
                                       answermodel.answers.add(Answer(
                                           optionId: int.parse(surveyDetailsModel
@@ -2107,17 +2101,17 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                     }
                                   }
                                 } else if (surveyDetailsModel
-                                        .question!.answerType ==
+                                    .question!.answerType ==
                                     "checkbox") {
                                   answers.questionId =
-                                      surveyDetailsModel.question!.questionId!;
+                                  surveyDetailsModel.question!.questionId!;
                                   for (int j = 0;
-                                      j <
-                                          surveyDetailsModel
-                                              .question!.options!.length;
-                                      j++) {
+                                  j <
+                                      surveyDetailsModel
+                                          .question!.options!.length;
+                                  j++) {
                                     if (surveyDetailsModel
-                                            .question!.options![j].select ==
+                                        .question!.options![j].select ==
                                         0) {
                                       answermodel.answers.add(Answer(
                                           optionId: int.parse(surveyDetailsModel
@@ -2131,20 +2125,20 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                     }
                                   }
                                 } else if (surveyDetailsModel
-                                        .question!.answerType ==
+                                    .question!.answerType ==
                                     "choices") {
                                   for (int i = 0;
-                                      i <
-                                          surveyDetailsModel
-                                              .question!.choices!.length;
-                                      i++) {
+                                  i <
+                                      surveyDetailsModel
+                                          .question!.choices!.length;
+                                  i++) {
                                     for (int k = 0;
-                                        k <
-                                            surveyDetailsModel.question!
-                                                .choices![i].options!.length;
-                                        k++) {
+                                    k <
+                                        surveyDetailsModel.question!
+                                            .choices![i].options!.length;
+                                    k++) {
                                       if (surveyDetailsModel.question!
-                                              .choices![i].options![k].select ==
+                                          .choices![i].options![k].select ==
                                           0) {
                                         answermodel.answers.add(Answer(
                                             optionId: int.parse(
@@ -2164,68 +2158,76 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                   }
                                 }
 
-                                log(answermodel.toJson().toString());
-                                http.Response? response =
-                                    await resourceRepository.submitanswers(
-                                        surveyDetailsModel.question!.questionId
-                                            .toString(),
-                                        answermodel);
-                                if (response!.statusCode == 200) {
-                                  SuccessModel successmodel =
-                                      SuccessModel.fromJson(json.decode(
-                                          utf8.decode(response.bodyBytes)));
+                                if(isFullNameChangeBtnStateTextBox){
+                                  log(answermodel.toJson().toString());
+                                  http.Response? response =
+                                  await resourceRepository.submitanswers(
+                                      surveyDetailsModel.question!.questionId
+                                          .toString(),
+                                      answermodel);
+                                  if (response!.statusCode == 200) {
+                                    SuccessModel successmodel =
+                                    SuccessModel.fromJson(json.decode(
+                                        utf8.decode(response.bodyBytes)));
 
-                                  if (successmodel.nextQuestionId == 0) {
-                                    if (surveyDetailsModel
-                                            .question!.nextQuestionId ==
-                                        surveyDetailsModel
-                                            .question!.questionId) {
+                                    if (successmodel.nextQuestionId == 0) {
+                                      if (surveyDetailsModel
+                                          .question!.nextQuestionId ==
+                                          surveyDetailsModel
+                                              .question!.questionId) {
 
-                                      if(!successmodel.hasPendingQuestions!){
-                                        Navigator.of(context)
-                                            .pushReplacement(
-                                          new MaterialPageRoute(
-                                              builder: (_) => new ScreenCheck(
-                                                title: "Successful",
-                                                id: globalTaskID
-                                                    .toString(),
-                                                page: "1",
-                                              )),
-                                        )
-                                            .then((val) {});
-                                      }else{
-                                        backPressed();
+                                        if(!successmodel.hasPendingQuestions!){
+                                          Navigator.of(context)
+                                              .pushReplacement(
+                                            new MaterialPageRoute(
+                                                builder: (_) => new ScreenCheck(
+                                                  title: "Successful",
+                                                  id: globalTaskID
+                                                      .toString(),
+                                                  page: "1",
+                                                )),
+                                          )
+                                              .then((val) {});
+                                        }else{
+                                          backPressed();
+                                        }
+
+                                      } else {
+                                        Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SurveymenuDetails(
+                                                      questionId:
+                                                      surveyDetailsModel
+                                                          .question!
+                                                          .nextQuestionId
+                                                          .toString())),
+                                              (Route<dynamic> route) => false,
+                                        );
                                       }
-
                                     } else {
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 SurveymenuDetails(
-                                                    questionId:
-                                                        surveyDetailsModel
-                                                            .question!
-                                                            .nextQuestionId
-                                                            .toString())),
-                                        (Route<dynamic> route) => false,
+                                                    questionId: successmodel
+                                                        .nextQuestionId
+                                                        .toString())),
+                                            (Route<dynamic> route) => false,
                                       );
                                     }
-                                  } else {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SurveymenuDetails(
-                                                  questionId: successmodel
-                                                      .nextQuestionId
-                                                      .toString())),
-                                      (Route<dynamic> route) => false,
-                                    );
                                   }
+
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg:
+                                      "Please Fill answer to submit survey");
                                 }
+
                               } else {
                                 Fluttertoast.showToast(
                                     msg:
-                                        "Please Choose all answer to submit survey");
+                                    "Please Choose all answer to submit survey");
                               }
                             },
                             child: Padding(

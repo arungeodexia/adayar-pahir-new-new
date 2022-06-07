@@ -29,6 +29,7 @@ class LoginInitViewState extends State<LoginInitView> {
 
   int _current = 0;
   bool _currentBtnState = false;
+  bool language = false;
 
 
 
@@ -42,8 +43,19 @@ class LoginInitViewState extends State<LoginInitView> {
   }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    new Future.delayed(const Duration(seconds: 0), () {
+
+      String lang = context.locale.languageCode;
+      if(lang=="en"){
+        language=true;
+      }else{
+        language=false;
+      }
+      setState(() {
+
+      });
+    });
 
   }
 
@@ -161,8 +173,8 @@ final Column slider1 = Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 60),
+                  Expanded(
+                    flex: 1,
                     child: Center(
                       child: Padding(
                         padding: EdgeInsets.all(10.0),
@@ -178,35 +190,11 @@ final Column slider1 = Column(
                         ),
                       ),
                     ),
-                  )
-                ],
-              ),
-            ),
-            Positioned(
-                bottom: 0.0,
-                right: 0.0,
-                left: 0.0,
-                top: 0.0,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Padding(
-                    //   padding: EdgeInsets.all(3.0),
-                    //   child:
-                    //   Text(
-                    //     tr('appname'),
-                    //     style: TextStyle(
-                    //         fontSize: 35,
-                    //         fontWeight: FontWeight.bold,
-                    //         color: AppColors.APP_WHITE),
-                    //     textAlign: TextAlign.center,
-                    //   ),
-                    // ),
-                    SizedBox(
-                      height: 0,
-                    ),
-                    Padding(
+                  ),
+                  SizedBox(height: 0,),
+                  Expanded(
+                    flex: language?2:3,
+                    child: Padding(
                       padding: EdgeInsets.all(7),
                       child: Text(
                         tr("signuptext"),
@@ -214,15 +202,20 @@ final Column slider1 = Column(
                         TextStyle(color: AppColors.APP_WHITE, fontSize: 17),
                         softWrap: true,
                         textAlign: TextAlign.center,
+                        overflow: TextOverflow.visible,
                       ),
                     ),
-                    SizedBox(height: 60),
-                    Padding(
+                  ),
+                  Expanded(
+                    flex: language?3:5,
+                    child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
                       child: slider1,
                     ),
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
             Positioned(
                 bottom: 110.0,
                 right: 22.0,

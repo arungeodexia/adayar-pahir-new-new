@@ -13,6 +13,7 @@ String globalCountryCode = "";
 String globalPhoneNo = "";
 int globalUserId = 0;
 int globalTaskID = 0;
+int currentIndex = 0;
 String globalResourceId = "";
 String globalSearchData = "";
 String timezone = 'Unknown';

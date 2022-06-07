@@ -121,31 +121,53 @@ class _LanguageState extends State<Language> {
                                     await context.setLocale(Locale('en'));
                                   },
                                   title: Text('English',style: TextStyle(color: AppColors.APP_BLUE),),
-                                  trailing: InkWell(
-                                    onTap: () async{
-                                      setState(() {
-                                        language=true;
-                                      });
-                                      await context.setLocale(Locale('en'));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.APP_BLUE),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: language
-                                            ? Icon(
-                                          Icons.check,
-                                          size: 15,
-                                          color: Colors.white,
-                                        )
-                                            : Icon(
-                                          Icons.check_box_outline_blank,
-                                          size: 15,
-                                          color: AppColors.APP_BLUE,
-                                        ),
+                                  trailing:Transform.scale(
+                                    scale: 1.7,
+                                    child: Checkbox(
+                                      value: language,
+                                      activeColor: AppColors.APP_BLUE,
+                                      shape: CircleBorder(),
+                                      tristate: false,
+                                      splashRadius: 10,
+                                      side: MaterialStateBorderSide.resolveWith(
+                                            (states) => BorderSide(width: 1.0, color: AppColors.APP_BLUE),
                                       ),
+                                      onChanged: (bool? value) async {
+                                        setState(() {
+                                          language=true;
+                                        });
+                                        await context.setLocale(Locale('en'));
+                                      },
                                     ),
                                   ),
+                                  // trailing: InkWell(
+                                  //   onTap: () async{
+                                  //     setState(() {
+                                  //       language=true;
+                                  //     });
+                                  //     await context.setLocale(Locale('en'));
+                                  //   },
+                                  //   child: Container(
+                                  //     decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.APP_WHITE,
+                                  //                               border: Border.all(color: Colors.grey),
+                                  //
+                                  //     ),
+                                  //     child: Padding(
+                                  //       padding: const EdgeInsets.all(10.0),
+                                  //       child: language
+                                  //           ? Icon(
+                                  //         Icons.check,
+                                  //         size: 15,
+                                  //         color: Colors.white,
+                                  //       )
+                                  //           : Icon(
+                                  //         Icons.check_box_outline_blank,
+                                  //         size: 20,
+                                  //         color: AppColors.APP_BLUE,
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ),
                                 Divider(height: 5,thickness: 1,),
                                 ListTile(
@@ -158,33 +180,55 @@ class _LanguageState extends State<Language> {
 
                                   },
                                   title: Text('தமிழ்',style: TextStyle(color: AppColors.APP_BLUE),),
-                                  trailing: InkWell(
-                                    onTap: () async{
-                                      language=false;
-                                      setState(() {
-
-                                      });
-
-                                      await context.setLocale(Locale('ta'));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.APP_BLUE),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: !language
-                                            ? Icon(
-                                          Icons.check,
-                                          size: 15,
-                                          color: Colors.white,
-                                        )
-                                            : Icon(
-                                          Icons.check_box_outline_blank,
-                                          size: 15,
-                                          color: AppColors.APP_BLUE,
+                                  trailing:Transform.scale(
+                                    scale: 1.7,
+                                    child: Checkbox(
+                                      value: !language,
+                                      activeColor: AppColors.APP_BLUE,
+                                      shape: CircleBorder(),
+                                      tristate: false,
+                                      splashRadius: 20,
+                                        side: MaterialStateBorderSide.resolveWith(
+                                              (states) => BorderSide(width: 1.0, color: AppColors.APP_BLUE),
                                         ),
-                                      ),
+                                      onChanged: (bool? value) async {
+                                        language=false;
+                                        setState(() {
+
+                                        });
+
+                                        await context.setLocale(Locale('ta'));
+                                      },
                                     ),
                                   ),
+
+                                  // trailing: InkWell(
+                                  //   onTap: () async{
+                                  //     language=false;
+                                  //     setState(() {
+                                  //
+                                  //     });
+                                  //
+                                  //     await context.setLocale(Locale('ta'));
+                                  //   },
+                                  //   child: Container(
+                                  //     decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.APP_BLUE),
+                                  //     child: Padding(
+                                  //       padding: const EdgeInsets.all(10.0),
+                                  //       child: !language
+                                  //           ? Icon(
+                                  //         Icons.check,
+                                  //         size: 15,
+                                  //         color: Colors.white,
+                                  //       )
+                                  //           : Icon(
+                                  //         Icons.check_box_outline_blank,
+                                  //         size: 15,
+                                  //         color: AppColors.APP_BLUE,
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ),
                                 // CheckboxListTile(
                                 //   checkColor: Colors.white,

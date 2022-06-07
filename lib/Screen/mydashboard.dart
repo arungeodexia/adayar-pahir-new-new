@@ -68,7 +68,6 @@ class AppPropertiesBloc {
 }
 
 class _MydashboardState extends State<Mydashboard> {
-  int _currentIndex = 0;
 
   final appBloc = AppPropertiesBloc();
 
@@ -82,29 +81,44 @@ class _MydashboardState extends State<Mydashboard> {
   String userImage = "";
 
   void onTabTapped(int index) {
-    if (index == 0)
-      appBloc.updateTitle(tr("home"));
-    else if (index == 1)
-      appBloc.updateTitle(tr("careteam"));
-    else if (index == 2)
-      appBloc.updateTitle(tr("messages"));
-    else if (index == 3)
-      appBloc.updateTitle(tr("reports"));
-    else if (index == 4) appBloc.updateTitle('Favourites');
     setState(() {
-      _currentIndex = index;
+      currentIndex = index;
       if (unreads == "1") {
         unreads = "";
       }
     });
+    if (currentIndex == 0)
+      appBloc.updateTitle(tr("home"));
+    else if (currentIndex == 1)
+      appBloc.updateTitle(tr("careteam"));
+    else if (currentIndex == 2)
+      appBloc.updateTitle(tr("messages"));
+    else if (currentIndex == 3)
+      appBloc.updateTitle(tr("reports"));
+    else if (currentIndex == 4) appBloc.updateTitle('Favourites');
+
+  }
+  String getTitle(int currentIndex) {
+   
+    if (currentIndex == 0){
+      return tr("home");
+    } else if (currentIndex == 1){
+      return tr("careteam");
+    }
+    else if (currentIndex == 2){
+      return tr("messages");
+    }else{
+      return tr("home");
+    }
+    
   }
 
   Future<bool> onWillPop() async {
     //print("_currentIndex :==>"+_currentIndex.toString());
 
-    if (_currentIndex != 0) {
+    if (currentIndex != 0) {
       setState(() {
-        _currentIndex = 0;
+        currentIndex = 0;
       });
     } else {
       DateTime now = DateTime.now();
@@ -233,7 +247,7 @@ class _MydashboardState extends State<Mydashboard> {
               );
             }
           } else {}
-        } else if (message.data['title'].toString().contains('Your doctor wants you to fill')) {
+        } else if (message.data['title'].toString().contains('Fill your "Diary"')) {
           final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
           Map<String, dynamic> msgObject = json.decode(msgBodyData);
           print("msgBodyData froom :==>" + msgBodyData + listKey);
@@ -241,11 +255,12 @@ class _MydashboardState extends State<Mydashboard> {
           CoolAlert.show(
               context: context,
               type: CoolAlertType.confirm,
+              barrierDismissible: false,
               title: msgObject['title'].toString().replaceAll("+", " "),
               text: message.data['title'],
               confirmBtnText: "Proceed",
               cancelBtnText: "Do it Later!!",
-              loopAnimation: true,
+              loopAnimation: false,
               onCancelBtnTap: ()async{
                 Navigator.of(context).pop();
 
@@ -296,7 +311,7 @@ class _MydashboardState extends State<Mydashboard> {
             });
             Map<String, dynamic> row = {};
           } else {}
-        }  else if (message.data['title'].toString().contains('Your doctor wants you to fill')) {
+        }  else if (message.data['title'].toString().contains('Fill your "Diary"')) {
           final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
           Map<String, dynamic> msgObject = json.decode(msgBodyData);
           print("msgBodyData froom :==>" + msgBodyData + listKey);
@@ -304,11 +319,12 @@ class _MydashboardState extends State<Mydashboard> {
           CoolAlert.show(
               context: context,
               type: CoolAlertType.confirm,
+              barrierDismissible: false,
               title: msgObject['title'].toString().replaceAll("+", " "),
               text: message.data['title'],
               confirmBtnText: "Proceed",
               cancelBtnText: "Do it Later!!",
-              loopAnimation: true,
+              loopAnimation: false,
               onCancelBtnTap: ()async{
                 Navigator.of(context).pop();
               },
@@ -381,7 +397,7 @@ class _MydashboardState extends State<Mydashboard> {
               );
             }
           } else {}
-        }  else if (message.data['title'].toString().contains('Your doctor wants you to fill')) {
+        }  else if (message.data['title'].toString().contains('Fill your "Diary"')) {
           final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
           Map<String, dynamic> msgObject = json.decode(msgBodyData);
           print("msgBodyData froom :==>" + msgBodyData + listKey);
@@ -392,11 +408,12 @@ class _MydashboardState extends State<Mydashboard> {
             CoolAlert.show(
                 context: context,
                 type: CoolAlertType.confirm,
+                barrierDismissible: false,
                 title: msgObject['title'].toString().replaceAll("+", " "),
                 text: message.data['title'],
                 confirmBtnText: "Proceed",
                 cancelBtnText: "Do it Later!!",
-                loopAnimation: true,
+                loopAnimation: false,
                 onCancelBtnTap: ()async{
                   Navigator.of(context).pop();
                 },
@@ -444,12 +461,13 @@ class _MydashboardState extends State<Mydashboard> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.APP_BLUE1,
-          title: StreamBuilder<Object>(
-              stream: appBloc.titleStream,
-              initialData: tr("home"),
-              builder: (context, snapshot) {
-                return Text(snapshot.data.toString());
-              }),
+          // title: StreamBuilder<Object>(
+          //     stream: appBloc.titleStream,
+          //     initialData: tr("home"),
+          //     builder: (context, snapshot) {
+          //       return Text(snapshot.data.toString());
+          //     }),
+          title: Text(getTitle(currentIndex)),
           centerTitle: true,
           elevation: 5,
           actions: <Widget>[
@@ -494,7 +512,7 @@ class _MydashboardState extends State<Mydashboard> {
           selectedLabelStyle: TextStyle(color: AppColors.APP_BLUE),
           fixedColor: AppColors.APP_BLUE,
           onTap: onTabTapped,
-          currentIndex: _currentIndex,
+          currentIndex: currentIndex,
           // this will be set when a new tab is tapped
           items: [
             BottomNavigationBarItem(
@@ -589,7 +607,7 @@ class _MydashboardState extends State<Mydashboard> {
             // )
           ],
         ),
-        body: SafeArea(child: _children[_currentIndex]),
+        body: SafeArea(child: _children[currentIndex]),
       ),
     );
   }
@@ -648,7 +666,7 @@ class _MydashboardState extends State<Mydashboard> {
           text: contentType == "plain"?msgData.replaceAll("+", " "):msgData,
           title: messageTitle,
           confirmBtnText: contentType == "plain"?"OK":"Proceed",
-          loopAnimation: true,
+          loopAnimation: false,
           onConfirmBtnTap: () async {
             Navigator.of(context).pop();
             if (contentType == "pdf") {

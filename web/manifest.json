@@ -1,11 +1,11 @@
 {
-    "name": "Adayar Cancer Institue",
-    "short_name": "Adayar Cancer Institue",
+    "name": "Adyar Cancer Institute",
+    "short_name": "Adyar Cancer Institute",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Adayar Cancer Institue",
+    "description": "Adyar Cancer Institute",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

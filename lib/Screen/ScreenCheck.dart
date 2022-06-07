@@ -207,6 +207,8 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                       animation: true,
                                       animationDuration: 1200,
                                       lineWidth: 15.0,
+                                      circularStrokeCap: CircularStrokeCap.round,
+
                                       percent: double.parse(taskpercentage),
                                       center: new Text(
                                         taskDetails.completionPercentage
@@ -217,7 +219,6 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                             color: AppColors.APP_BLUE,
                                             fontSize: 25),
                                       ),
-                                      circularStrokeCap: CircularStrokeCap.butt,
                                       backgroundColor: AppColors.APP_LIGHT_BLUE,
                                       progressColor: AppColors.APP_GREEN,
                                     ),
@@ -249,7 +250,7 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                 bottom: 15,
                               ),
                               child: Text(
-                                "Screening Check Results exipres in ${expiry.replaceAll("-", "")} days",
+                                "Screening Check Results expire in ${expiry.replaceAll("-", "")} days",
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: false,
                                 maxLines: 3,

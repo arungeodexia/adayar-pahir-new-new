@@ -1,5 +1,5 @@
 {
-  "app_name": "Adayar Cancer Institue",
+  "app_name": "Adyar Cancer Institute",
   "payment": "Payment",
   "promos": "Promos",
   "notifications": "Notifications",
@@ -71,7 +71,7 @@
   "logout": "Logout",
   "forgot": "Forgot Password",
   "hello": "HI",
-  "appname": "Adayar Cancer Institue",
+  "appname": "Adyar Cancer Institute",
   "myresources": "My Resources",
   "profilesettings": "Profile Settings",
   "privacysecurity": "Privacy & Security",
@@ -84,7 +84,7 @@
   "verify": "Verify",
   "otptxt": "Waiting to automatically detect an SMS sent to your phone number",
   "favourites": "Favourites",
-  "signuptext": "The Adayar Cancer Institute (ACI) is a pubMy Profilelic charitable voluntary institute dedicated to the care of cancer for the last 60 years. The ethos of the Cancer Institute (ACI) is service to all irrespective of social or economical class",
+  "signuptext": "The Adyar Cancer Institute (ACI) is a pubMy Profilelic charitable voluntary institute dedicated to the care of cancer for the last 60 years. The ethos of the Cancer Institute (ACI) is service to all irrespective of social or economical class.",
   "agreecontinue": "Agree & Continue",
   "enterph": "Enter your phone number",
   "updateph": "Update your phone number",
@@ -116,5 +116,7 @@
   "docdet":"Doctor details",
   "nomsg":"There are no pending messages to read",
   "noappo":"No Appointments",
-  "email":"Email"
+  "email":"Email",
+  "task": "Task"
+
 }
