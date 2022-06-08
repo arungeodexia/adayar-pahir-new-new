@@ -247,7 +247,7 @@ class _MydashboardState extends State<Mydashboard> {
               );
             }
           } else {}
-        } else if (message.data['title'].toString().contains('Fill your "Diary"')) {
+        } else if (message.data['title'].toString().contains('Adyar Cancer Institute')) {
           final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
           Map<String, dynamic> msgObject = json.decode(msgBodyData);
           print("msgBodyData froom :==>" + msgBodyData + listKey);
@@ -311,7 +311,7 @@ class _MydashboardState extends State<Mydashboard> {
             });
             Map<String, dynamic> row = {};
           } else {}
-        }  else if (message.data['title'].toString().contains('Fill your "Diary"')) {
+        }  else if (message.data['title'].toString().contains('Adyar Cancer Institute')) {
           final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
           Map<String, dynamic> msgObject = json.decode(msgBodyData);
           print("msgBodyData froom :==>" + msgBodyData + listKey);
@@ -320,8 +320,8 @@ class _MydashboardState extends State<Mydashboard> {
               context: context,
               type: CoolAlertType.confirm,
               barrierDismissible: false,
-              title: msgObject['title'].toString().replaceAll("+", " "),
-              text: message.data['title'],
+              text: msgObject['title'].toString().replaceAll("+", " "),
+              title: message.notification!.body!.toString(),
               confirmBtnText: "Proceed",
               cancelBtnText: "Do it Later!!",
               loopAnimation: false,
@@ -397,7 +397,7 @@ class _MydashboardState extends State<Mydashboard> {
               );
             }
           } else {}
-        }  else if (message.data['title'].toString().contains('Fill your "Diary"')) {
+        }  else if (message.data['title'].toString().contains('Adyar Cancer Institute')) {
           final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
           Map<String, dynamic> msgObject = json.decode(msgBodyData);
           print("msgBodyData froom :==>" + msgBodyData + listKey);
@@ -409,8 +409,8 @@ class _MydashboardState extends State<Mydashboard> {
                 context: context,
                 type: CoolAlertType.confirm,
                 barrierDismissible: false,
-                title: msgObject['title'].toString().replaceAll("+", " "),
-                text: message.data['title'],
+                text: msgObject['title'].toString().replaceAll("+", " "),
+                title: message.notification!.body!.toString(),
                 confirmBtnText: "Proceed",
                 cancelBtnText: "Do it Later!!",
                 loopAnimation: false,
@@ -539,7 +539,7 @@ class _MydashboardState extends State<Mydashboard> {
                 Icons.group,
                 color: AppColors.APP_BLUE,
               ),
-              label:                 tr("careteam"),
+              label: tr("careteam"),
               // title: new Text(
               //   tr("careteam"),
               //   style: TextStyle(color: AppColors.APP_BLUE),

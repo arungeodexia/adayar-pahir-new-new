@@ -307,8 +307,8 @@ class _ChatRoomState extends State<ChatRoom> {
                   height: 35,
                   margin: EdgeInsets.only(right: 10),
                   child: RawMaterialButton(
-                    fillColor: Colors.white,
-                    shape: CircleBorder(),
+                    // fillColor: Colors.white,
+                    // shape: CircleBorder(),
                     padding: EdgeInsets.all(5),
                     onPressed: () async {
                       CoolAlert.show(
@@ -317,26 +317,29 @@ class _ChatRoomState extends State<ChatRoom> {
                           text: "Do you want to Delete This Chat?",
                           title: "Delete Chat",
                           onConfirmBtnTap: (){
-                            FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(widget.selectedUserID)
-                                .delete().then((_)  {
-                              FirebaseFirestore.instance
-                                  .collection('chatroom')
-                                  .doc(widget.selectedUserID)
-                                  .delete().then((dtat) {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                                // Navigator.pop(context, "delete");
-                              });
 
+                            print(widget.chatID);
+                            FirebaseFirestore.instance.collection('chatroom').doc(widget.chatID).collection(widget.chatID).get().then((snapshot) {
+                              for (DocumentSnapshot ds in snapshot.docs) {
+                                ds.reference.delete();
+                              }
                             });
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            // FirebaseFirestore.instance
+                            //     .collection('chatroom')
+                            //     .doc(widget.chatID)
+                            //     .delete().then((dtat) {
+                            //   Navigator.of(context).pop();
+                            //   Navigator.of(context).pop();
+                            //   // Navigator.pop(context, "delete");
+                            // });
 
                           }
                       );
 
                     },
-                    child: Icon(Icons.delete,color: Colors.red,),
+                    child: Icon(Icons.delete,color: Colors.white,),
                   ),
                 )
                 // createEditProfileModel == null

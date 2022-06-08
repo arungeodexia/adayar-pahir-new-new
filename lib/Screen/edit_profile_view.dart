@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cool_alert/cool_alert.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -107,6 +108,10 @@ class EditProfileState extends State<EditProfileView> {
   TextEditingController notesInputController = new TextEditingController();
   var tempnotes;
   var emailFocusNode = new FocusNode();
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+
 
   Future<String> getVersionNumber() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -233,7 +238,6 @@ class EditProfileState extends State<EditProfileView> {
     globalPhoneNo = otpVerifyResponse['mobile'];
     globalCountryCode = otpVerifyResponse['countryCode'];
     globalUserId = otpVerifyResponse['id'];
-    fcm_key = prefs.getString(FCM_KEY) ?? "";
     mobileInputController.text = "$globalCountryCode $globalPhoneNo";
 
     initCityNameVal = cityInputController.text;
@@ -266,6 +270,11 @@ class EditProfileState extends State<EditProfileView> {
       BlocProvider.of<ProfileBloc>(context)
           .add(Profiledata());
     }
+    _firebaseMessaging.getToken().then((token){
+      print(token);
+      fcm_key=token!;
+
+    });
     WidgetsBinding.instance.addPostFrameCallback((_){
 
       // Add Your Code here.
@@ -393,6 +402,7 @@ class EditProfileState extends State<EditProfileView> {
                   type: CoolAlertType.success,
                   text: tr("prsuccess"),
                   title: tr("success"),
+                  confirmBtnText: tr("ok"),
                   loopAnimation: true,
                   onConfirmBtnTap: (){
                     Navigator.of(context).pop();
@@ -410,6 +420,7 @@ class EditProfileState extends State<EditProfileView> {
                     type: CoolAlertType.error,
                     text: tr("prfailure"),
                     title: tr("failure"),
+                    confirmBtnText: tr("ok"),
                     loopAnimation: true,
                     onConfirmBtnTap: (){
                       Navigator.of(context).pop();

@@ -49,11 +49,16 @@ class _LanguageState extends State<Language> {
     ));
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => Mydashboard()),
-              (Route<dynamic> route) => false,
-        );
+        if(widget.from != "1"){
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Mydashboard()),
+                (Route<dynamic> route) => false,
+          );
+        }else{
+          SystemNavigator.pop(); //for Android from flutter/services.dart
+        }
+
         return true;
       },
       child: SafeArea(
@@ -286,26 +291,42 @@ class _LanguageState extends State<Language> {
                     //     ],
                     //   ),
                     // ),
+
                     widget.from=="0"?Container():Container(
+                      width: double.infinity,
                       margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 30),
                       child: Align(
                         alignment: Alignment.bottomRight,
-                        child: new CupertinoButton(
+                        child: SizedBox(
+                          width: double.infinity,
 
-                          onPressed: ()  {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginInitView()),
-                            );
+                          child: new RaisedButton(
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(8.0),
+                                side: BorderSide(color: AppColors.APP_GREEN)),
+                            textColor: AppColors.APP_WHITE,
+                            padding: EdgeInsets.all(8.0),
+                            splashColor: Colors.grey,
+                            color: AppColors.APP_BLUE,
+                            onPressed: ()  {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginInitView()),
+                              );
 
-                          },
-                          color: AppColors.APP_BLUE,
-                          borderRadius: new BorderRadius.circular(10.0),
-                          child: new Text(
-                            tr("getstarted"),
-                            textAlign: TextAlign.center,
-                            style: new TextStyle(color: Colors.white),
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: new
+                              Text(
+                                tr("getstarted"),
+                                textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold)
+                              ),
+                            ),
                           ),
                         ),
                       ),

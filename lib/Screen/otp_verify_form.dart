@@ -5,6 +5,7 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -432,6 +433,8 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
                 Navigator.of(context).pop();
                 _otpTokenController.clear();
                 isOtpFilled = false;
+                isOtpChangeBtnState = false;
+                errorText="";
               }
           );
 
@@ -510,7 +513,7 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
                                             25.0, 8.0, 25.0, 8.0),
                                         child: Text(
                                           tr("otptxt") +
-                                              widget.countryCode +
+                                             " "+ widget.countryCode +
                                               "  " +
                                               widget.mobileNo,
                                           style: TextStyle(
@@ -525,6 +528,10 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
                                     vertical: 8.0, horizontal: 30),
                                 child: PinCodeTextField(
                                   appContext: context,
+                                  inputFormatters: [
+                                    new FilteringTextInputFormatter.allow(
+                                        RegExp("[0-9]"))
+                                  ],
                                   pastedTextStyle: TextStyle(
                                     color: Colors.green.shade600,
                                     fontWeight: FontWeight.bold,

@@ -84,7 +84,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
 
     if (surveyDetailsModel.question!.answerType.toString() == "textbox") {
       setState(() {
-        isFullNameChangeBtnState = true;
+        isFullNameChangeBtnState = false;
         isFullNameChangeBtnStateTextBox=false;
       });
     }
@@ -337,13 +337,11 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                       ),
                     ),
                   ),
-
                   Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 20, right: 10, bottom: 15,),
+                    padding: const EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 10,),
                     child: new LinearPercentIndicator(
-                      width: MediaQuery.of(context).size.width / 1.3,
+                      width: MediaQuery.of(context).size.width-60,
                       animation: true,
-
                       animationDuration: 1000,
                       lineHeight: 20.0,
                       leading: new Text(""),
@@ -355,9 +353,9 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width / 1.1,
+                    width: MediaQuery.of(context).size.width-60,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 0, right:40, bottom: 5,),
+                      padding: const EdgeInsets.only(left: 0, top: 5, right:0, bottom: 0,),
                       child: Text(
                         "Screening Check Results expire in ${expiry.replaceAll("-", "")} days",
                         overflow: TextOverflow.ellipsis,
@@ -366,7 +364,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                         textAlign: TextAlign.end,
                         style: TextStyle(
                             fontFamily: "Poppins",
-                            fontSize: 12,
+                            fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: AppColors.APP_BLACK),
                       ),
@@ -651,6 +649,27 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                           .optionGroup![index]
                                                                           .optionGroups![index1]
                                                                           .textEditingController,
+                                                                          onChanged: (_){
+                                                                          var text=false;
+                                                                            for (int i = 0; i < surveyDetailsModel.question!.optionGroup!.length; i++) {
+                                                                              for (int j = 0; j < surveyDetailsModel.question!.optionGroup![i].optionGroups!.length; j++) {
+                                                                                if(surveyDetailsModel.question!.optionGroup![i].optionGroups![j].textEditingController!.text.toString().length!=0){
+                                                                                  text=true;
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                            if(text){
+                                                                              setState(() {
+                                                                                isFullNameChangeBtnState=true;
+                                                                              });
+                                                                            }else{
+                                                                              setState(() {
+                                                                                isFullNameChangeBtnState=false;
+                                                                              });
+                                                                            }
+
+
+                                                                          },
                                                                         ),
                                                                       ),
                                                                 ),

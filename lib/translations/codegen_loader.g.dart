@@ -54,7 +54,7 @@ class CodegenLoader extends AssetLoader{
   "etcode": "அனுப்பப்பட்ட குறியீட்டை உள்ளிடவும்",
   "prsuccess": "உங்கள் சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!",
   "prfailure": "உங்கள் சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்படவில்லை!",
-  "success": "வெற்றி",
+  "success": " ",
   "failure": "தோல்வி",
   "mypro": "சுயவிவரம்",
   "setpri": "தனியுரிமை அமைக்க",
@@ -67,7 +67,8 @@ class CodegenLoader extends AssetLoader{
   "language": "மொழி",
   "docdet": "மருத்துவர்கள்",
   "email": "மின்னஞ்சல்",
-  "task": "கேள்வி"
+  "task": "கேள்வி",
+  "ok": "சரி"
 };
 static const Map<String,dynamic> en = {
   "app_name": "Adyar Cancer Institute",
@@ -188,7 +189,8 @@ static const Map<String,dynamic> en = {
   "nomsg": "There are no pending messages to read",
   "noappo": "No Appointments",
   "email": "Email",
-  "task": "Task"
+  "task": "Task",
+  "ok": "Ok"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ta": ta, "en": en};
 }
