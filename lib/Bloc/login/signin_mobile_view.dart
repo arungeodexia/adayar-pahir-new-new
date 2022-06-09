@@ -146,7 +146,6 @@ class SigninState extends State<SigninView> {
                               ),
                               softWrap: true,
                               textAlign: TextAlign.center,
-                              maxLines: 2,
                             ),
                           ),
                           SizedBox(
