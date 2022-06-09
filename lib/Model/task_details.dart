@@ -12,6 +12,7 @@ class TaskDetails {
     String? description,
     String? alternateDescription,
     String? expiry,
+    String? expiryText,
     String? completionPercentage,
     int? nextQuestionId,
   }) {
@@ -19,6 +20,7 @@ class TaskDetails {
     _taskTitle = taskTitle;
     _description = description;
     _expiry = expiry;
+    _expiryText = expiryText;
     _completionPercentage = completionPercentage;
     _nextQuestionId = nextQuestionId;
   }
@@ -29,6 +31,7 @@ class TaskDetails {
     _description = json['description'];
     _alternateDescription = json['alternateDescription'];
     _expiry = json['expiry'];
+    _expiryText = json['expiryText'];
     _completionPercentage = json['completionPercentage'];
     _nextQuestionId = json['nextQuestionId'];
   }
@@ -37,6 +40,7 @@ class TaskDetails {
   String? _description;
   String? _alternateDescription;
   String? _expiry;
+  String? _expiryText;
   String? _completionPercentage;
   int? _nextQuestionId;
 
@@ -45,6 +49,7 @@ class TaskDetails {
   String? get description => _description;
   String? get alternateDescription => _alternateDescription;
   String? get expiry => _expiry;
+  String? get expiryText => _expiryText;
   String? get completionPercentage => _completionPercentage;
   int? get nextQuestionId => _nextQuestionId;
 

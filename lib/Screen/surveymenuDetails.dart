@@ -357,7 +357,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 0, top: 5, right:0, bottom: 0,),
                       child: Text(
-                        "Screening Check Results expire in ${expiry.replaceAll("-", "")} days",
+                        // "Screening Check Results expire in ${expiry.replaceAll("-", "")} days",
+                        surveyDetailsModel.question!.expiryText==null?"":surveyDetailsModel.question!.expiryText!,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
                         maxLines: 3,
@@ -1972,7 +1973,6 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                     }else{
                                                       backPressed();
                                                     }
-
                                                   } else {
                                                     Navigator.of(context).pushAndRemoveUntil(
                                                       MaterialPageRoute(

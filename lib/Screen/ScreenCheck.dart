@@ -250,15 +250,15 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                 bottom: 15,
                               ),
                               child: Text(
-                                "Screening Check Results expire in ${expiry.replaceAll("-", "")} days",
+                                taskDetails.expiryText!.toString(),
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: false,
                                 maxLines: 3,
-                                style: kSubtitleTextSyule1.copyWith(
+                                style: kTitleTextStyle.copyWith(
                                     fontWeight: FontWeight.w600,
                                     height: 1.5,
                                     color: AppColors.APP_BLUE,
-                                    fontSize: 12),
+                                   ),
                               ),
                             ),
                           ),
@@ -296,7 +296,7 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                   textAlign: TextAlign.start,
                                 )),
                           ),
-                          Padding(
+                          widget.page == "1"?Container():Padding(
                             padding: EdgeInsets.only(top: 7, bottom: 0),
                             child: Container(
                                 padding: const EdgeInsets.only(
@@ -311,13 +311,13 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                       fontWeight: FontWeight.w600,
                                       height: 1.5,
                                       color: AppColors.APP_BLUE,
-                                      fontSize: 15),
+                                      fontSize: 14),
                                 )),
                           ),
                           Container(
                             // color: AppColors.APP_WHITE,
                             padding:
-                                const EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 20.0),
+                                const EdgeInsets.fromLTRB(4.0, 20.0, 8.0, 20.0),
                             child: Center(
                                 child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

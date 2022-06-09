@@ -22,6 +22,13 @@ class ApiInterceptor implements InterceptorContract {
       String? accesstoken= prefs.getString("accessToken");
       String? userFingerprintHash= prefs.getString("userFingerprintHash");
       String? pahirAuthHeader= prefs.getString("pahirAuthHeader");
+      String? language= prefs.getString("locale");
+      if(language.toString() == 'null' || language == "en"){
+        language="en_US";
+      }else{
+        language="ta_IN";
+      }
+      print(language);
       var at = accesstoken;
       var uph = userFingerprintHash;
       if (at != null) {
@@ -29,6 +36,7 @@ class ApiInterceptor implements InterceptorContract {
         data.headers["userFingerprintHash"] = uph!;
         data.headers["Content-Type"] = "application/json";
         data.headers["Access-Control-Expose-Headers"]= "*";
+        data.headers["language"]= language;
         if(kIsWeb){
           data.headers["pahiruserauth"]= pahirAuthHeader!;
         }

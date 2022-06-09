@@ -711,7 +711,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                             children: [
                               CircleAvatar(
                                   backgroundColor: AppColors.APP_WHITE,
-                                  radius: 10,
+                                  radius: 15,
                                   child: Icon(
                                     FontAwesomeIcons.phoneAlt,
                                     color: AppColors.APP_BLUE,
@@ -725,7 +725,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                                     fontWeight: FontWeight.w500,
                                     height: 1.5,
                                     color: Colors.white,
-                                    fontSize: 14),
+                                    fontSize: 16),
                               ),
                             ],
                           )),

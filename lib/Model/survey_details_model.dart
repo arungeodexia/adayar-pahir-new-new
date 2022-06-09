@@ -69,6 +69,7 @@ class Question {
   String? _answerType;
   String? _completionProgress;
   String? _expiryDate;
+  String? _expiryText;
   List<Options>? _options;
   List<Choices>? _choices;
   List<OptionGroup>? _optionGroup;
@@ -87,6 +88,7 @@ class Question {
   String? get answerType => _answerType;
   String? get completionProgress => _completionProgress;
   String? get expiryDate => _expiryDate;
+  String? get expiryText => _expiryText;
   List<Choices>? get choices => _choices;
   List<Options>? get options => _options;
   List<OptionGroup>? get optionGroup => _optionGroup;
@@ -106,6 +108,7 @@ class Question {
       String? answerType,
       String? completionProgress,
       String? expiryDate,
+      String? expiryText,
       List<Choices>? choices,
       bool? consolidateOptions,
       bool? hasNext,
@@ -120,6 +123,7 @@ class Question {
     _answerType = answerType;
     _completionProgress = completionProgress;
     _expiryDate = expiryDate;
+    _expiryText = expiryText;
     _choices = choices;
     _options = options;
     _optionGroup = optionGroup;
@@ -140,6 +144,7 @@ class Question {
     _answerType = json['answerType'];
     _completionProgress = json['completionProgress'];
     _expiryDate = json['expiryDate'];
+    _expiryText = json['expiryText'];
     if (json['choices'] != null) {
       _choices = [];
       json['choices'].forEach((v) {

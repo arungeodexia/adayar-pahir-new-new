@@ -205,94 +205,93 @@ class _MydashboardState extends State<Mydashboard> {
     super.initState();
     _takeUserInformationFromFBDB();
 
-    FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? message) async {
-      print("msg init" + message.toString());
-
-      if (message != null) {
-        if (message.data['title'].toString().contains('You got a message')) {
-          final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
-          Map<String, dynamic> msgObject = json.decode(msgBodyData);
-          print("msgBodyData froom :==>" + msgBodyData + listKey);
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          String name = prefs.getString('name2') ?? '';
-
-          if (name != msgObject['timezone'].toString()) {
-            Map<String, dynamic> row = {};
-
-            if (msgObject['peercode'].toString() == "grp") {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatroomGroup(
-                            globalPhoneNo,
-                            createEditProfileModel.firstName.toString(),
-                            'selectedUserToken',
-                            msgObject['id'].toString(),
-                            msgObject['id'].toString(),
-                            msgObject['peername']
-                                .toString()
-                                .replaceAll("+", " "),
-                            msgObject['peerurl'].toString(),
-                            msgObject['peercode'].toString(),
-                          )));
-            } else {
-              _moveTochatRoom(
-                '',
-                msgObject['peerid'].toString(),
-                msgObject['peername'].toString(),
-                msgObject['peerurl'].toString(),
-                msgObject['peercode'].toString(),
-              );
-            }
-          } else {}
-        } else if (message.data['title'].toString().contains('Adyar Cancer Institute')) {
-          final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
-          Map<String, dynamic> msgObject = json.decode(msgBodyData);
-          print("msgBodyData froom :==>" + msgBodyData + listKey);
-          print(msgObject['taskId'].toString());
-          CoolAlert.show(
-              context: context,
-              type: CoolAlertType.confirm,
-              barrierDismissible: false,
-              title: msgObject['title'].toString().replaceAll("+", " "),
-              text: message.data['title'],
-              confirmBtnText: "Proceed",
-              cancelBtnText: "Do it Later!!",
-              loopAnimation: false,
-              onCancelBtnTap: ()async{
-                Navigator.of(context).pop();
-
-              },
-              onConfirmBtnTap: () async {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_)=>new ScreenCheck(
-                  title: msgObject['title'].toString().replaceAll("+", " "),
-                  id: msgObject['taskId'].toString(),
-                  page: "0",
-                )),)
-                    .then((val)=>getVersionNumber());
-                globalTaskID=int.parse(msgObject['taskId'].toString());
-
-              });
-    } else {
-          if (Platform.isIOS) {
-            // _navigateToItemDetailIOS(context, message, false);
-            // messageHdlrForIOS(message);
-            messageHdlrForAndroid(message.data, false);
-
-          } else {
-            messageHdlrForAndroid(message.data, false);
-            // if (!globalAndroidIsOnMsgExecuted) {
-            //   //showAndroidNotificationAlert(context, message).show();
-            //
-            //   globalAndroidIsOnMsgExecuted = true;
-            // }
-          }
-        }
-      }
-    });
+    // FirebaseMessaging.instance
+    //     .getInitialMessage()
+    //     .then((RemoteMessage? message) async {
+    //   print("msg init" + message.toString());
+    //
+    //   if (message != null) {
+    //     if (message.data['title'].toString().contains('You got a message')) {
+    //       final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
+    //       Map<String, dynamic> msgObject = json.decode(msgBodyData);
+    //       print("msgBodyData froom :==>" + msgBodyData + listKey);
+    //       SharedPreferences prefs = await SharedPreferences.getInstance();
+    //       String name = prefs.getString('name2') ?? '';
+    //
+    //       if (name != msgObject['timezone'].toString()) {
+    //         Map<String, dynamic> row = {};
+    //
+    //         if (msgObject['peercode'].toString() == "grp") {
+    //           Navigator.push(
+    //               context,
+    //               MaterialPageRoute(
+    //                   builder: (context) => ChatroomGroup(
+    //                         globalPhoneNo,
+    //                         createEditProfileModel.firstName.toString(),
+    //                         'selectedUserToken',
+    //                         msgObject['id'].toString(),
+    //                         msgObject['id'].toString(),
+    //                         msgObject['peername']
+    //                             .toString()
+    //                             .replaceAll("+", " "),
+    //                         msgObject['peerurl'].toString(),
+    //                         msgObject['peercode'].toString(),
+    //                       )));
+    //         } else {
+    //           _moveTochatRoom(
+    //             '',
+    //             msgObject['peerid'].toString(),
+    //             msgObject['peername'].toString(),
+    //             msgObject['peerurl'].toString(),
+    //             msgObject['peercode'].toString(),
+    //           );
+    //         }
+    //       } else {}
+    //     } else if (message.data['title'].toString().contains('Adyar Cancer Institute')) {
+    //       final dynamic msgBodyData = Uri.decodeFull(message.data['body']);
+    //       Map<String, dynamic> msgObject = json.decode(msgBodyData);
+    //       print("msgBodyData froom :==>" + msgBodyData + listKey);
+    //       print(msgObject['taskId'].toString());
+    //       CoolAlert.show(
+    //           context: context,
+    //           type: CoolAlertType.confirm,
+    //           barrierDismissible: false,
+    //           title: msgObject['title'].toString().replaceAll("+", " "),
+    //           text: message.data['title'],
+    //           confirmBtnText: "Proceed",
+    //           cancelBtnText: "Do it Later!!",
+    //           loopAnimation: false,
+    //           onCancelBtnTap: ()async{
+    //             Navigator.of(context).pop();
+    //           },
+    //           onConfirmBtnTap: () async {
+    //             Navigator.of(context).pop();
+    //             Navigator.of(context).push(new MaterialPageRoute(builder: (_)=>new ScreenCheck(
+    //               title: msgObject['title'].toString().replaceAll("+", " "),
+    //               id: msgObject['taskId'].toString(),
+    //               page: "0",
+    //             )),)
+    //                 .then((val)=>getVersionNumber());
+    //             globalTaskID=int.parse(msgObject['taskId'].toString());
+    //
+    //           });
+    // } else {
+    //       if (Platform.isIOS) {
+    //         // _navigateToItemDetailIOS(context, message, false);
+    //         // messageHdlrForIOS(message);
+    //         messageHdlrForAndroid(message.data, false);
+    //
+    //       } else {
+    //         messageHdlrForAndroid(message.data, false);
+    //         // if (!globalAndroidIsOnMsgExecuted) {
+    //         //   //showAndroidNotificationAlert(context, message).show();
+    //         //
+    //         //   globalAndroidIsOnMsgExecuted = true;
+    //         // }
+    //       }
+    //     }
+    //   }
+    // });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print("msg listen" + message.data.toString());
@@ -321,7 +320,7 @@ class _MydashboardState extends State<Mydashboard> {
               type: CoolAlertType.confirm,
               barrierDismissible: false,
               text: msgObject['title'].toString().replaceAll("+", " "),
-              title: message.notification!.body!.toString(),
+              title: message.data['title'].toString(),
               confirmBtnText: "Proceed",
               cancelBtnText: "Do it Later!!",
               loopAnimation: false,
@@ -410,7 +409,7 @@ class _MydashboardState extends State<Mydashboard> {
                 type: CoolAlertType.confirm,
                 barrierDismissible: false,
                 text: msgObject['title'].toString().replaceAll("+", " "),
-                title: message.notification!.body!.toString(),
+                title: message.data['title'].toString(),
                 confirmBtnText: "Proceed",
                 cancelBtnText: "Do it Later!!",
                 loopAnimation: false,
