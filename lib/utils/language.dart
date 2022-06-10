@@ -66,10 +66,13 @@ class _LanguageState extends State<Language> {
           appBar: widget.from=="0"?AppBar(
             centerTitle: true,
             title: Text(tr("language")),
-          ):null,
+          ):AppBar(
+            centerTitle: true,
+            title: Text(tr("appname")),
+          ),
           body: SingleChildScrollView(
             child: Container(
-              height: MediaQuery.of(context).size.height-30,
+              height: MediaQuery.of(context).size.height-80,
               child: Background(
                 child: Stack(
                   children: [

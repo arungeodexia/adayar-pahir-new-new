@@ -96,6 +96,7 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
 
   var globalSearchResourceModel;
 
+
   @override
   void initState() {
     /////Reviews
@@ -251,7 +252,7 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
               } else if (state is ResourceLoading) {
                 return buildLoading();
               }else if (state is ResourceFetchingFailed) {
-                return Center(child: Text("No Resource Found"));
+                return Center(child: Text(tr('notfound')));
               }
               return Container();
             },
@@ -745,8 +746,8 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0,top: 8),
-                      child: Text("Notes", style:
+                      padding: const EdgeInsets.only(left: 30.0,top: 8),
+                      child: Text(tr('notes'), style:
                       kSubtitleTextSyule1.copyWith(
                           fontWeight: FontWeight.w500,
                           height: 1,
@@ -762,8 +763,8 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                   height: 0,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 12.0,top: 10,bottom: 20),
-                  child: Text(resourceDetail.notes.toString(),
+                  padding: const EdgeInsets.only(left: 12.0,top: 20,bottom: 20),
+                  child: Text(resourceDetail.notes??tr('nonotes'),
                     style: TextStyle(
                       color: AppColors.APP_BLACK_10,
                       fontWeight: FontWeight.w500,letterSpacing: 1,wordSpacing: 1,

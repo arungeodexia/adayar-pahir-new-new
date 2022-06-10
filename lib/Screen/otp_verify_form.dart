@@ -545,11 +545,11 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
                                   // blinkWhenObscuring: false,
                                   animationType: AnimationType.fade,
                                   validator: (v) {
-                                    if (v!.length < 3) {
-                                      return "Enter an valid OTP";
-                                    } else {
-                                      return null;
-                                    }
+                                    // if (v!.length < 3) {
+                                    //   return "Enter an valid OTP";
+                                    // } else {
+                                    //   return null;
+                                    // }
                                   },
                                   pinTheme: PinTheme(
                                     disabledColor: AppColors.APP_LIGHT_BLUE_20,
@@ -822,7 +822,7 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
                                     /*onPressed: state is! LoginLoading
                                             ? _onVerifyButtonPressed
                                             : null,*/
-                                    onPressed: (){
+                                    onPressed: ()async{
                                       if (isOtpFilled) {
                                         if (state is OTPVerifyLoading) {
 
@@ -833,9 +833,17 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
                                         }
 
                                       } else {
-                                        setState(() {
+                                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                                        String? language= prefs.getString("locale");
+                                        if(language.toString() == 'null' || language == "en"){
+                                          errorText = "Pls Enter Valid Otp";
+                                        }else{
+                                          errorText = "சரியான Otp ஐ உள்ளிடவும்";
+                                        }
+
+                                        setState(()  {
                                           hasError = true;
-                                          errorText = "Pls Enter Otp";
+
                                         });
                                       }
                                     },

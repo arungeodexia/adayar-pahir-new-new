@@ -233,8 +233,8 @@ class _CareteamState extends State<Careteam> {
           careTeamModel.orgMembers!=null?ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
-              // physics: NeverScrollableScrollPhysics(),
-              physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              physics: NeverScrollableScrollPhysics(),
+              // physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
               itemCount: careTeamModel.orgMembers!.length,
               itemBuilder: (BuildContext context,
                   int index) {
@@ -243,6 +243,7 @@ class _CareteamState extends State<Careteam> {
                   child: Card(
                     color: AppColors.APP_BLUE1,
                     child: ListTile(
+                      contentPadding: EdgeInsets.all(8),
                       onTap: (){
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => ResourceDetailsView(isRedirectFrom: AppStrings.isRedirectFromResourceSearchList,resoruceid: careTeamModel.orgMembers![index].orgMemberId.toString(),resorucetype: "internal-channel",)),);
@@ -256,23 +257,52 @@ class _CareteamState extends State<Careteam> {
                                 ? NetworkImage(careTeamModel.orgMembers![index].profilePictureLink.toString())
                                 : AssetImage("images/photo_avatar.png") as ImageProvider),
                       ),
-                      title: Padding(
-                        padding: const EdgeInsets.only(left: 0),
-                        child: Text(careTeamModel.orgMembers![index].firstName.toString(), style:
-                        kSubtitleTextSyule1.copyWith(
-                            fontWeight: FontWeight.w600,
-                            height: 1.5,
-                            color: Colors.white,
-                        ),maxLines: 1,
-                        ),
-                      ),
-                      subtitle:
-                      Text(careTeamModel.orgMembers![index].city.toString(), style:
+                      title: Text(careTeamModel.orgMembers![index].firstName.toString(), style:
                       kSubtitleTextSyule1.copyWith(
-                          fontWeight: FontWeight.w500,
-                          height: 1,
-                          color: Colors.white70
+                          fontWeight: FontWeight.w600,
+                          height: 1.5,
+                          color: Colors.white,
+                      )
                       ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 8,),
+                          careTeamModel.orgMembers![index].address1 !=null? Text(careTeamModel.orgMembers![index].address1??'',
+                            style: kSubtitleTextSyule1.copyWith(
+                              fontWeight: FontWeight.w500,
+                              height: 1,
+                              color: Colors.white70),
+                          ):Container(),
+                          SizedBox(height: careTeamModel.orgMembers![index].address1 !=null?8:0,),
+                          Text(careTeamModel.orgMembers![index].address2??'',
+                            style: kSubtitleTextSyule1.copyWith(
+                              fontWeight: FontWeight.w500,
+                              height: 1,
+                              color: Colors.white70),
+                          ),
+                          SizedBox(height: 8,),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(careTeamModel.orgMembers![index].city!+" , ",
+                                style: kSubtitleTextSyule1.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  height: 1,
+                                  color: Colors.white70
+                              ),),
+                              SizedBox(width: 2,),
+                              Text(careTeamModel.orgMembers![index].state??'',
+                                style: kSubtitleTextSyule1.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    height: 1,
+                                    color: Colors.white70
+                                ),),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),

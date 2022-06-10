@@ -491,11 +491,48 @@ class EditProfileState extends State<EditProfileView> {
           ),
         ));
   }
+  showAlertDialog(BuildContext context) {
+
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text(tr('no')),
+      onPressed:  () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text(tr('ok')),
+      onPressed:  () {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(""),
+      content: Text(tr('profiledialog')),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   Future<bool> backPressed() async {
     // onWillPop();
-    Navigator.of(context).pop();
+    showAlertDialog(context);
     return true;
+
   }
 
   SingleChildScrollView showForm(CreateEditProfileModel profileData) {
@@ -578,7 +615,7 @@ class EditProfileState extends State<EditProfileView> {
                           TextFormField(
                             validator: (value) {
                               if (value!.length == 0) {
-                                return ('Please enter name');
+                                return (tr('entername'));
                               }
                               return null;
                             },
@@ -801,11 +838,13 @@ class EditProfileState extends State<EditProfileView> {
                           ),
                           TextFormField(
                             controller: alternateMobileInputController,
+                              maxLength: 15,
                               keyboardType: const TextInputType.numberWithOptions(
                                   signed: true,
                                   decimal: true),
                               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                             decoration: InputDecoration(
+                              counterText: "",
                                 hintText: AppStrings
                                     .CREATE_PROFILE_ALTERNATE_NUMBER_HINT,
                                 hintStyle: TextStyle(

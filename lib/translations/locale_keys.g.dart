@@ -55,5 +55,11 @@ abstract class  LocaleKeys {
   static const email = 'email';
   static const task = 'task';
   static const ok = 'ok';
+  static const notfound = 'notfound';
+  static const profiledialog = 'profiledialog';
+  static const no = 'no';
+  static const entername = 'entername';
+  static const notes = 'notes';
+  static const nonotes = 'nonotes';
 
 }

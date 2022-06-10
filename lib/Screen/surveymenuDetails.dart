@@ -643,7 +643,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                           ? TextInputType.name
                                                                           : TextInputType.number,
                                                                           inputFormatters:[
-                                                                            LengthLimitingTextInputFormatter(3),
+                                                                            LengthLimitingTextInputFormatter(surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
+                                                                                "Others"?300:3),
                                                                           ],
                                                                         controller: surveyDetailsModel
                                                                           .question!

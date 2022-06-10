@@ -270,14 +270,14 @@ class SigninState extends State<SigninView> {
 
                                               if (value!.length == 0) {
                                                 Fluttertoast.showToast(
-                                                    msg:
-                                                        'Please Enter the Mobile Number',
+                                                    msg:tr(''),
                                                     backgroundColor: Colors.red,
                                                     textColor: Colors.white);
                                               }
                                               return null;
                                             },
                                             keyboardType: TextInputType.phone,
+                                            maxLength: 15,
                                             inputFormatters: [
                                               new FilteringTextInputFormatter.allow(
                                                   RegExp("[0-9]")),
@@ -300,6 +300,7 @@ class SigninState extends State<SigninView> {
                                               FocusScope.of(context).requestFocus(new FocusNode());
                                             },
                                             decoration: InputDecoration(
+                                              counterText: "",
                                               hintText: AppStrings
                                                   .SIGNUP_MOBILE_ENTER_PHNO_TF_HINT,
                                               hintStyle: TextStyle(

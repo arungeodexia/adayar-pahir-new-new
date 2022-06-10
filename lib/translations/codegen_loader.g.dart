@@ -29,7 +29,7 @@ class CodegenLoader extends AssetLoader{
   "agree": "ஒரு கணக்கை உருவாக்குவதன் மூலம் நீங்கள் எங்களுடைய",
   "terms": "தனியுரிமைக் கொள்கையை நீங்கள் ஒப்புக்கொள்கிறீர்கள்",
   "verify": "சரிபார்க்கவும்",
-  "otptxt": "உங்கள் தொலைபேசி எண்ணுக்கு அனுப்பப்பட்ட எஸ்எம்எஸ் தானாகவே கண்டறிய காத்திருக்கிறது",
+  "otptxt": "உங்கள் தொலைபேசி எண்ணுக்கு OTP அனுப்பப்பட்டதை உள்ளிடவும்",
   "favourites": "பிடித்தவை",
   "signuptext": "அடையார் கேன்சர் இன்ஸ்டிடியூட் (ஏசிஐ) என்பது கடந்த 60 ஆண்டுகளாக புற்றுநோயைப் பராமரிப்பதற்காக அர்ப்பணிக்கப்பட்ட ஒரு பப்மை சுயவிவர தொண்டு நிறுவனமாகும். கேன்சர் இன்ஸ்டிடியூட் (ACI) இன் நெறிமுறைகள் சமூக அல்லது பொருளாதார வர்க்கத்தைப் பொருட்படுத்தாமல் அனைவருக்கும் அளிக்கும் சேவையாகும்.",
   "agreecontinue": "தொடரவும்",
@@ -41,8 +41,8 @@ class CodegenLoader extends AssetLoader{
   "home": "முகப்பு",
   "programs": "திட்டங்கள்",
   "nopprograms": "திட்டங்கள் இல்லை",
-  "fullname": "முழு பெயர்",
-  "mobile": "கைபேசி எண்்",
+  "fullname": "முழு பெயர் *",
+  "mobile": "கைபேசி எண் *",
   "city": "நகரம்",
   "state": "மாநிலம்",
   "alternatenumber": "மாற்று மொபைல் எண்",
@@ -68,7 +68,13 @@ class CodegenLoader extends AssetLoader{
   "docdet": "மருத்துவர்கள்",
   "email": "மின்னஞ்சல்",
   "task": "கேள்வி",
-  "ok": "சரி"
+  "ok": "சரி",
+  "notfound": "மருத்துவர் விவரங்கள் கிடைக்கவில்லை",
+  "profiledialog": "உங்கள் மாற்றங்கள் சேமிக்கப்படவில்லை. தொடரவா?",
+  "no": "வேண்டாம்",
+  "entername": "உங்களுடைய பெயரை பதிவு செய்யவும்",
+  "notes": "குறிப்புகள்",
+  "nonotes": "குறிப்புகள் இல்லை"
 };
 static const Map<String,dynamic> en = {
   "app_name": "Adyar Cancer Institute",
@@ -154,7 +160,7 @@ static const Map<String,dynamic> en = {
   "agree": "By creating an account you agree to our ",
   "terms": "Terms of Service and Privacy Policy",
   "verify": "Verify",
-  "otptxt": "Waiting to automatically detect an SMS sent to your phone number",
+  "otptxt": "Please Enter an OTP has been sent to your phone number",
   "favourites": "Favourites",
   "signuptext": "The Adyar Cancer Institute (ACI) is a pubMy Profilelic charitable voluntary institute dedicated to the care of cancer for the last 60 years. The ethos of the Cancer Institute (ACI) is service to all irrespective of social or economical class.",
   "agreecontinue": "Agree & Continue",
@@ -190,7 +196,13 @@ static const Map<String,dynamic> en = {
   "noappo": "No Appointments",
   "email": "Email",
   "task": "Task",
-  "ok": "Ok"
+  "ok": "Ok",
+  "no": "No",
+  "notfound": "Doctor Details Not Found ",
+  "profiledialog": "Your Changes are not saved. Continue?",
+  "entername": "Please enter your name",
+  "notes": "Notes",
+  "nonotes": "No Notes"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ta": ta, "en": en};
 }

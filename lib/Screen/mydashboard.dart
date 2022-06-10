@@ -80,6 +80,8 @@ class _MydashboardState extends State<Mydashboard> {
 
   String userImage = "";
 
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   void onTabTapped(int index) {
     setState(() {
       currentIndex = index;
@@ -95,7 +97,8 @@ class _MydashboardState extends State<Mydashboard> {
       appBloc.updateTitle(tr("messages"));
     else if (currentIndex == 3)
       appBloc.updateTitle(tr("reports"));
-    else if (currentIndex == 4) appBloc.updateTitle('Favourites');
+    else if (currentIndex == 4)
+      appBloc.updateTitle('Favourites');
 
   }
   String getTitle(int currentIndex) {
@@ -115,21 +118,25 @@ class _MydashboardState extends State<Mydashboard> {
 
   Future<bool> onWillPop() async {
     //print("_currentIndex :==>"+_currentIndex.toString());
-
-    if (currentIndex != 0) {
-      setState(() {
-        currentIndex = 0;
-      });
+    if (_scaffoldKey.currentState!.isDrawerOpen) {
+      _scaffoldKey.currentState!.closeDrawer();
     } else {
-      DateTime now = DateTime.now();
-      if (currentBackPressTime == null ||
-          now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
-        currentBackPressTime = now;
-        Fluttertoast.showToast(msg: "Press Again to exit");
-        return Future.value(false);
+      if (currentIndex != 0) {
+        setState(() {
+          currentIndex = 0;
+        });
+      } else {
+        DateTime now = DateTime.now();
+        if (currentBackPressTime == null ||
+            now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
+          currentBackPressTime = now;
+          Fluttertoast.showToast(msg: "Press Again to exit");
+          return Future.value(false);
+        }
+        return Future.value(true);
+        // SystemNavigator.pop();
       }
-      return Future.value(true);
-      // SystemNavigator.pop();
+
     }
     return false;
   }
@@ -458,6 +465,7 @@ class _MydashboardState extends State<Mydashboard> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: AppColors.APP_BLUE1,
           // title: StreamBuilder<Object>(
