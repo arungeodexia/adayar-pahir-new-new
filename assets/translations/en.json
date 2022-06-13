@@ -123,8 +123,11 @@
   "notfound": "Doctor Details Not Found ",
   "profiledialog": "Your Changes are not saved. Continue?",
   "entername": "Please enter your name",
-  "notes": "Notes",
-  "nonotes": "No Notes"
+  "notes": "About Me",
+  "nonotes": "No Notes",
+  "exit": "Exit",
+  "welcome": "Welcome",
+  "trail": "Trail"
 
 
 

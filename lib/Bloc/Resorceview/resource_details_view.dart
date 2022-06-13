@@ -457,13 +457,33 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                                         ? resourceDetail.skill!
                                         : "",
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.w500,
                                         color: AppColors.APP_BLACK_10),
                                   ),
                                   SizedBox(
                                     height: 8,
                                   ),
+                                  resourceDetail.address1 != null? Text(
+                                   resourceDetail.address1??'',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.APP_BLACK_10),
+                                  ):Container(),
+                                  resourceDetail.address1 !=null?  SizedBox(
+                                    height: 8,
+                                  ):Container(),
+                                  resourceDetail.address2 != null?  Text(
+                                      resourceDetail.address1??'',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.APP_BLACK_10),
+                                  ):Container(),
+                                  resourceDetail.address2 ==null?  SizedBox(
+                                    height: 8,
+                                  ):Container(),
                                   Visibility(
                                     visible: true,
                                     child: Stack(
@@ -473,7 +493,7 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                                           style: TextStyle(
                                               color: AppColors.APP_BLACK_10,
                                               fontWeight: FontWeight.w500,
-                                              fontSize: 14),
+                                              fontSize: 20),
                                         ),
                                         SizedBox(
                                           height: 2,
@@ -743,7 +763,7 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                 SizedBox(
                   height: 10,
                 ),
-                Row(
+                resourceDetail.notes==null?Container():Row(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 30.0,top: 8),
@@ -764,7 +784,7 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0,top: 20,bottom: 20),
-                  child: Text(resourceDetail.notes??tr('nonotes'),
+                  child: Text(resourceDetail.notes??'',
                     style: TextStyle(
                       color: AppColors.APP_BLACK_10,
                       fontWeight: FontWeight.w500,letterSpacing: 1,wordSpacing: 1,

@@ -73,8 +73,11 @@ class CodegenLoader extends AssetLoader{
   "profiledialog": "உங்கள் மாற்றங்கள் சேமிக்கப்படவில்லை. தொடரவா?",
   "no": "வேண்டாம்",
   "entername": "உங்களுடைய பெயரை பதிவு செய்யவும்",
-  "notes": "குறிப்புகள்",
-  "nonotes": "குறிப்புகள் இல்லை"
+  "notes": "என்னை பற்றி",
+  "nonotes": "குறிப்புகள் இல்லை",
+  "exit": "வெளியேறு",
+  "welcome": "அன்புடன் வரவேற்கிறோம்",
+  "trail": "முன்னோட்டம்"
 };
 static const Map<String,dynamic> en = {
   "app_name": "Adyar Cancer Institute",
@@ -201,8 +204,11 @@ static const Map<String,dynamic> en = {
   "notfound": "Doctor Details Not Found ",
   "profiledialog": "Your Changes are not saved. Continue?",
   "entername": "Please enter your name",
-  "notes": "Notes",
-  "nonotes": "No Notes"
+  "notes": "About Me",
+  "nonotes": "No Notes",
+  "exit": "Exit",
+  "welcome": "Welcome",
+  "trail": "Trail"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ta": ta, "en": en};
 }

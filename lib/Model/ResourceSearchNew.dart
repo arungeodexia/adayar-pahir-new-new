@@ -103,6 +103,8 @@ class ResourceResults {
   String? country;
   int? skillId;
   String? skill;
+  String? address1;
+  String? address2;
   String? profilePicture;
   int? favorite;
   String? createdDate;
@@ -150,6 +152,8 @@ class ResourceResults {
         this.country,
         this.skillId,
         this.skill,
+        this.address1,
+        this.address2,
         this.profilePicture,
         this.favorite,
         this.createdDate,
@@ -191,6 +195,8 @@ class ResourceResults {
     country = json['country'];
     skillId = json['skill_id'];
     skill = json['skill'];
+    address1 = json['address1'];
+    address2 = json['address2'];
     profilePicture = json['profilePicture'];
     favorite = json['favorite'];
     createdDate = json['createdDate'];
@@ -249,6 +255,8 @@ class ResourceResults {
     data['country'] = this.country;
     data['skill_id'] = this.skillId;
     data['skill'] = this.skill;
+    data['address1'] = this.address1;
+    data['address2'] = this.address2;
     data['profilePicture'] = this.profilePicture;
     data['favorite'] = this.favorite;
     data['createdDate'] = this.createdDate;

@@ -245,7 +245,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                               Navigator.pop(context);
                               videoPlayerController.pause();
                             },
-                            child: Text('Dismiss'),
+                            child: Text(tr('exit')),
                           ),
                         ),
                       ),
@@ -332,6 +332,28 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 20,),
+          Center(
+            child: Text(
+              tr('welcome'),
+              overflow: TextOverflow.ellipsis,
+              style: kSubtitleTextSyule1.copyWith(
+                  color: Colors.black.withOpacity(0.7),
+                  fontSize: 22),
+            ),
+          ),
+          SizedBox(height: 15,),
+          Center(
+            child: Text(
+              username ?? '',
+              overflow: TextOverflow.ellipsis,
+              style: kSubtitleTextSyule1.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 24),
+            ),
+          ),
+          SizedBox(height: 10,),
           appointmentDetails.name.toString() != "null"
               ? _buildHeaderNewUi()
               : _buildNoAppointmentHeaderNewUi(),
@@ -443,7 +465,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
             padding: EdgeInsets.only(top: 7, bottom: 7),
             child: Container(
                 padding: const EdgeInsets.only(
-                  left: 40,
+                  left: 20,
                   top: 7,
                   right: 15,
                   bottom: 7,
@@ -462,56 +484,64 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                 )),
           ),
           taskmodel.tasks != null || taskmodel.tasks.toString() != "null"
-              ? ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
-                  // physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                  itemCount: taskmodel.tasks!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Hero(
-                      tag: taskmodel.tasks![index].taskId.toString(),
-                      child: Card(
-                        color: AppColors.APP_BLUE1,
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.of(context)
-                                .push(
-                                  new MaterialPageRoute(
-                                      builder: (_) => new ScreenCheck(
-                                            title: taskmodel
-                                                .tasks![index].taskTitle
-                                                .toString(),
-                                            id: taskmodel.tasks![index].taskId
-                                                .toString(),
-                                            page: "0",
-                                          )),
-                                )
-                                .then((val) => getsurvey(false));
-                            globalTaskID = taskmodel.tasks![index].taskId!;
-                          },
-                          title: Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Text(
-                              taskmodel.tasks![index].taskTitle.toString(),
+              ? Padding(
+            padding: const EdgeInsets.only(
+              left: 10,
+              top: 7,
+              right: 10,
+              bottom: 7,
+            ),
+            child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    physics: NeverScrollableScrollPhysics(),
+                    // physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                    itemCount: taskmodel.tasks!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Hero(
+                        tag: taskmodel.tasks![index].taskId.toString(),
+                        child: Card(
+                          color: AppColors.APP_BLUE1,
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(
+                                    new MaterialPageRoute(
+                                        builder: (_) => new ScreenCheck(
+                                              title: taskmodel
+                                                  .tasks![index].taskTitle
+                                                  .toString(),
+                                              id: taskmodel.tasks![index].taskId
+                                                  .toString(),
+                                              page: "0",
+                                            )),
+                                  )
+                                  .then((val) => getsurvey(false));
+                              globalTaskID = taskmodel.tasks![index].taskId!;
+                            },
+                            title: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Text(
+                                taskmodel.tasks![index].taskTitle.toString(),
+                                style: kSubtitleTextSyule1.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            trailing: Text(
+                              taskmodel.tasks![index].completionPercentage
+                                  .toString(),
                               style: kSubtitleTextSyule1.copyWith(
                                   fontWeight: FontWeight.w600,
                                   height: 1.5,
                                   color: Colors.white),
                             ),
                           ),
-                          trailing: Text(
-                            taskmodel.tasks![index].completionPercentage
-                                .toString(),
-                            style: kSubtitleTextSyule1.copyWith(
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
-                                color: Colors.white),
-                          ),
                         ),
-                      ),
-                    );
-                  })
+                      );
+                    }),
+              )
               : Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

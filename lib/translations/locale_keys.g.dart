@@ -61,5 +61,8 @@ abstract class  LocaleKeys {
   static const entername = 'entername';
   static const notes = 'notes';
   static const nonotes = 'nonotes';
+  static const exit = 'exit';
+  static const welcome = 'welcome';
+  static const trail = 'trail';
 
 }

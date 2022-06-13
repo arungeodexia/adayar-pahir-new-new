@@ -361,8 +361,42 @@ class EditProfileState extends State<EditProfileView> {
         isStateChangeBtnState ||
         isAlterMobChangeBtnState ||
         isEmailChangeBtnState ) {
+      Widget cancelButton = TextButton(
+        child: Text(tr('no')),
+        onPressed:  () {
+          Navigator.of(context).pop();
+        },
+      );
+      Widget continueButton = TextButton(
+        child: Text(tr('ok')),
+        onPressed:  () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+
+        },
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text(""),
+        content: Text(tr('profiledialog')),
+        actions: [
+          continueButton,
+          cancelButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+
     } else {
-      _goDashboard();
+      backPressed();
+      // _goDashboard();
     }
 
     return false;
@@ -372,7 +406,7 @@ class EditProfileState extends State<EditProfileView> {
   Widget build(BuildContext context) {
     globalcontext = context;
     return new WillPopScope(
-        onWillPop: backPressed,
+        onWillPop: onWillPop,
         child: Scaffold(
           appBar: AppBar(
             // title: Text(AppStrings.EDIT_PROFILE_TITLE),
@@ -389,7 +423,7 @@ class EditProfileState extends State<EditProfileView> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
-                backPressed();
+                onWillPop();
               },
             ),
           ),
@@ -494,43 +528,12 @@ class EditProfileState extends State<EditProfileView> {
   showAlertDialog(BuildContext context) {
 
     // set up the buttons
-    Widget cancelButton = TextButton(
-      child: Text(tr('no')),
-      onPressed:  () {
-        Navigator.of(context).pop();
-      },
-    );
-    Widget continueButton = TextButton(
-      child: Text(tr('ok')),
-      onPressed:  () {
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
-
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text(""),
-      content: Text(tr('profiledialog')),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 
   Future<bool> backPressed() async {
+    Navigator.of(context).pop();
     // onWillPop();
-    showAlertDialog(context);
+    // showAlertDialog(context);
     return true;
 
   }
