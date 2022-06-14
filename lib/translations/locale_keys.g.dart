@@ -64,5 +64,6 @@ abstract class  LocaleKeys {
   static const exit = 'exit';
   static const welcome = 'welcome';
   static const trail = 'trail';
+  static const received = 'received';
 
 }

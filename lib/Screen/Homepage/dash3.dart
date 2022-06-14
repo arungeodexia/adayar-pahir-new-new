@@ -679,6 +679,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
       child: Column(
         children: <Widget>[
           ListTile(
+
             leading: GestureDetector(
               child: Container(
                 child: CircleAvatar(
@@ -693,15 +694,13 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
               ),
               onTap: () {},
             ),
-            title: Expanded(
-              child: Text(
+            title: Text(
               appointmentDetails.name??'',
-                style: kSubtitleTextSyule1.copyWith(
-                    fontWeight: FontWeight.bold,
-                    height: 1.5,
-                    color: Colors.white,
-                    fontSize: 18),
-              ),
+              style: kSubtitleTextSyule1.copyWith(
+                  fontWeight: FontWeight.bold,
+                  height: 1.5,
+                  color: Colors.white,
+                  fontSize: 18),
             ),
             subtitle: Row(
               children: [
@@ -873,15 +872,13 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
               ),
               onTap: () {},
             ),
-            title: Expanded(
-              child: Text(
-              appointmentDetails.defaultText??'',
-                style: kSubtitleTextSyule1.copyWith(
-                    fontWeight: FontWeight.bold,
-                    height: 1.5,
-                    color: Colors.white,
-                    fontSize: 18),
-              ),
+            title: Text(
+            appointmentDetails.defaultText??'',
+              style: kSubtitleTextSyule1.copyWith(
+                  fontWeight: FontWeight.bold,
+                  height: 1.5,
+                  color: Colors.white,
+                  fontSize: 18),
             ),
             subtitle: Row(
               children: [

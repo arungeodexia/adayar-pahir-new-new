@@ -249,10 +249,9 @@ class AppMessagesViewState extends State<AppMessagesView> {
                                     .messageBody!.messageTitle ??
                                     ""
                                     : messageResponse.messages![index]
-                                    .messageBody!.contentTitle ??
+                                    .messageBody!.messageTitle ??
                                     ""),
                                 //(messageList.messages[index].messageBody.messageTitle != null) ?messageList.messages[index].messageBody.messageTitle : "",
-                                maxLines: 2,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.APP_BLUE,
@@ -303,7 +302,7 @@ class AppMessagesViewState extends State<AppMessagesView> {
                         Row(
                           children: <Widget>[
                             Text(
-                              "Received : " + date,
+                              tr('received') + date,
                               // '${(messageList.messages[index].messageBody.messageSent != null) ? messageList.messages[index].messageBody.messageSent : ""} From: ${(messageList.messages[index].messageBody.orgName != null) ? messageList.messages[index].messageBody.orgName.toUpperCase() : ""}',
                               style:
                               TextStyle(color: AppColors.APP_BLUE, fontSize: 12),

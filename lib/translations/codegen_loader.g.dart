@@ -77,7 +77,8 @@ class CodegenLoader extends AssetLoader{
   "nonotes": "குறிப்புகள் இல்லை",
   "exit": "வெளியேறு",
   "welcome": "அன்புடன் வரவேற்கிறோம்",
-  "trail": "முன்னோட்டம்"
+  "trail": "முன்னோட்டம்",
+  "received": "பெற்றது : "
 };
 static const Map<String,dynamic> en = {
   "app_name": "Adyar Cancer Institute",
@@ -208,7 +209,8 @@ static const Map<String,dynamic> en = {
   "nonotes": "No Notes",
   "exit": "Exit",
   "welcome": "Welcome",
-  "trail": "Trail"
+  "trail": "Trail",
+  "received": "Received : "
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ta": ta, "en": en};
 }
