@@ -56,7 +56,7 @@ class _WebViewExampleState extends State<WebViewExample> {
       // to allow calling Scaffold.of(context) so we can show a snackbar.
       body: Builder(builder: (BuildContext context) {
         return WebView(
-          initialUrl: 'https://d2c56lckh61bcl.cloudfront.net/live/UnivTermsandConditions.html',
+          initialUrl: 'https://dlaggtcll95tc.cloudfront.net/app/acipolicy.html',
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);

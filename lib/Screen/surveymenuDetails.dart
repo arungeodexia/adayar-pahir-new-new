@@ -607,7 +607,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                               .length <
                                                                           15
                                                                       ? 2
-                                                                      : 3,
+                                                                      : 2,
                                                                   child:
                                                                       Container(
                                                                     child: Text(
@@ -898,9 +898,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                           MediaQuery.of(context)
                                                               .size
                                                               .width,
-                                                      height: 60,
                                                       padding:
-                                                          EdgeInsets.all(5),
+                                                          EdgeInsets.symmetric(horizontal: 10,vertical: 15),
                                                       decoration: BoxDecoration(
                                                           color: AppColors
                                                               .APP_LIGHT_BLUE_50,
@@ -909,6 +908,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                   .circular(
                                                                       5.0)),
                                                       child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
                                                         children: [
                                                           surveyDetailsModel
                                                                       .question!
@@ -955,17 +956,21 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                         ),
                                                                   ),
                                                                 ),
-                                                          SizedBox(
+                                                          surveyDetailsModel
+                                                              .question!
+                                                              .options![
+                                                          index]
+                                                              .url
+                                                              .toString() ==
+                                                              "null"
+                                                              ? Container()
+                                                              : SizedBox(
                                                             width: 50,
                                                             height: 10,
                                                           ),
-                                                          Container(
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width /
-                                                                2.8,
-                                                            child: Container(
+                                                          Expanded(
+                                                            flex: 2,
+                                                            child: Center(
                                                               child: Text(
                                                                 surveyDetailsModel.question!.options![index].option.toString()=="null"?"No Data":surveyDetailsModel.question!.options![index].option.toString(),
                                                                 style: TextStyle(
@@ -984,17 +989,23 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                           SizedBox(
                                                             width: 20,
                                                           ),
-                                                          Image.asset(
-                                                            surveyDetailsModel
-                                                                        .question!
-                                                                        .options![
-                                                                            index]
-                                                                        .select ==
-                                                                    0
-                                                                ? 'images/radioonbutton.png'
-                                                                : 'images/radiobutton.png',
-                                                            width: 25,
-                                                            height: 25,
+                                                          Expanded(
+                                                            flex: 1,
+                                                            child: Image.asset(
+                                                              surveyDetailsModel
+                                                                          .question!
+                                                                          .options![
+                                                                              index]
+                                                                          .select ==
+                                                                      0
+                                                                  ? 'images/radioonbutton.png'
+                                                                  : 'images/radiobutton.png',
+                                                              width: 25,
+                                                              height: 25,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 20,
                                                           ),
                                                         ],
                                                       ),

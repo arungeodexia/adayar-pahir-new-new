@@ -522,7 +522,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                             title: Padding(
                               padding: const EdgeInsets.only(left: 20),
                               child: Text(
-                                taskmodel.tasks![index].taskTitle.toString(),
+                                taskmodel.tasks![index].taskTitle??'',
                                 style: kSubtitleTextSyule1.copyWith(
                                     fontWeight: FontWeight.w600,
                                     height: 1.5,
@@ -530,8 +530,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                               ),
                             ),
                             trailing: Text(
-                              taskmodel.tasks![index].completionPercentage
-                                  .toString(),
+                              taskmodel.tasks![index].completionPercentage??'',
                               style: kSubtitleTextSyule1.copyWith(
                                   fontWeight: FontWeight.w600,
                                   height: 1.5,
@@ -669,7 +668,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
 
   Container _buildHeaderNewUi() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 20.0, 10, 10.0),
+      padding: const EdgeInsets.fromLTRB(10, 15.0, 10, 10.0),
       margin: const EdgeInsets.all(
         10,
       ),
@@ -694,80 +693,90 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
               ),
               onTap: () {},
             ),
-            title: Text(
-              appointmentDetails.name.toString(),
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-              maxLines: 3,
-              style: kSubtitleTextSyule1.copyWith(
-                  fontWeight: FontWeight.bold,
-                  height: 1.5,
-                  color: Colors.white,
-                  fontSize: 18),
+            title: Expanded(
+              child: Text(
+              appointmentDetails.name??'',
+                style: kSubtitleTextSyule1.copyWith(
+                    fontWeight: FontWeight.bold,
+                    height: 1.5,
+                    color: Colors.white,
+                    fontSize: 18),
+              ),
             ),
             subtitle: Row(
               children: [
-                Text(
-                  appointmentDetails.address.toString(),
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                  maxLines: 3,
-                  style: kSubtitleTextSyule1.copyWith(
-                      fontWeight: FontWeight.w500,
-                      height: 1.5,
-                      color: Colors.white,
-                      fontSize: 16),
+                Expanded(
+                  child: Text(
+                  appointmentDetails.address??'',
+                    style: kSubtitleTextSyule1.copyWith(
+                        fontWeight: FontWeight.w500,
+                        height: 1.5,
+                        color: Colors.white,
+                        fontSize: 16),
+                  ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      CallsAndMessagesService.call(appointmentDetails.phone1
-                          .toString()
-                          .replaceAll(' ', ''));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: IconButton(
-                          onPressed: () {
-                            CallsAndMessagesService.call(appointmentDetails
-                                .phone1
-                                .toString()
-                                .replaceAll(' ', ''));
-                          },
-                          icon: Row(
-                            children: [
-                              CircleAvatar(
-                                  backgroundColor: AppColors.APP_WHITE,
-                                  radius: 15,
-                                  child: Icon(
-                                    FontAwesomeIcons.phoneAlt,
-                                    color: AppColors.APP_BLUE,
-                                    size: 12,
-                                  )),
-                              Text(
-                                '  Call',
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: false,
-                                style: kSubtitleTextSyule1.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5,
-                                    color: Colors.white,
-                                    fontSize: 16),
-                              ),
-                            ],
-                          )),
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: GestureDetector(
+                //     onTap: () {
+                //       CallsAndMessagesService.call(appointmentDetails.phone1
+                //           .toString()
+                //           .replaceAll(' ', ''));
+                //     },
+                //     child: Padding(
+                //       padding: const EdgeInsets.only(top: 4.0),
+                //       child: IconButton(
+                //           onPressed: () {
+                //             CallsAndMessagesService.call(appointmentDetails
+                //                 .phone1
+                //                 .toString()
+                //                 .replaceAll(' ', ''));
+                //           },
+                //           icon: Row(
+                //             children: [
+                //               CircleAvatar(
+                //                   backgroundColor: AppColors.APP_WHITE,
+                //                   radius: 15,
+                //                   child: Icon(
+                //                     FontAwesomeIcons.phoneAlt,
+                //                     color: AppColors.APP_BLUE,
+                //                     size: 12,
+                //                   )),
+                //               Text(
+                //                 '  Call',
+                //                 overflow: TextOverflow.ellipsis,
+                //                 softWrap: false,
+                //                 style: kSubtitleTextSyule1.copyWith(
+                //                     fontWeight: FontWeight.w500,
+                //                     height: 1.5,
+                //                     color: Colors.white,
+                //                     fontSize: 16),
+                //               ),
+                //             ],
+                //           )),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
-            // trailing: CircleAvatar(
-            //   radius: 25.0,
-            //   backgroundImage: NetworkImage(avatar),
-            // ),
+            trailing: InkWell(
+              onTap: (){
+                CallsAndMessagesService.call(appointmentDetails.phone1
+                              .toString()
+                              .replaceAll(' ', ''));
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 26.0,
+                child : Icon(
+                          FontAwesomeIcons.phoneAlt,
+                          color: AppColors.APP_BLUE,
+                          size: 15,
+                        ),
+              ),
+            ),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -864,75 +873,90 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
               ),
               onTap: () {},
             ),
-            title: Text(
-              appointmentDetails.defaultText.toString(),
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-              maxLines: 3,
-              style: kSubtitleTextSyule1.copyWith(
-                  fontWeight: FontWeight.bold,
-                  height: 1.5,
-                  color: Colors.white,
-                  fontSize: 18),
+            title: Expanded(
+              child: Text(
+              appointmentDetails.defaultText??'',
+                style: kSubtitleTextSyule1.copyWith(
+                    fontWeight: FontWeight.bold,
+                    height: 1.5,
+                    color: Colors.white,
+                    fontSize: 18),
+              ),
             ),
             subtitle: Row(
               children: [
-                Text(
-                  appointmentDetails.address.toString(),
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                  maxLines: 3,
-                  style: kSubtitleTextSyule1.copyWith(
-                      fontWeight: FontWeight.w500,
-                      height: 1.5,
-                      color: Colors.white,
-                      fontSize: 16),
+                Expanded(
+                  child: Text(
+               appointmentDetails.address??'',
+                    style: kSubtitleTextSyule1.copyWith(
+                        fontWeight: FontWeight.w500,
+                        height: 1.5,
+                        color: Colors.white,
+                        fontSize: 16),
+                  ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      CallsAndMessagesService.call(appointmentDetails.defaultContact
-                          .toString()
-                          .replaceAll(' ', ''));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: IconButton(
-                          onPressed: () {
-                            CallsAndMessagesService.call(appointmentDetails.defaultContact
-                                .toString()
-                                .replaceAll(' ', ''));
-                          },
-                          icon: Row(
-                            children: [
-                              CircleAvatar(
-                                  backgroundColor: AppColors.APP_WHITE,
-                                  radius: 10,
-                                  child: Icon(
-                                    FontAwesomeIcons.phoneAlt,
-                                    color: AppColors.APP_BLUE,
-                                    size: 12,
-                                  )),
-                              Text(
-                                '  Call',
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: false,
-                                style: kSubtitleTextSyule1.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5,
-                                    color: Colors.white,
-                                    fontSize: 14),
-                              ),
-                            ],
-                          )),
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: GestureDetector(
+                //     onTap: () {
+                //       CallsAndMessagesService.call(appointmentDetails.defaultContact
+                //           .toString()
+                //           .replaceAll(' ', ''));
+                //     },
+                //     child: Padding(
+                //       padding: const EdgeInsets.only(top: 4.0),
+                //       child: IconButton(
+                //           onPressed: () {
+                //             CallsAndMessagesService.call(appointmentDetails.defaultContact
+                //                 .toString()
+                //                 .replaceAll(' ', ''));
+                //           },
+                //           icon: Row(
+                //             children: [
+                //               CircleAvatar(
+                //                   backgroundColor: AppColors.APP_WHITE,
+                //                   radius: 10,
+                //                   child: Icon(
+                //                     FontAwesomeIcons.phoneAlt,
+                //                     color: AppColors.APP_BLUE,
+                //                     size: 12,
+                //                   )),
+                //               Text(
+                //                 '  Call',
+                //                 overflow: TextOverflow.ellipsis,
+                //                 softWrap: false,
+                //                 style: kSubtitleTextSyule1.copyWith(
+                //                     fontWeight: FontWeight.w500,
+                //                     height: 1.5,
+                //                     color: Colors.white,
+                //                     fontSize: 14),
+                //               ),
+                //             ],
+                //           )),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
+            trailing: InkWell(
+              onTap: (){
+                CallsAndMessagesService.call(appointmentDetails.phone1
+                    .toString()
+                    .replaceAll(' ', ''));
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 30.0,
+                child : Icon(
+                  FontAwesomeIcons.phoneAlt,
+                  color: AppColors.APP_BLUE,
+                  size: 15,
+                ),
+              ),
+            ),
+
             // trailing: CircleAvatar(
             //   radius: 25.0,
             //   backgroundImage: NetworkImage(avatar),
