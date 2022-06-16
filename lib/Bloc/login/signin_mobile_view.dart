@@ -59,7 +59,7 @@ class SigninState extends State<SigninView> {
     globalcontext = context;
     _launchURL() async {
       const url =
-          "https://d2c56lckh61bcl.cloudfront.net/live/CovidTermsandConditions.html";
+          "https://dlaggtcll95tc.cloudfront.net/app/acipolicy.html";
       if (await canLaunch(url)) {
         await launch(url);
       } else {
@@ -352,6 +352,7 @@ class SigninState extends State<SigninView> {
                                   child: Center(
                                     child: Text(
                                     tr("terms"),
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: AppColors.APP_LIGHT_BLUE,
                                           decoration: TextDecoration.underline),
@@ -421,7 +422,7 @@ class SigninState extends State<SigninView> {
                                                     dialingCodeController.text.toString()));
                                           }
                                         } else {
-                                          Fluttertoast.showToast(msg: "Please Enter Mobile Number");
+                                          Fluttertoast.showToast(msg: tr('nonumber'));
                                         }
                                       },
                                     )),

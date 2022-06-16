@@ -84,11 +84,11 @@
   "verify": "Verify",
   "otptxt": "Please Enter an OTP has been sent to your phone number",
   "favourites": "Favourites",
-  "signuptext": "The Adyar Cancer Institute (ACI) is a pubMy Profilelic charitable voluntary institute dedicated to the care of cancer for the last 60 years. The ethos of the Cancer Institute (ACI) is service to all irrespective of social or economical class.",
+  "signuptext": "The Cancer Institute (WIA - Womens' Indian Association), also known as the Adyar Cancer Institute, is a non-profit cancer treatment and research centre based in Chennai, Tamil Nadu. The Cancer Institute (WIA) was established in the year 1952 under the leadership of Dr. Muthulakshmi Reddy. In 1974, the institute became the Regional Cancer Centre and declared as a Centre of Excellence by the Ministry of Health and Family Welfare.",
   "agreecontinue": "Agree & Continue",
   "enterph": "Enter your phone number",
   "updateph": "Update your phone number",
-  "pahirsms": "ACI will send an SMS message to verify your phone number (carrier charges may apply).",
+  "pahirsms": "ACI will send a SMS message to verify your phone number (carrier charges may apply).",
   "changelanguage": "Change language",
   "programs":"Programs",
   "nopprograms":"No Programs",
@@ -127,8 +127,17 @@
   "nonotes": "No Notes",
   "exit": "Exit",
   "welcome": "Welcome",
-  "trail": "Trail",
-  "received": "Received : "
+  "trail": "Trial Information",
+  "received": "Received : ",
+  "nonumber": "Please Enter Mobile Number",
+  "otperror": "Please Enter Valid OTP",
+  "skip": "Skip",
+  "otpverified": "OTP Verified",
+  "next": "Next",
+  "continue": "Continue"
+
+
+
 
 
 

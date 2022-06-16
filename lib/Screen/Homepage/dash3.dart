@@ -153,7 +153,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
             context: context,
             barrierColor: Colors.black12.withOpacity(0.6), // Background color
             barrierDismissible: false,
-            barrierLabel: 'Trail Videos',
+            barrierLabel: tr('trail'),
             transitionDuration: Duration(milliseconds: 400),
             pageBuilder: (_, __, ___) {
               return WillPopScope(
@@ -161,7 +161,9 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                   SharedPreferences prefs = await SharedPreferences.getInstance();
                   prefs.setString(IS_FIRST_TIME, "1st");
                   Navigator.pop(context);
-                  videoPlayerController.pause();
+                  _controller.pause();
+                  chewieController.pause();
+                  // videoPlayerController.pause();
                   return false;
                 },
                 child: SafeArea(
@@ -177,7 +179,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                                   AppColors.APP_BLUE),
                             ),
                             onPressed: () {},
-                            child: Center(child: Text('Trail')),
+                            child: Center(child: Text(tr('trail'))),
                           ),
                         ),
                       ),
@@ -243,7 +245,10 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                               await SharedPreferences.getInstance();
                               prefs.setString(IS_FIRST_TIME, "1st");
                               Navigator.pop(context);
-                              videoPlayerController.pause();
+                              _controller.pause();
+                              chewieController.pause();
+                              // videoPlayerController.pause();
+
                             },
                             child: Text(tr('exit')),
                           ),
@@ -344,13 +349,16 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
           ),
           SizedBox(height: 15,),
           Center(
-            child: Text(
-              username ?? '',
-              overflow: TextOverflow.ellipsis,
-              style: kSubtitleTextSyule1.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 24),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                username,
+                overflow: TextOverflow.ellipsis,
+                style: kSubtitleTextSyule1.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 24),
+              ),
             ),
           ),
           SizedBox(height: 10,),
@@ -845,9 +853,10 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
       ),
     );
   }
+
   Container _buildNoAppointmentHeaderNewUi() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 20.0, 10, 10.0),
+      padding: const EdgeInsets.fromLTRB(10, 5.0, 10, 10.0),
       margin: const EdgeInsets.all(
         10,
       ),
@@ -874,11 +883,12 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
             ),
             title: Text(
             appointmentDetails.defaultText??'',
+              textAlign: TextAlign.start,
               style: kSubtitleTextSyule1.copyWith(
                   fontWeight: FontWeight.bold,
                   height: 1.5,
                   color: Colors.white,
-                  fontSize: 18),
+                  fontSize: 16),
             ),
             subtitle: Row(
               children: [
@@ -939,7 +949,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
             ),
             trailing: InkWell(
               onTap: (){
-                CallsAndMessagesService.call(appointmentDetails.phone1
+                CallsAndMessagesService.call(appointmentDetails.defaultContact
                     .toString()
                     .replaceAll(' ', ''));
               },

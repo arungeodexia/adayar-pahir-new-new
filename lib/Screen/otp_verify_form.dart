@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:ACI/data/api/repository/LoginRepo.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -347,8 +348,8 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
 
   // FocusNode? otpFocusNode;
 
-  int _timeRemaining = 30;
-  String _timeRemainingText = "0:30";
+  int _timeRemaining = 45;
+  String _timeRemainingText = "0:45";
   Timer? _timer;
   bool _currentBtnState = false;
 
@@ -406,7 +407,7 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is OTPVerifySuccess) {
-          Fluttertoast.showToast(msg: "OTP Verified");
+          Fluttertoast.showToast(msg: tr('otpverified'));
           if (state.response==1) {
             Navigator.pushAndRemoveUntil(
               context,
@@ -426,8 +427,8 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
           CoolAlert.show(
               context: context,
               type: CoolAlertType.error,
-              text: "Access Token Error",
-              title: "Verification Failed",
+              text: tr('otperror'),
+              title: '',
               loopAnimation: true,
               onConfirmBtnTap: (){
                 Navigator.of(context).pop();
@@ -512,10 +513,7 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
                                         padding: EdgeInsets.fromLTRB(
                                             25.0, 8.0, 25.0, 8.0),
                                         child: Text(
-                                          tr("otptxt") +
-                                             " "+ widget.countryCode +
-                                              "  " +
-                                              widget.mobileNo,
+                                          tr("otptxt"),
                                           style: TextStyle(
                                               color: AppColors.APP_BLACK_10,
                                               height: 1.5),
@@ -718,12 +716,18 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
                                                 ),
                                               ],
                                             )),
-                                        onTap: () {
+                                        onTap: () async{
                                           if (isResendOtpAllowed) {
-                                            BlocProvider.of<LoginBloc>(context).add(
-                                                Login(
-                                                    widget.mobileNo,
-                                                    widget.countryCode));
+                                            LoginRepo loginRepo = LoginRepo();
+                                            var res = await loginRepo.askForOTP(countryCode: widget.countryCode, phoneNo: widget.mobileNo);
+                                            isResendOtpAllowed=false;
+                                            _timeRemaining=45;
+                                            setState(() {
+                                            });
+                                            // BlocProvider.of<LoginBloc>(context).add(
+                                            //     Login(
+                                            //         widget.mobileNo,
+                                            //         widget.countryCode));
                                           }
                                         },
                                       ),
@@ -836,7 +840,7 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
                                         SharedPreferences prefs = await SharedPreferences.getInstance();
                                         String? language= prefs.getString("locale");
                                         if(language.toString() == 'null' || language == "en"){
-                                          errorText = "Pls Enter Valid Otp";
+                                          errorText = "Please Enter Valid Otp";
                                         }else{
                                           errorText = "சரியான Otp ஐ உள்ளிடவும்";
                                         }

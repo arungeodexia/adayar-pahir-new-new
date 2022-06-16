@@ -320,7 +320,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              "SKIP",
+                              tr('skip'),
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
                               maxLines: 3,
@@ -636,15 +636,16 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                   child:
                                                                       Container(
                                                                         width:40,
-                                                                        height:40,
+                                                                        height:surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
+                                                                            "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?60:40,
                                                                         child: TextField(
                                                                         keyboardType: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
-                                                                              "Others"
+                                                                              "Others" ||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"
                                                                           ? TextInputType.name
                                                                           : TextInputType.number,
                                                                           inputFormatters:[
                                                                             LengthLimitingTextInputFormatter(surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
-                                                                                "Others"?300:3),
+                                                                                "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?300:3),
                                                                           ],
                                                                         controller: surveyDetailsModel
                                                                           .question!
@@ -834,7 +835,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                       child: Center(
                                         child: Container(
                                           margin: EdgeInsets.only(
-                                              top: 10, left: 20, bottom: 10),
+                                              top: 10, left: 0, bottom: 10),
                                           // height: 200.0,
                                           width:
                                               MediaQuery.of(context).size.width,
@@ -899,7 +900,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                               .size
                                                               .width,
                                                       padding:
-                                                          EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+                                                          EdgeInsets.symmetric(horizontal: 5,vertical: 15),
                                                       decoration: BoxDecoration(
                                                           color: AppColors
                                                               .APP_LIGHT_BLUE_50,
@@ -911,6 +912,25 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                         children: [
+
+                                                          Expanded(
+                                                            flex: 1,
+                                                            child: Image.asset(
+                                                              surveyDetailsModel
+                                                                  .question!
+                                                                  .options![
+                                                              index]
+                                                                  .select ==
+                                                                  0
+                                                                  ? 'images/radioonbutton.png'
+                                                                  : 'images/radiobutton.png',
+                                                              width: 25,
+                                                              height: 25,
+                                                            ),
+                                                          ),
+                                                          // SizedBox(
+                                                          //   width: 20,
+                                                          // ),
                                                           surveyDetailsModel
                                                                       .question!
                                                                       .options![
@@ -965,45 +985,27 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                               "null"
                                                               ? Container()
                                                               : SizedBox(
-                                                            width: 50,
+                                                            width: 30,
                                                             height: 10,
                                                           ),
                                                           Expanded(
                                                             flex: 2,
-                                                            child: Center(
-                                                              child: Text(
-                                                                surveyDetailsModel.question!.options![index].option.toString()=="null"?"No Data":surveyDetailsModel.question!.options![index].option.toString(),
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        "Poppins",
-                                                                    fontSize:
-                                                                        15,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    color: Colors
-                                                                        .black),
-                                                              ),
+                                                            child: Text(
+                                                              surveyDetailsModel.question!.options![index].option.toString()=="null"?"No Data":surveyDetailsModel.question!.options![index].option.toString(),
+                                                              textAlign: TextAlign.start,
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      "Poppins",
+                                                                  fontSize:
+                                                                      15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  color: Colors
+                                                                      .black),
                                                             ),
                                                           ),
-                                                          SizedBox(
-                                                            width: 20,
-                                                          ),
-                                                          Expanded(
-                                                            flex: 1,
-                                                            child: Image.asset(
-                                                              surveyDetailsModel
-                                                                          .question!
-                                                                          .options![
-                                                                              index]
-                                                                          .select ==
-                                                                      0
-                                                                  ? 'images/radioonbutton.png'
-                                                                  : 'images/radiobutton.png',
-                                                              width: 25,
-                                                              height: 25,
-                                                            ),
-                                                          ),
+
                                                           SizedBox(
                                                             width: 20,
                                                           ),
@@ -1028,6 +1030,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                               margin: EdgeInsets.only(
                                                   top: 20,
                                                   left: 20,
+                                                  right: 10,
                                                   bottom: 20),
                                               // height: 200.0,
                                               width: MediaQuery.of(context)
@@ -1149,68 +1152,80 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                               EdgeInsets.all(5),
                                                           child: Row(
                                                             children: [
-                                                              surveyDetailsModel
-                                                                          .question!
-                                                                          .options![
-                                                                              index]
-                                                                          .url
-                                                                          .toString() ==
-                                                                      "null"
-                                                                  ? Container(
-                                                                      height:
-                                                                          40,
-                                                                    )
-                                                                  : CachedNetworkImage(
-                                                                      width: 50,
-                                                                      height:
-                                                                          50,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                      imageUrl: surveyDetailsModel
-                                                                          .question!
-                                                                          .options![
-                                                                              index]
-                                                                          .url
-                                                                          .toString(),
-                                                                      placeholder:
-                                                                          (context, url) =>
-                                                                              Center(
-                                                                        child: Container(
-                                                                            width:
-                                                                                30,
-                                                                            height:
-                                                                                30,
-                                                                            child:
-                                                                                new CircularProgressIndicator()),
-                                                                      ),
-                                                                      errorWidget: (context,
-                                                                              url,
-                                                                              error) =>
-                                                                          Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(8.0),
-                                                                        child: Container(
-                                                                            width: 30,
-                                                                            height: 30,
-                                                                            child: Image.asset(
-                                                                              'images/noimage.png',
-                                                                              width: 30,
-                                                                              height: 30,
-                                                                            )),
-                                                                      ),
-                                                                    ),
+
+                                                              Image.asset(
+                                                                surveyDetailsModel
+                                                                    .question!
+                                                                    .options![index]
+                                                                    .select ==
+                                                                    0
+                                                                    ? 'images/checkbox_checked.png'
+                                                                    : 'images/checkbox.png',
+                                                                width: 25,
+                                                                height: 25,
+                                                              ),
                                                               SizedBox(
-                                                                width: 50,
+                                                                width: 20,
                                                                 height: 10,
                                                               ),
-                                                              Container(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    2.8,
+                                                              surveyDetailsModel
+                                                                  .question!
+                                                                  .options![
+                                                              index]
+                                                                  .url
+                                                                  .toString() ==
+                                                                  "null"
+                                                                  ? Container(
+                                                                height:
+                                                                40,
+                                                              )
+                                                                  : CachedNetworkImage(
+                                                                width: 50,
+                                                                height:
+                                                                50,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                imageUrl: surveyDetailsModel
+                                                                    .question!
+                                                                    .options![
+                                                                index]
+                                                                    .url
+                                                                    .toString(),
+                                                                placeholder:
+                                                                    (context, url) =>
+                                                                    Center(
+                                                                      child: Container(
+                                                                          width:
+                                                                          30,
+                                                                          height:
+                                                                          30,
+                                                                          child:
+                                                                          new CircularProgressIndicator()),
+                                                                    ),
+                                                                errorWidget: (context,
+                                                                    url,
+                                                                    error) =>
+                                                                    Padding(
+                                                                      padding:
+                                                                      const EdgeInsets.all(8.0),
+                                                                      child: Container(
+                                                                          width: 30,
+                                                                          height: 30,
+                                                                          child: Image.asset(
+                                                                            'images/noimage.png',
+                                                                            width: 30,
+                                                                            height: 30,
+                                                                          )),
+                                                                    ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 20,
+                                                                height: 10,
+                                                              ),
+                                                              Expanded(
                                                                 child: Text(
                                                                   surveyDetailsModel.question!.options![index].option ==null?"No Data":surveyDetailsModel.question!.options![index].option.toString(),
+                                                                  textAlign: TextAlign.start,
                                                                   style: TextStyle(
                                                                       fontFamily:
                                                                           "Poppins",
@@ -1226,17 +1241,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                               SizedBox(
                                                                 width: 20,
                                                               ),
-                                                              Image.asset(
-                                                                surveyDetailsModel
-                                                                            .question!
-                                                                            .options![index]
-                                                                            .select ==
-                                                                        0
-                                                                    ? 'images/checkbox_checked.png'
-                                                                    : 'images/checkbox.png',
-                                                                width: 25,
-                                                                height: 25,
-                                                              ),
+
                                                             ],
                                                           ),
                                                         ),
@@ -2012,15 +2017,15 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                               }
 
                                             } else {
-                                              Fluttertoast.showToast(
-                                                  msg:
-                                                  "Please Fill answer to submit survey");
+                                              // Fluttertoast.showToast(
+                                              //     msg:
+                                              //     "Please Fill answer to submit survey");
                                             }
 
                                           } else {
-                                            Fluttertoast.showToast(
-                                                msg:
-                                                "Please Choose all answer to submit survey");
+                                            // Fluttertoast.showToast(
+                                            //     msg:
+                                            //     "Please Choose all answer to submit survey");
                                           }
                                         },
                                         child: Padding(
@@ -2031,8 +2036,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                   .question!.nextQuestionId ==
                                                   surveyDetailsModel
                                                       .question!.questionId)
-                                                  ? "Submit"
-                                                  : "Next",
+                                                  ? tr('submit')
+                                                  : tr('next'),
                                               style: TextStyle(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold),
@@ -2250,15 +2255,15 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                   }
 
                                 } else {
-                                  Fluttertoast.showToast(
-                                      msg:
-                                      "Please Fill answer to submit survey");
+                                  // Fluttertoast.showToast(
+                                  //     msg:
+                                  //     "Please Fill answer to submit survey");
                                 }
 
                               } else {
-                                Fluttertoast.showToast(
-                                    msg:
-                                    "Please Choose all answer to submit survey");
+                                // Fluttertoast.showToast(
+                                //     msg:
+                                //     "Please Choose all answer to submit survey");
                               }
                             },
                             child: Padding(
@@ -2269,8 +2274,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                               .question!.nextQuestionId ==
                                           surveyDetailsModel
                                               .question!.questionId)
-                                      ? "Submit"
-                                      : "Next",
+                                      ? tr('submit')
+                                      : tr('next'),
                                   style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold),

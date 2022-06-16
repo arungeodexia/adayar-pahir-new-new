@@ -574,12 +574,12 @@ ${messageList.messages![index].messageBody!.contentUri!.toString()}
       if (!kIsWeb) {
         print(messageList.messages![index].messageBody!.contentUri!.toString());
         print(
-            messageList.messages![index].messageBody!.contentTitle!.toString());
+            messageList.messages![index].messageBody!.messageTitle!.toString());
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => VideoAppChewie( videoUrl: messageList.messages![index].messageBody!.contentUri!.toString(),
-                  title: messageList.messages![index].messageBody!.contentTitle!.toString(),)));
+                  title: messageList.messages![index].messageBody!.messageTitle!.toString(),)));
         // Navigator.push(
         //     context,
         //     MaterialPageRoute(
@@ -595,7 +595,7 @@ ${messageList.messages![index].messageBody!.contentUri!.toString()}
             context,
             MaterialPageRoute(
                 builder: (context) => VideoApp( videoUrl: messageList.messages![index].messageBody!.contentUri!.toString(),
-                  title: messageList.messages![index].messageBody!.contentTitle!.toString(),)));
+                  title: messageList.messages![index].messageBody!.messageTitle!.toString(),)));
         // Navigator.push(
         //     context,
         //     MaterialPageRoute(
@@ -623,7 +623,7 @@ ${messageList.messages![index].messageBody!.contentUri!.toString()}
                   pdfUrl:
                   messageList.messages![index].messageBody!.contentUri!,
                   title: messageList
-                      .messages![index].messageBody!.contentTitle!,
+                      .messages![index].messageBody!.messageTitle!,
                 )));
       }
     } else if (messageList.messages![index].messageBody!.contentType == "url") {
@@ -647,7 +647,7 @@ ${messageList.messages![index].messageBody!.contentUri!.toString()}
               builder: (context) => FullPhoto(
                 url: url,
                 title: messageList
-                    .messages![index].messageBody!.contentTitle
+                    .messages![index].messageBody!.messageTitle
                     .toString(),
               )));
     } else {

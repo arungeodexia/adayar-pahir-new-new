@@ -65,5 +65,11 @@ abstract class  LocaleKeys {
   static const welcome = 'welcome';
   static const trail = 'trail';
   static const received = 'received';
+  static const nonumber = 'nonumber';
+  static const otperror = 'otperror';
+  static const skip = 'skip';
+  static const otpverified = 'otpverified';
+  static const next = 'next';
+  static const continue = 'continue';
 
 }

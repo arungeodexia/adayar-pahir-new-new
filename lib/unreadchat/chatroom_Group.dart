@@ -239,7 +239,7 @@ class _ChatRoomState extends State<ChatroomGroup> with WidgetsBindingObserver {
   @override
   void initState() {
     initializeDateFormatting();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     getdata();
     focusNode.addListener(onFocusChange);
     isShowSticker = false;

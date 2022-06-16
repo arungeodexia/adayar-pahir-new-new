@@ -174,16 +174,15 @@ final Column slider1 = Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
+                    flex: language?1:2,
                     child: Center(
                       child: Padding(
                         padding: EdgeInsets.all(10.0),
-
                         child:
                         Text(
                           tr("appname"),
                           style: TextStyle(
-                              fontSize: 35,
+                              fontSize: 25,
                               fontWeight: FontWeight.bold,
                               color: AppColors.APP_WHITE),
                           textAlign: TextAlign.center,

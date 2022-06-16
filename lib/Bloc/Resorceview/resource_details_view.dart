@@ -431,7 +431,7 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.only(
-                                  left: 55.0, right: 55.0, top: 125.0, bottom: 5),
+                                  left: 15.0, right: 15.0, top: 125.0, bottom: 5),
                               child: Column(
                                 children: <Widget>[
                                   Container(
@@ -441,55 +441,58 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                                         (resourceDetail.firstName! != null)
                                             ? resourceDetail.firstName!
                                             : "",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: "OpenSans",
-                                            fontSize: 19,
+                                            fontSize: 20,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.APP_BLACK_20),
                                       )),
                                   SizedBox(
-                                    height: 8,
+                                    height: 10,
                                   ),
                                   Text(
                                     (resourceDetail.skill! != null)
                                         ? resourceDetail.skill!
                                         : "",
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 20,
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.w400,
                                         color: AppColors.APP_BLACK_10),
                                   ),
                                   SizedBox(
-                                    height: 8,
+                                    height: 10,
                                   ),
                                   resourceDetail.address1 != null? Text(
                                    resourceDetail.address1??'',
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 20,
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.w400,
                                         color: AppColors.APP_BLACK_10),
                                   ):Container(),
                                   resourceDetail.address1 !=null?  SizedBox(
-                                    height: 8,
+                                    height: 10,
                                   ):Container(),
                                   resourceDetail.address2 != null?  Text(
-                                      resourceDetail.address1??'',
+                                      resourceDetail.address2??'',
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 20,
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.w400,
                                         color: AppColors.APP_BLACK_10),
                                   ):Container(),
-                                  resourceDetail.address2 ==null?  SizedBox(
-                                    height: 8,
-                                  ):Container(),
+                                   SizedBox(
+                                    height: 10,
+                                  ),
                                   Visibility(
                                     visible: true,
                                     child: Stack(
                                       children: <Widget>[
                                         Text(
                                           "${(resourceDetail.city == null) ? "" : "${resourceDetail.city.toString()}, ${resourceDetail.state.toString()}"}",
+                                          textAlign: TextAlign.center,
                                           style: TextStyle(
                                               color: AppColors.APP_BLACK_10,
                                               fontWeight: FontWeight.w500,

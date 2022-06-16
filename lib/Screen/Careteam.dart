@@ -246,7 +246,7 @@ class _CareteamState extends State<Careteam> {
                       contentPadding: EdgeInsets.all(8),
                       onTap: (){
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => ResourceDetailsView(isRedirectFrom: AppStrings.isRedirectFromResourceSearchList,resoruceid: careTeamModel.orgMembers![index].orgMemberId.toString(),resorucetype: "internal-channel",)),);
+                          MaterialPageRoute(builder: (context) => ResourceDetailsView(isRedirectFrom: AppStrings.isRedirectFromResourceSearchList,resoruceid: careTeamModel.orgMembers![index].orgChannelMemberId.toString(),resorucetype: "internal-channel",)),);
                       },
                       leading:  Container(
                         margin: EdgeInsets.all(8),

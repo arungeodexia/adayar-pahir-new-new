@@ -52,6 +52,7 @@ class _VideoAppChewieState extends State<VideoAppChewie> {
 
   }
   double volume = 0.5;
+
   @override
   Widget build(BuildContext context) {
     return
@@ -85,11 +86,10 @@ class _VideoAppChewieState extends State<VideoAppChewie> {
   @override
   void dispose() {
     super.dispose();
-    // _controller.dispose();
     videoPlayerController.pause();
     videoPlayerController.dispose();
-
     chewieController.dispose();
+    // _controller.dispose();
   }
 }
 

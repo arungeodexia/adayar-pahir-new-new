@@ -7,12 +7,14 @@ import 'package:ACI/data/api/repository/SurveyRepo.dart';
 import 'package:ACI/utils/calls_messages_services.dart';
 import 'package:ACI/utils/constants.dart';
 import 'package:ACI/utils/values/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'mydashboard.dart';
 
@@ -65,8 +67,10 @@ class _ScreenCheckState extends State<ScreenCheck> {
   static final SurveyRepo resourceRepository = new SurveyRepo();
   bool isload = false;
   TaskDetails taskDetails = TaskDetails();
-  String taskpercentage = "0%";
+  String taskpercentage = "0";
   String expiry = "0";
+
+  String? language ="";
 
   @override
   void initState() {
@@ -78,6 +82,8 @@ class _ScreenCheckState extends State<ScreenCheck> {
 
     // month=DateFormat('MMMM').format(now);
     // date=DateFormat('d').format(now);
+
+
     getsurvey();
   }
 
@@ -87,7 +93,11 @@ class _ScreenCheckState extends State<ScreenCheck> {
   }
 
   void getsurvey() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+     language = prefs.getString("locale");
     isload = true;
+    setState(() {
+    });
     http.Response? response =
         await resourceRepository.getTasksDetails(widget.id);
     if (response!.statusCode == 200) {
@@ -167,15 +177,9 @@ class _ScreenCheckState extends State<ScreenCheck> {
           ),
           // leading: Icon(FontAwesomeIcons.solidArrowAltCircleLeft,color: AppColors.APP_BLUE,),
         ),
-        body: isload
+        body: isload || taskDetails.description ==null
             ? buildLoading()
-            : taskDetails.description == null
-                ? Center(
-                    child: Text(
-                    "Something went wrong",
-                    style: ktextstyle.copyWith(fontSize: 15),
-                  ))
-                : Container(
+            :  Container(
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -211,8 +215,7 @@ class _ScreenCheckState extends State<ScreenCheck> {
 
                                       percent: double.parse(taskpercentage),
                                       center: new Text(
-                                        taskDetails.completionPercentage
-                                            .toString(),
+                                        taskDetails.completionPercentage??'',
                                         style: kSubtitleTextSyule.copyWith(
                                             fontWeight: FontWeight.bold,
                                             height: 1.5,
@@ -250,10 +253,11 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                 bottom: 15,
                               ),
                               child: Text(
-                                taskDetails.expiryText!.toString(),
+                                taskDetails.expiryText??'',
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: false,
                                 maxLines: 3,
+                                textAlign: TextAlign.center,
                                 style: kTitleTextStyle.copyWith(
                                     fontWeight: FontWeight.w600,
                                     height: 1.5,
@@ -283,12 +287,9 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                 child: Text(
                                   widget.page == "1"
                                       ? taskDetails.alternateDescription
-                                                  .toString() ==
-                                              "null"
-                                          ? taskDetails.taskTitle.toString()
-                                          : taskDetails.alternateDescription
-                                              .toString()
-                                      : "About ${widget.title == "null" ? taskDetails.taskTitle.toString() : widget.title.toString()}",
+                                          ?? taskDetails.taskTitle.toString()
+                                      : "${language=='en'?"About ":" "} ${widget.title == "null" ? taskDetails.taskTitle.toString() : widget.title.toString()} ${language=='ta'?" பற்றி ":" "} ",
+
                                   style: kTitleTextStyle.copyWith(
                                       fontWeight: FontWeight.bold,
                                       height: 1.5,
@@ -306,7 +307,7 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                   bottom: 7,
                                 ),
                                 child: Text(
-                                  taskDetails.description.toString(),
+                                  taskDetails.description??'',
                                   style: kSubtitleTextSyule1.copyWith(
                                       fontWeight: FontWeight.w600,
                                       height: 1.5,
@@ -380,8 +381,8 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                                     top: 10, bottom: 10),
                                                 child: Text(
                                                   (widget.page == "1")
-                                                      ? "OK"
-                                                      : "Continue ",
+                                                      ? tr('ok')
+                                                      : tr('continue'),
                                                   style: kSubtitleTextSyule1
                                                       .copyWith(
                                                           fontWeight:

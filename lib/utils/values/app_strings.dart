@@ -1,7 +1,7 @@
 class AppStrings {
   //--------------------------------------------------- General -----------------------------------------------------------------------------------------
 
-  static const String APP_NAME = "Adyar Cancer Institue";
+  static const String APP_NAME = "Adyar Cancer Institute";
   static const String SEARCH_RESOURCE = "Search Skill";
   static const String BASE_URL = DEV_URL;
   
