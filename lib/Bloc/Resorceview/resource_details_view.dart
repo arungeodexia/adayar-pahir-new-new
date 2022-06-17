@@ -451,19 +451,19 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
-                                    (resourceDetail.skill! != null)
-                                        ? resourceDetail.skill!
-                                        : "",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.APP_BLACK_10),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
+                                  // Text(
+                                  //   (resourceDetail.skill! != null)
+                                  //       ? resourceDetail.skill!
+                                  //       : "",
+                                  //   textAlign: TextAlign.center,
+                                  //   style: TextStyle(
+                                  //       fontSize: 20,
+                                  //       fontWeight: FontWeight.w400,
+                                  //       color: AppColors.APP_BLACK_10),
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 10,
+                                  // ),
                                   resourceDetail.address1 != null? Text(
                                    resourceDetail.address1??'',
                                     textAlign: TextAlign.center,

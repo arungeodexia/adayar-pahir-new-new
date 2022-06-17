@@ -81,7 +81,7 @@ class CodegenLoader extends AssetLoader{
   "received": "பெற்றது :  ",
   "nonumber": "மொபைல் எண்ணை உள்ளிடவும்",
   "otperror": "சரியான OTP ஐ உள்ளிடவும்",
-  "skip": "தவிர்க்கவும்",
+  "skip": "அடுத்து",
   "otpverified": "OTP சரிபார்க்கப்பட்டது",
   "next": "அடுத்து",
   "continue": "தொடரவும்"
@@ -170,7 +170,7 @@ static const Map<String,dynamic> en = {
   "agree": "By creating an account you agree to our ",
   "terms": "Terms of Service and Privacy Policy",
   "verify": "Verify",
-  "otptxt": "Please Enter an OTP has been sent to your phone number",
+  "otptxt": "Please enter the OTP sent to the above number",
   "favourites": "Favourites",
   "signuptext": "The Cancer Institute (WIA - Womens' Indian Association), also known as the Adyar Cancer Institute, is a non-profit cancer treatment and research centre based in Chennai, Tamil Nadu. The Cancer Institute (WIA) was established in the year 1952 under the leadership of Dr. Muthulakshmi Reddy. In 1974, the institute became the Regional Cancer Centre and declared as a Centre of Excellence by the Ministry of Health and Family Welfare.",
   "agreecontinue": "Agree & Continue",

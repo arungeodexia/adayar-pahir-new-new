@@ -78,7 +78,7 @@ class _ScreenCheckState extends State<ScreenCheck> {
     initializeDateFormatting();
     DateTime now = DateTime.now();
     formattedDate = DateFormat(' MMMM d, yyyy').format(now);
-    month = DateFormat('h:mm a').format(now).toLowerCase();
+    month = DateFormat('h:mm a').format(now).toUpperCase();
 
     // month=DateFormat('MMMM').format(now);
     // date=DateFormat('d').format(now);

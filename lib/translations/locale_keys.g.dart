@@ -70,6 +70,5 @@ abstract class  LocaleKeys {
   static const skip = 'skip';
   static const otpverified = 'otpverified';
   static const next = 'next';
-  static const continue = 'continue';
 
 }

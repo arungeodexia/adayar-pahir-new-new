@@ -179,7 +179,9 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                                   AppColors.APP_BLUE),
                             ),
                             onPressed: () {},
-                            child: Center(child: Text(tr('trail'))),
+                            child: Center(child: Text(tr('trail'),style: ktextstyle.copyWith(
+                              fontSize: 22,color: Colors.white
+                            ),)),
                           ),
                         ),
                       ),
@@ -250,7 +252,9 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                               // videoPlayerController.pause();
 
                             },
-                            child: Text(tr('exit')),
+                            child: Text(tr('exit'),style: ktextstyle.copyWith(
+                                fontSize: 20,color: Colors.white
+                            ),),
                           ),
                         ),
                       ),
@@ -512,6 +516,9 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                           color: AppColors.APP_BLUE1,
                           child: ListTile(
                             onTap: () {
+                              globalTaskName=taskmodel
+                                  .tasks![index].taskTitle
+                                  .toString();
                               Navigator.of(context)
                                   .push(
                                     new MaterialPageRoute(
@@ -710,62 +717,82 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                   color: Colors.white,
                   fontSize: 18),
             ),
-            subtitle: Row(
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Text(
-                  appointmentDetails.address??'',
-                    style: kSubtitleTextSyule1.copyWith(
-                        fontWeight: FontWeight.w500,
-                        height: 1.5,
-                        color: Colors.white,
-                        fontSize: 16),
-                  ),
-                ),
                 SizedBox(
-                  width: 10,
+                  height: 4,
                 ),
-                // Expanded(
-                //   child: GestureDetector(
-                //     onTap: () {
-                //       CallsAndMessagesService.call(appointmentDetails.phone1
-                //           .toString()
-                //           .replaceAll(' ', ''));
-                //     },
-                //     child: Padding(
-                //       padding: const EdgeInsets.only(top: 4.0),
-                //       child: IconButton(
-                //           onPressed: () {
-                //             CallsAndMessagesService.call(appointmentDetails
-                //                 .phone1
-                //                 .toString()
-                //                 .replaceAll(' ', ''));
-                //           },
-                //           icon: Row(
-                //             children: [
-                //               CircleAvatar(
-                //                   backgroundColor: AppColors.APP_WHITE,
-                //                   radius: 15,
-                //                   child: Icon(
-                //                     FontAwesomeIcons.phoneAlt,
-                //                     color: AppColors.APP_BLUE,
-                //                     size: 12,
-                //                   )),
-                //               Text(
-                //                 '  Call',
-                //                 overflow: TextOverflow.ellipsis,
-                //                 softWrap: false,
-                //                 style: kSubtitleTextSyule1.copyWith(
-                //                     fontWeight: FontWeight.w500,
-                //                     height: 1.5,
-                //                     color: Colors.white,
-                //                     fontSize: 16),
-                //               ),
-                //             ],
-                //           )),
-                //     ),
-                //   ),
-                // ),
+                appointmentDetails.designation==null?Container():Text(
+                  appointmentDetails.designation??'',
+                  style: kSubtitleTextSyule1.copyWith(
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                      color: Colors.white,
+                      fontSize: 16),
+                ),
+                appointmentDetails.designation==null?Container():SizedBox(
+                  height: 4,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                      appointmentDetails.address??'',
+                        style: kSubtitleTextSyule1.copyWith(
+                            fontWeight: FontWeight.w500,
+                            height: 1.5,
+                            color: Colors.white,
+                            fontSize: 16),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    // Expanded(
+                    //   child: GestureDetector(
+                    //     onTap: () {
+                    //       CallsAndMessagesService.call(appointmentDetails.phone1
+                    //           .toString()
+                    //           .replaceAll(' ', ''));
+                    //     },
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.only(top: 4.0),
+                    //       child: IconButton(
+                    //           onPressed: () {
+                    //             CallsAndMessagesService.call(appointmentDetails
+                    //                 .phone1
+                    //                 .toString()
+                    //                 .replaceAll(' ', ''));
+                    //           },
+                    //           icon: Row(
+                    //             children: [
+                    //               CircleAvatar(
+                    //                   backgroundColor: AppColors.APP_WHITE,
+                    //                   radius: 15,
+                    //                   child: Icon(
+                    //                     FontAwesomeIcons.phoneAlt,
+                    //                     color: AppColors.APP_BLUE,
+                    //                     size: 12,
+                    //                   )),
+                    //               Text(
+                    //                 '  Call',
+                    //                 overflow: TextOverflow.ellipsis,
+                    //                 softWrap: false,
+                    //                 style: kSubtitleTextSyule1.copyWith(
+                    //                     fontWeight: FontWeight.w500,
+                    //                     height: 1.5,
+                    //                     color: Colors.white,
+                    //                     fontSize: 16),
+                    //               ),
+                    //             ],
+                    //           )),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
               ],
             ),
             trailing: InkWell(

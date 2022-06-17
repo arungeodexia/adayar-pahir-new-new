@@ -281,7 +281,7 @@ class EditProfileState extends State<EditProfileView> {
       fullNameInputController.addListener(() {
         //print("fullNameInputController value: ${fullNameInputController.text}");
         setState(() {
-          if (initFullNameVal != fullNameInputController.text.toString()) {
+          if (initFullNameVal != fullNameInputController.text.trim().toString()) {
             isFullNameChangeBtnState = true;
           } else {
             isFullNameChangeBtnState = false;
@@ -292,7 +292,7 @@ class EditProfileState extends State<EditProfileView> {
       cityInputController.addListener(() {
         print("cityInputController value: ${cityInputController.text}");
         setState(() {
-          if (initCityNameVal != cityInputController.text.toString()) {
+          if (initCityNameVal != cityInputController.text.trim().toString()) {
             isCityChangeBtnState = true;
           } else {
             isCityChangeBtnState = false;
@@ -302,7 +302,7 @@ class EditProfileState extends State<EditProfileView> {
       stateInputController.addListener(() {
         // print("stateInputController value: ${stateInputController.text}");
         setState(() {
-          if (initStateVal != stateInputController.text.toString()) {
+          if (initStateVal != stateInputController.text.trim().toString()) {
             isStateChangeBtnState = true;
           } else {
             isStateChangeBtnState = false;
@@ -314,7 +314,7 @@ class EditProfileState extends State<EditProfileView> {
         //print("alternateMobileInputController value: ${alternateMobileInputController.text}");
         setState(() {
           if (initAlterMobileVal !=
-              alternateMobileInputController.text.toString()) {
+              alternateMobileInputController.text.trim().toString()) {
             isAlterMobChangeBtnState = true;
           } else {
             isAlterMobChangeBtnState = false;
@@ -327,7 +327,7 @@ class EditProfileState extends State<EditProfileView> {
           //  var email = emailInputController.text.trim().toString();
           // bool isValidEmail = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
           //if(isValidEmail){
-          if (initEmailVal != emailInputController.text.toString()) {
+          if (initEmailVal != emailInputController.text.trim().toString()) {
             isEmailChangeBtnState = true;
           } else {
             isEmailChangeBtnState = false;

@@ -186,10 +186,12 @@ class AppMessagesViewState extends State<AppMessagesView> {
     String date = '';
     try {
       date = messageList.messages![index].sentDate.toString();
-
-      var arr = date.split('T');
-
-      date = arr[0];
+     var formattedDate = DateFormat(' MMMM d, yyyy').format(messageList.messages![index].sentDate!);
+      var month = DateFormat('h:mm a').format(messageList.messages![index].sentDate!).toUpperCase();
+      date = formattedDate + " at " + month;
+      // var arr = date.split('T');
+      //
+      // date = arr[0];
     } catch (e) {}
 
     return Slidable(
@@ -299,26 +301,23 @@ class AppMessagesViewState extends State<AppMessagesView> {
                         SizedBox(
                           height: 12.0,
                         ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              tr('received') + date,
-                              // '${(messageList.messages[index].messageBody.messageSent != null) ? messageList.messages[index].messageBody.messageSent : ""} From: ${(messageList.messages[index].messageBody.orgName != null) ? messageList.messages[index].messageBody.orgName.toUpperCase() : ""}',
-                              style:
-                              TextStyle(color: AppColors.APP_BLUE, fontSize: 12),
-                            ),
-                          ],
+                        Text(
+                          // /*tr('received') +*/ date,
+                          date,
+                          // '${(messageList.messages[index].messageBody.messageSent != null) ? messageList.messages[index].messageBody.messageSent : ""} From: ${(messageList.messages[index].messageBody.orgName != null) ? messageList.messages[index].messageBody.orgName.toUpperCase() : ""}',
+                          style:
+                          TextStyle(color: AppColors.APP_BLUE, fontSize: 16),
                         ),
                         SizedBox(
-                          height: 4.0,
+                          height: 10,
                         ),
                         Text(
                           messageList.messages![index].orgChannelName!,
                           // '${(messageList.messages[index].messageBody.messageSent != null) ? messageList.messages[index].messageBody.messageSent : ""} From: ${(messageList.messages[index].messageBody.orgName != null) ? messageList.messages[index].messageBody.orgName.toUpperCase() : ""}',
-                          style: TextStyle(color: AppColors.APP_BLUE, fontSize: 12),
+                          style: TextStyle(color: AppColors.APP_BLUE, fontSize: 16),
                         ),
                         SizedBox(
-                          height: 10.0,
+                          height: 15.0,
                         ),
                         Container(
                           height: 30,
@@ -332,149 +331,149 @@ class AppMessagesViewState extends State<AppMessagesView> {
                               )),
                           child: Row(
                             children: [
-                              messageList.messages![index].messageReaction!
-                                  .selectedReactionId! ==
-                                  0
-                                  ? GestureDetector(
-                                onTap: () async {
-                                  setState(() {
-                                    messageList
-                                        .messages![index]
-                                        .messageReaction!
-                                        .selectedReactionId = 1;
-                                    messageList
-                                        .messages![index]
-                                        .messageReaction!
-                                        .numberOfReactions![0]
-                                        .messageReactionCount =
-                                        messageList
-                                            .messages![index]
-                                            .messageReaction!
-                                            .numberOfReactions![0]
-                                            .messageReactionCount! +
-                                            1;
-                                  });
-                                  String response =
-                                  await resourceRepository.getlike(
-                                      messageList.messages![index]
-                                          .orgMemberId
-                                          .toString(),
-                                      messageList
-                                          .messages![index].messageId
-                                          .toString(),
-                                      "reaction",
-                                      messageList
-                                          .messages![index]
-                                          .messageReaction!
-                                          .numberOfReactions![0]
-                                          .messageReactionId
-                                          .toString());
-                                  print(response);
-                                },
-                                child: Row(
-                                  children: [
-                                    Image(
-                                      width: 25,
-                                      height: 25,
-                                      image: AssetImage(
-                                          "images/thumboutline.png"),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      messageList
-                                          .messages![index]
-                                          .messageReaction!
-                                          .numberOfReactions!
-                                          .length ==
-                                          0
-                                          ? "0"
-                                          : messageList
-                                          .messages![index]
-                                          .messageReaction!
-                                          .numberOfReactions![0]
-                                          .messageReactionCount
-                                          .toString(),
-                                      style:
-                                      TextStyle(color: AppColors.APP_BLUE),
-                                    )
-                                  ],
-                                ),
-                              )
-                                  : GestureDetector(
-                                onTap: () async {
-                                  setState(() {
-                                    messageList
-                                        .messages![index]
-                                        .messageReaction!
-                                        .selectedReactionId = 0;
-                                    messageList
-                                        .messages![index]
-                                        .messageReaction!
-                                        .numberOfReactions![0]
-                                        .messageReactionCount =
-                                        messageList
-                                            .messages![index]
-                                            .messageReaction!
-                                            .numberOfReactions![0]
-                                            .messageReactionCount! -
-                                            1;
-                                  });
-                                  String response =
-                                  await resourceRepository.getlike(
-                                      messageList.messages![index]
-                                          .orgMemberId
-                                          .toString(),
-                                      messageList
-                                          .messages![index].messageId
-                                          .toString(),
-                                      "unreaction",
-                                      messageList
-                                          .messages![index]
-                                          .messageReaction!
-                                          .numberOfReactions![0]
-                                          .messageReactionId
-                                          .toString());
-                                  print(response);
-                                },
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.thumb_up,
-                                      color: AppColors.APP_BLUE,
-                                      size: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      messageList
-                                          .messages![index]
-                                          .messageReaction!
-                                          .numberOfReactions!
-                                          .length ==
-                                          0
-                                          ? "0"
-                                          : messageList
-                                          .messages![index]
-                                          .messageReaction!
-                                          .numberOfReactions![0]
-                                          .messageReactionCount
-                                          .toString(),
-                                      style:
-                                      TextStyle(color: AppColors.APP_BLUE),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
+                              // messageList.messages![index].messageReaction!
+                              //     .selectedReactionId! ==
+                              //     0
+                              //     ? GestureDetector(
+                              //   onTap: () async {
+                              //     setState(() {
+                              //       messageList
+                              //           .messages![index]
+                              //           .messageReaction!
+                              //           .selectedReactionId = 1;
+                              //       messageList
+                              //           .messages![index]
+                              //           .messageReaction!
+                              //           .numberOfReactions![0]
+                              //           .messageReactionCount =
+                              //           messageList
+                              //               .messages![index]
+                              //               .messageReaction!
+                              //               .numberOfReactions![0]
+                              //               .messageReactionCount! +
+                              //               1;
+                              //     });
+                              //     String response =
+                              //     await resourceRepository.getlike(
+                              //         messageList.messages![index]
+                              //             .orgMemberId
+                              //             .toString(),
+                              //         messageList
+                              //             .messages![index].messageId
+                              //             .toString(),
+                              //         "reaction",
+                              //         messageList
+                              //             .messages![index]
+                              //             .messageReaction!
+                              //             .numberOfReactions![0]
+                              //             .messageReactionId
+                              //             .toString());
+                              //     print(response);
+                              //   },
+                              //   child: Row(
+                              //     children: [
+                              //       Image(
+                              //         width: 25,
+                              //         height: 25,
+                              //         image: AssetImage(
+                              //             "images/thumboutline.png"),
+                              //       ),
+                              //       SizedBox(
+                              //         width: 10,
+                              //       ),
+                              //       Text(
+                              //         messageList
+                              //             .messages![index]
+                              //             .messageReaction!
+                              //             .numberOfReactions!
+                              //             .length ==
+                              //             0
+                              //             ? "0"
+                              //             : messageList
+                              //             .messages![index]
+                              //             .messageReaction!
+                              //             .numberOfReactions![0]
+                              //             .messageReactionCount
+                              //             .toString(),
+                              //         style:
+                              //         TextStyle(color: AppColors.APP_BLUE),
+                              //       )
+                              //     ],
+                              //   ),
+                              // )
+                              //     : GestureDetector(
+                              //   onTap: () async {
+                              //     setState(() {
+                              //       messageList
+                              //           .messages![index]
+                              //           .messageReaction!
+                              //           .selectedReactionId = 0;
+                              //       messageList
+                              //           .messages![index]
+                              //           .messageReaction!
+                              //           .numberOfReactions![0]
+                              //           .messageReactionCount =
+                              //           messageList
+                              //               .messages![index]
+                              //               .messageReaction!
+                              //               .numberOfReactions![0]
+                              //               .messageReactionCount! -
+                              //               1;
+                              //     });
+                              //     String response =
+                              //     await resourceRepository.getlike(
+                              //         messageList.messages![index]
+                              //             .orgMemberId
+                              //             .toString(),
+                              //         messageList
+                              //             .messages![index].messageId
+                              //             .toString(),
+                              //         "unreaction",
+                              //         messageList
+                              //             .messages![index]
+                              //             .messageReaction!
+                              //             .numberOfReactions![0]
+                              //             .messageReactionId
+                              //             .toString());
+                              //     print(response);
+                              //   },
+                              //   child: Row(
+                              //     mainAxisAlignment:
+                              //     MainAxisAlignment.center,
+                              //     crossAxisAlignment:
+                              //     CrossAxisAlignment.center,
+                              //     children: [
+                              //       Icon(
+                              //         Icons.thumb_up,
+                              //         color: AppColors.APP_BLUE,
+                              //         size: 20,
+                              //       ),
+                              //       SizedBox(
+                              //         width: 10,
+                              //       ),
+                              //       Text(
+                              //         messageList
+                              //             .messages![index]
+                              //             .messageReaction!
+                              //             .numberOfReactions!
+                              //             .length ==
+                              //             0
+                              //             ? "0"
+                              //             : messageList
+                              //             .messages![index]
+                              //             .messageReaction!
+                              //             .numberOfReactions![0]
+                              //             .messageReactionCount
+                              //             .toString(),
+                              //         style:
+                              //         TextStyle(color: AppColors.APP_BLUE),
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   width: 20,
+                              // ),
                               GestureDetector(
                                 onTap: () async {
                                   if(messageList.messages![index].messageBody!.contentType ==
@@ -511,15 +510,16 @@ ${messageList.messages![index].messageBody!.contentUri!.toString()}
                                     Icon(
                                       Icons.share,
                                       color: AppColors.APP_BLUE,
-                                      size: 20,
+                                      size: 25,
                                     ),
                                     SizedBox(
                                       width: 5.0,
                                     ),
                                     Text(
                                       'Share',
-                                      style: TextStyle(
-                                          color: AppColors.APP_BLUE, fontSize: 15),
+                                      style: ktextstyle.copyWith(
+
+                                          color: AppColors.APP_BLUE, fontSize: 16),
                                     ),
                                   ],
                                 ),
