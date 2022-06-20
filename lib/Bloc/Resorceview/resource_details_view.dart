@@ -587,11 +587,11 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                 ),
                 resourceDetail.displayPhoneNumber!.toString()=="false"
                     ? Container(): Text(
-                  "${(resourceDetail.countryCode == null && resourceDetail.mobile == null) ? "" : " Mobile : ${resourceDetail.countryCode.toString()}" " ${resourceDetail.mobile.toString()}"}",
+                  "${(resourceDetail.countryCode == null && resourceDetail.mobile == null) ? "" : " ${tr('phone')} : ${resourceDetail.countryCode.toString()}" " ${resourceDetail.mobile.toString()}"}",
                   style: TextStyle(
                       color: AppColors.APP_BLACK_10,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20),
                 ),
                 SizedBox(
                   height: 7,
@@ -601,7 +601,7 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                       padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
                       child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -811,17 +811,19 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
 
   Future<void> contactOptions(
       String contactType, ResourceResults resourceDetail) async {
-    // print("contact Options gridTitleContentList[0] :==>" +
-    //     gridTitleContentList[0]);
+    String number=resourceDetail.countryCode.toString()+resourceDetail.mobile.toString();
+    number=number.replaceAll(' ', '');
+    // print("contact Options resourceDetail.mobile :==>" +
+    //     resourceDetail.mobile);
     // print("contact Options gridTitleContentList[1] :==>" +
     //     gridTitleContentList[1]);
     if (contactType == "phone") {
-      if (gridTitleContentList[0] != null && gridTitleContentList[0] != "") {
-        CallsAndMessagesService.call(gridTitleContentList[0].toString().replaceAll(' ', ''));
+      if (resourceDetail.mobile != null && resourceDetail.mobile != "") {
+        CallsAndMessagesService.call(number);
       }
     } else if (contactType == "whatsApp") {
-      if (gridTitleContentList[0] != null && gridTitleContentList[0] != "") {
-        whatsAppOpen(gridTitleContentList[0].toString().replaceAll(' ', ''), "",
+      if (resourceDetail.mobile != null && resourceDetail.mobile != "") {
+        whatsAppOpen(number, "",
             context);
       }
     } else if (contactType == "chat") {
@@ -843,20 +845,20 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
       //             peergcm: '0',
       //             userid: '0')));
     } else if (contactType == "mail") {
-      if (gridTitleContentList[1] != null && gridTitleContentList[1] != "")
+      if (resourceDetail.email != null && resourceDetail.email != "")
 
 
         try{
-          CallsAndMessagesService.sendEmail(gridTitleContentList[1]);
+          CallsAndMessagesService.sendEmail(resourceDetail.email??'');
         }on PlatformException catch (err) {
           Fluttertoast.showToast(msg: err.toString());
         }catch(_){
            Fluttertoast.showToast(msg: _.toString());
         }
     } else if (contactType == "sms") {
-      if (gridTitleContentList[0] != null && gridTitleContentList[0] != "") {
+      if (resourceDetail.mobile != null && resourceDetail.mobile != "") {
         CallsAndMessagesService
-            .sendSms(gridTitleContentList[0].toString().replaceAll(' ', ''));
+            .sendSms(number);
       }
     } else if (contactType == "calendar") {
       String userName;
