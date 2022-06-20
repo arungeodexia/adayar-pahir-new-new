@@ -659,13 +659,13 @@ class _MydashboardState extends State<Mydashboard> {
       // if (globalISPNPageOpened) Navigator.of(context).pop();
 
       if (contentType == "pdf") {
-        msgData = orgChannelName + "  has sent a PDF. Do you want to open?  ";
+        msgData = orgChannelName + " has sent a PDF. Do you want to open?  ";
       } else if (contentType == "video") {
-        msgData = orgChannelName + "  has sent a video. Do you want to open?  ";
+        msgData = orgChannelName + " has sent a video. Do you want to open?  ";
       } else if (contentType == "url") {
-        msgData = orgChannelName + "  has sent a url. Do you want to open?  ";
+        msgData = orgChannelName + " has sent a url. Do you want to open?  ";
       } else if (contentType == "image") {
-        msgData = orgChannelName + "  has sent a image. Do you want to open?  ";
+        msgData = orgChannelName + " has sent a image. Do you want to open?  ";
       } else {}
 
       CoolAlert.show(

@@ -308,225 +308,225 @@ class AppMessagesViewState extends State<AppMessagesView> {
                           style:
                           TextStyle(color: AppColors.APP_BLUE, fontSize: 16),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          messageList.messages![index].orgChannelName!,
-                          // '${(messageList.messages[index].messageBody.messageSent != null) ? messageList.messages[index].messageBody.messageSent : ""} From: ${(messageList.messages[index].messageBody.orgName != null) ? messageList.messages[index].messageBody.orgName.toUpperCase() : ""}',
-                          style: TextStyle(color: AppColors.APP_BLUE, fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        Container(
-                          height: 30,
-                          decoration: new BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: new BorderRadius.only(
-                                topLeft: const Radius.circular(10.0),
-                                topRight: const Radius.circular(10.0),
-                                bottomLeft: const Radius.circular(10.0),
-                                bottomRight: const Radius.circular(10.0),
-                              )),
-                          child: Row(
-                            children: [
-                              // messageList.messages![index].messageReaction!
-                              //     .selectedReactionId! ==
-                              //     0
-                              //     ? GestureDetector(
-                              //   onTap: () async {
-                              //     setState(() {
-                              //       messageList
-                              //           .messages![index]
-                              //           .messageReaction!
-                              //           .selectedReactionId = 1;
-                              //       messageList
-                              //           .messages![index]
-                              //           .messageReaction!
-                              //           .numberOfReactions![0]
-                              //           .messageReactionCount =
-                              //           messageList
-                              //               .messages![index]
-                              //               .messageReaction!
-                              //               .numberOfReactions![0]
-                              //               .messageReactionCount! +
-                              //               1;
-                              //     });
-                              //     String response =
-                              //     await resourceRepository.getlike(
-                              //         messageList.messages![index]
-                              //             .orgMemberId
-                              //             .toString(),
-                              //         messageList
-                              //             .messages![index].messageId
-                              //             .toString(),
-                              //         "reaction",
-                              //         messageList
-                              //             .messages![index]
-                              //             .messageReaction!
-                              //             .numberOfReactions![0]
-                              //             .messageReactionId
-                              //             .toString());
-                              //     print(response);
-                              //   },
-                              //   child: Row(
-                              //     children: [
-                              //       Image(
-                              //         width: 25,
-                              //         height: 25,
-                              //         image: AssetImage(
-                              //             "images/thumboutline.png"),
-                              //       ),
-                              //       SizedBox(
-                              //         width: 10,
-                              //       ),
-                              //       Text(
-                              //         messageList
-                              //             .messages![index]
-                              //             .messageReaction!
-                              //             .numberOfReactions!
-                              //             .length ==
-                              //             0
-                              //             ? "0"
-                              //             : messageList
-                              //             .messages![index]
-                              //             .messageReaction!
-                              //             .numberOfReactions![0]
-                              //             .messageReactionCount
-                              //             .toString(),
-                              //         style:
-                              //         TextStyle(color: AppColors.APP_BLUE),
-                              //       )
-                              //     ],
-                              //   ),
-                              // )
-                              //     : GestureDetector(
-                              //   onTap: () async {
-                              //     setState(() {
-                              //       messageList
-                              //           .messages![index]
-                              //           .messageReaction!
-                              //           .selectedReactionId = 0;
-                              //       messageList
-                              //           .messages![index]
-                              //           .messageReaction!
-                              //           .numberOfReactions![0]
-                              //           .messageReactionCount =
-                              //           messageList
-                              //               .messages![index]
-                              //               .messageReaction!
-                              //               .numberOfReactions![0]
-                              //               .messageReactionCount! -
-                              //               1;
-                              //     });
-                              //     String response =
-                              //     await resourceRepository.getlike(
-                              //         messageList.messages![index]
-                              //             .orgMemberId
-                              //             .toString(),
-                              //         messageList
-                              //             .messages![index].messageId
-                              //             .toString(),
-                              //         "unreaction",
-                              //         messageList
-                              //             .messages![index]
-                              //             .messageReaction!
-                              //             .numberOfReactions![0]
-                              //             .messageReactionId
-                              //             .toString());
-                              //     print(response);
-                              //   },
-                              //   child: Row(
-                              //     mainAxisAlignment:
-                              //     MainAxisAlignment.center,
-                              //     crossAxisAlignment:
-                              //     CrossAxisAlignment.center,
-                              //     children: [
-                              //       Icon(
-                              //         Icons.thumb_up,
-                              //         color: AppColors.APP_BLUE,
-                              //         size: 20,
-                              //       ),
-                              //       SizedBox(
-                              //         width: 10,
-                              //       ),
-                              //       Text(
-                              //         messageList
-                              //             .messages![index]
-                              //             .messageReaction!
-                              //             .numberOfReactions!
-                              //             .length ==
-                              //             0
-                              //             ? "0"
-                              //             : messageList
-                              //             .messages![index]
-                              //             .messageReaction!
-                              //             .numberOfReactions![0]
-                              //             .messageReactionCount
-                              //             .toString(),
-                              //         style:
-                              //         TextStyle(color: AppColors.APP_BLUE),
-                              //       )
-                              //     ],
-                              //   ),
-                              // ),
-                              // SizedBox(
-                              //   width: 20,
-                              // ),
-                              GestureDetector(
-                                onTap: () async {
-                                  if(messageList.messages![index].messageBody!.contentType ==
-                                      "plain"){
-                                    String share = ''' 
-${messageList.messages![index].messageTitle}
-
-''';
-
-                                    Share.share(share);
-                                  }else{
-                                    String share = ''' 
-${messageList.messages![index].messageTitle}
-
-${messageList.messages![index].messageBody!.contentUri!.toString()}
-''';
-
-                                    Share.share(share);
-                                  }
-
-                                  String response =
-                                  await resourceRepository.shareApi(
-                                      messageList
-                                          .messages![index].orgMemberId
-                                          .toString(),
-                                      messageList.messages![index].messageId
-                                          .toString(),
-                                      "share",
-                                      "1");
-                                  print(response);
-                                },
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.share,
-                                      color: AppColors.APP_BLUE,
-                                      size: 25,
-                                    ),
-                                    SizedBox(
-                                      width: 5.0,
-                                    ),
-                                    Text(
-                                      'Share',
-                                      style: ktextstyle.copyWith(
-
-                                          color: AppColors.APP_BLUE, fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                        // SizedBox(
+                        //   height: 10,
+                        // ),
+                        // Text(
+                        //   messageList.messages![index].orgChannelName!,
+                        //   // '${(messageList.messages[index].messageBody.messageSent != null) ? messageList.messages[index].messageBody.messageSent : ""} From: ${(messageList.messages[index].messageBody.orgName != null) ? messageList.messages[index].messageBody.orgName.toUpperCase() : ""}',
+                        //   style: TextStyle(color: AppColors.APP_BLUE, fontSize: 16),
+                        // ),
+                        // SizedBox(
+                        //   height: 15.0,
+                        // ),
+//                         Container(
+//                           height: 30,
+//                           decoration: new BoxDecoration(
+//                               color: Colors.transparent,
+//                               borderRadius: new BorderRadius.only(
+//                                 topLeft: const Radius.circular(10.0),
+//                                 topRight: const Radius.circular(10.0),
+//                                 bottomLeft: const Radius.circular(10.0),
+//                                 bottomRight: const Radius.circular(10.0),
+//                               )),
+//                           child: Row(
+//                             children: [
+//                               // messageList.messages![index].messageReaction!
+//                               //     .selectedReactionId! ==
+//                               //     0
+//                               //     ? GestureDetector(
+//                               //   onTap: () async {
+//                               //     setState(() {
+//                               //       messageList
+//                               //           .messages![index]
+//                               //           .messageReaction!
+//                               //           .selectedReactionId = 1;
+//                               //       messageList
+//                               //           .messages![index]
+//                               //           .messageReaction!
+//                               //           .numberOfReactions![0]
+//                               //           .messageReactionCount =
+//                               //           messageList
+//                               //               .messages![index]
+//                               //               .messageReaction!
+//                               //               .numberOfReactions![0]
+//                               //               .messageReactionCount! +
+//                               //               1;
+//                               //     });
+//                               //     String response =
+//                               //     await resourceRepository.getlike(
+//                               //         messageList.messages![index]
+//                               //             .orgMemberId
+//                               //             .toString(),
+//                               //         messageList
+//                               //             .messages![index].messageId
+//                               //             .toString(),
+//                               //         "reaction",
+//                               //         messageList
+//                               //             .messages![index]
+//                               //             .messageReaction!
+//                               //             .numberOfReactions![0]
+//                               //             .messageReactionId
+//                               //             .toString());
+//                               //     print(response);
+//                               //   },
+//                               //   child: Row(
+//                               //     children: [
+//                               //       Image(
+//                               //         width: 25,
+//                               //         height: 25,
+//                               //         image: AssetImage(
+//                               //             "images/thumboutline.png"),
+//                               //       ),
+//                               //       SizedBox(
+//                               //         width: 10,
+//                               //       ),
+//                               //       Text(
+//                               //         messageList
+//                               //             .messages![index]
+//                               //             .messageReaction!
+//                               //             .numberOfReactions!
+//                               //             .length ==
+//                               //             0
+//                               //             ? "0"
+//                               //             : messageList
+//                               //             .messages![index]
+//                               //             .messageReaction!
+//                               //             .numberOfReactions![0]
+//                               //             .messageReactionCount
+//                               //             .toString(),
+//                               //         style:
+//                               //         TextStyle(color: AppColors.APP_BLUE),
+//                               //       )
+//                               //     ],
+//                               //   ),
+//                               // )
+//                               //     : GestureDetector(
+//                               //   onTap: () async {
+//                               //     setState(() {
+//                               //       messageList
+//                               //           .messages![index]
+//                               //           .messageReaction!
+//                               //           .selectedReactionId = 0;
+//                               //       messageList
+//                               //           .messages![index]
+//                               //           .messageReaction!
+//                               //           .numberOfReactions![0]
+//                               //           .messageReactionCount =
+//                               //           messageList
+//                               //               .messages![index]
+//                               //               .messageReaction!
+//                               //               .numberOfReactions![0]
+//                               //               .messageReactionCount! -
+//                               //               1;
+//                               //     });
+//                               //     String response =
+//                               //     await resourceRepository.getlike(
+//                               //         messageList.messages![index]
+//                               //             .orgMemberId
+//                               //             .toString(),
+//                               //         messageList
+//                               //             .messages![index].messageId
+//                               //             .toString(),
+//                               //         "unreaction",
+//                               //         messageList
+//                               //             .messages![index]
+//                               //             .messageReaction!
+//                               //             .numberOfReactions![0]
+//                               //             .messageReactionId
+//                               //             .toString());
+//                               //     print(response);
+//                               //   },
+//                               //   child: Row(
+//                               //     mainAxisAlignment:
+//                               //     MainAxisAlignment.center,
+//                               //     crossAxisAlignment:
+//                               //     CrossAxisAlignment.center,
+//                               //     children: [
+//                               //       Icon(
+//                               //         Icons.thumb_up,
+//                               //         color: AppColors.APP_BLUE,
+//                               //         size: 20,
+//                               //       ),
+//                               //       SizedBox(
+//                               //         width: 10,
+//                               //       ),
+//                               //       Text(
+//                               //         messageList
+//                               //             .messages![index]
+//                               //             .messageReaction!
+//                               //             .numberOfReactions!
+//                               //             .length ==
+//                               //             0
+//                               //             ? "0"
+//                               //             : messageList
+//                               //             .messages![index]
+//                               //             .messageReaction!
+//                               //             .numberOfReactions![0]
+//                               //             .messageReactionCount
+//                               //             .toString(),
+//                               //         style:
+//                               //         TextStyle(color: AppColors.APP_BLUE),
+//                               //       )
+//                               //     ],
+//                               //   ),
+//                               // ),
+//                               // SizedBox(
+//                               //   width: 20,
+//                               // ),
+// //                               GestureDetector(
+// //                                 onTap: () async {
+// //                                   if(messageList.messages![index].messageBody!.contentType ==
+// //                                       "plain"){
+// //                                     String share = '''
+// // ${messageList.messages![index].messageTitle}
+// //
+// // ''';
+// //
+// //                                     Share.share(share);
+// //                                   }else{
+// //                                     String share = '''
+// // ${messageList.messages![index].messageTitle}
+// //
+// // ${messageList.messages![index].messageBody!.contentUri!.toString()}
+// // ''';
+// //
+// //                                     Share.share(share);
+// //                                   }
+// //
+// //                                   String response =
+// //                                   await resourceRepository.shareApi(
+// //                                       messageList
+// //                                           .messages![index].orgMemberId
+// //                                           .toString(),
+// //                                       messageList.messages![index].messageId
+// //                                           .toString(),
+// //                                       "share",
+// //                                       "1");
+// //                                   print(response);
+// //                                 },
+// //                                 child: Row(
+// //                                   children: [
+// //                                     Icon(
+// //                                       Icons.share,
+// //                                       color: AppColors.APP_BLUE,
+// //                                       size: 25,
+// //                                     ),
+// //                                     SizedBox(
+// //                                       width: 5.0,
+// //                                     ),
+// //                                     Text(
+// //                                       'Share',
+// //                                       style: ktextstyle.copyWith(
+// //
+// //                                           color: AppColors.APP_BLUE, fontSize: 16),
+// //                                     ),
+// //                                   ],
+// //                                 ),
+// //                               )
+//                             ],
+//                           ),
+//                         ),
                       ],
                     )),
                 SizedBox(

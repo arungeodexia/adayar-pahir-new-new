@@ -601,7 +601,7 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
                       padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
                       child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
