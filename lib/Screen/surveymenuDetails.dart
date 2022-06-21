@@ -677,7 +677,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                                 setState(() {
                                                                                   isFullNameChangeBtnState=false;
                                                                                 });
-                                                                              }
+                                                                               }
 
 
                                                                             },
