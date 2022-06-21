@@ -694,21 +694,20 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
       child: Column(
         children: <Widget>[
           ListTile(
-
-            leading: GestureDetector(
-              child: Container(
-                child: CircleAvatar(
-                    radius: 30.0,
-                    backgroundColor: AppColors.APP_LIGHT_BLUE,
-                    backgroundImage: appointmentDetails.picture.toString() !=
-                                "null" &&
-                            appointmentDetails.picture != ""
-                        ? NetworkImage(appointmentDetails.picture.toString())
-                        : AssetImage("images/photo_avatar.png")
-                            as ImageProvider),
-              ),
-              onTap: () {},
-            ),
+            // leading: GestureDetector(
+            //   child: Container(
+            //     child: CircleAvatar(
+            //         radius: 30.0,
+            //         backgroundColor: AppColors.APP_LIGHT_BLUE,
+            //         backgroundImage: appointmentDetails.picture.toString() !=
+            //                     "null" &&
+            //                 appointmentDetails.picture != ""
+            //             ? NetworkImage(appointmentDetails.picture.toString())
+            //             : AssetImage("images/photo_avatar.png")
+            //                 as ImageProvider),
+            //   ),
+            //   onTap: () {},
+            // ),
             title: Text(
               appointmentDetails.name??'',
               style: kSubtitleTextSyule1.copyWith(
@@ -733,6 +732,17 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                       fontSize: 16),
                 ),
                 appointmentDetails.designation==null?Container():SizedBox(
+                  height: 4,
+                ),
+                appointmentDetails.institute==null?Container():Text(
+                  appointmentDetails.institute??'',
+                  style: kSubtitleTextSyule1.copyWith(
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                      color: Colors.white,
+                      fontSize: 16),
+                ),
+                appointmentDetails.institute==null?Container():SizedBox(
                   height: 4,
                 ),
                 Row(
@@ -797,9 +807,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
             ),
             trailing: InkWell(
               onTap: (){
-                CallsAndMessagesService.call(appointmentDetails.phone1
-                              .toString()
-                              .replaceAll(' ', ''));
+                CallsAndMessagesService.call(appointmentDetails.defaultContact.toString().replaceAll(' ', ''));
               },
               child: CircleAvatar(
                 backgroundColor: Colors.white,
@@ -807,7 +815,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                 child : Icon(
                           FontAwesomeIcons.phoneAlt,
                           color: AppColors.APP_BLUE,
-                          size: 15,
+                          size: 25,
                         ),
               ),
             ),
@@ -986,7 +994,7 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                 child : Icon(
                   FontAwesomeIcons.phoneAlt,
                   color: AppColors.APP_BLUE,
-                  size: 15,
+                  size: 25,
                 ),
               ),
             ),

@@ -415,8 +415,7 @@ class EditProfileState extends State<EditProfileView> {
                 stream: appBloc.titleStream,
                 initialData: tr("profilesettings"),
                 builder: (context, snapshot) {
-                  return Text(snapshot.data.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold));
+                  return Text(snapshot.data.toString(),);
                 }),
             centerTitle: true,
             automaticallyImplyLeading: true,

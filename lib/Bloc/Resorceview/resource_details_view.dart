@@ -846,8 +846,6 @@ class ResourceDetailsState extends State<ResourceDetailsView> {
       //             userid: '0')));
     } else if (contactType == "mail") {
       if (resourceDetail.email != null && resourceDetail.email != "")
-
-
         try{
           CallsAndMessagesService.sendEmail(resourceDetail.email??'');
         }on PlatformException catch (err) {

@@ -369,20 +369,20 @@ static const String isRedirectFromHomeOrFav = "homPageorFav";
 
   static const String APP_HELP_TITLE = "Help";
 
-  static const String APP_HELP_SUB_TITLE_ONE = "What does ACI do?";
-  static const String APP_HELP_SUB_CONTENT_ONE = "ACI helps friends and families share information about their resources, selectively and instantly. Once you installed and registered the mobile application you will start seeing the resources that your friends and families share with you.";
+  static const String APP_HELP_SUB_TITLE_ONE = "What does ACI Mobile App do?";
+  static const String APP_HELP_SUB_CONTENT_ONE = "Adyar Cancer Institute (ACI) mobile application enables care providers to share valuable treatment informations including videos, documents and other instructions on time. Your care providers will be able to collect important health activities, food intakes and other side effect through simple surveys to help assess your health condition and adjust treatments.";
 
-  static const String APP_HELP_SUB_TITLE_TWO = "How do I find resources?";
-  static const String APP_HELP_SUB_CONTENT_TWO = "Once registered you will be taken to the home page where there is an option to enter what you are looking for. You can search for resource by skill or by name. For example \"Carpenter\" will get the list of all carpenters that your close networks recommend to you. Searching for \"Joe\" will get the list of resources with \"joe\" appearing anywhere in their name, and recommended by your friends and families.";
+  static const String APP_HELP_SUB_TITLE_TWO = "How do my Care Team share information's?";
+  static const String APP_HELP_SUB_CONTENT_TWO = "Your Care Team of Doctors will periodically share instructional videos and other documents directly through this mobile application. You will be notified as soon as an instructional material is shared with you.";
 
-  static const String APP_HELP_SUB_TITLE_THREE = "How do I recommend resources that I used?";
-  static const String APP_HELP_SUB_CONTENT_THREE = "Press the \"+\" icon at the top right corner of your mobile application home page. You can either enter a totally new resource or you can click the \"add from my contacts\" to add one from your phonebook list.";
+  static const String APP_HELP_SUB_TITLE_THREE = "How do I send my health conditions and treatment follow ups to my Doctors?";
+  static const String APP_HELP_SUB_CONTENT_THREE = "Your Doctor will send a set of simple questions through the mobile application. By simply answering those questions your Doctor will know your activities such as daily physical exercises and food intakes.";
 
-  static const String APP_HELP_SUB_TITLE_FOUR = "How do I contact the resource?";
-  static const String APP_HELP_SUB_CONTENT_FOUR = "Tap the resource to get their details. Here you will have options to call, text, email or whatsapp them directly.";
+  static const String APP_HELP_SUB_TITLE_FOUR = "What if I forgot to send the feedback?";
+  static const String APP_HELP_SUB_CONTENT_FOUR = "The system will send reminders to fill and submit the treatment followup questions.";
 
-  static const String APP_HELP_SUB_TITLE_FIVE = "Can I find who recommended the resource?";
-  static const String APP_HELP_SUB_CONTENT_FIVE = "Yes, of course. In the resource details page tap the \"shared by\" link to get the list of your contacts who referred that particular resource along with their rating for that resource.";
+  static const String APP_HELP_SUB_TITLE_FIVE = "";
+  static const String APP_HELP_SUB_CONTENT_FIVE = "";
   static const String TITLE = "Title";
   static const String DESC = "Description";
   static const String CHANNEL = "Channel";

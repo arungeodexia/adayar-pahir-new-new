@@ -43,6 +43,7 @@ class _WebViewExampleState extends State<WebViewExample> {
     globalcontext = context;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title:  Text(tr("privacysecurity")),
         actions: [
         ],
