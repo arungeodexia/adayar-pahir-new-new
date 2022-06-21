@@ -650,6 +650,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                             ? TextInputType.name
                                                                             : TextInputType.number,
                                                                             inputFormatters:[
+                                                                              surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
+                                                                                  "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?FilteringTextInputFormatter.allow(RegExp("[0-9a-zA-Z]")):FilteringTextInputFormatter.allow(RegExp("[0-9]")),
                                                                               LengthLimitingTextInputFormatter(surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
                                                                                   "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?300:3),
                                                                             ],
