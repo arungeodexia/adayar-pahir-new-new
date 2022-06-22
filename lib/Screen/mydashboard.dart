@@ -108,10 +108,11 @@ class _MydashboardState extends State<Mydashboard> {
       return tr("home");
     } else if (currentIndex == 1){
       return tr("careteam");
-    }
-    else if (currentIndex == 2){
+    } else if (currentIndex == 2){
       return tr("messages");
-    }else{
+    } else if (currentIndex == 3){
+      return tr("chat");
+    } else {
       return tr("home");
     }
     
@@ -553,11 +554,25 @@ class _MydashboardState extends State<Mydashboard> {
               //   style: TextStyle(color: AppColors.APP_BLUE),
               // ),
             ),
-
+            BottomNavigationBarItem(
+              icon: new Icon(
+                Icons.mail,
+                color: AppColors.APP_LIGHT_GREY,
+              ),
+              activeIcon: new Icon(
+                Icons.mail,
+                color: AppColors.APP_BLUE,
+              ),
+              label: tr("messages"),
+              // title: new Text(
+              //   tr("careteam"),
+              //   style: TextStyle(color: AppColors.APP_BLUE),
+              // ),
+            ),
             BottomNavigationBarItem(
               icon: unreads == '1'
                   ? new Stack(children: <Widget>[
-                      new Icon(Icons.message),
+                      new Icon(Icons.chat),
                       new Positioned(
                         // draw a red marble
                         top: 0.0,
@@ -585,7 +600,7 @@ class _MydashboardState extends State<Mydashboard> {
                       Icons.message,
                       color: AppColors.APP_BLUE,
                     ),
-                label:tr('messages')
+                label:tr('chat')
               // title: new Text(tr('messages'), style: TextStyle(color: AppColors.APP_BLUE)),
             ),
             // BottomNavigationBarItem(
@@ -624,6 +639,7 @@ class _MydashboardState extends State<Mydashboard> {
     DashboardThreePage(),
     Careteam(),
     AppMessagesView(),
+    ChatList(globalPhoneNo,"name"),
     // FavouritesPage(),
   ];
 

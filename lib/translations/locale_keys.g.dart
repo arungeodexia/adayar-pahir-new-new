@@ -71,5 +71,6 @@ abstract class  LocaleKeys {
   static const otpverified = 'otpverified';
   static const next = 'next';
   static const phone = 'phone';
+  static const chat = 'chat';
 
 }

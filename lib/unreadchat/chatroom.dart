@@ -316,13 +316,20 @@ class _ChatRoomState extends State<ChatRoom> {
                           type: CoolAlertType.confirm,
                           text: "Do you want to Delete This Chat?",
                           title: "Delete Chat",
-                          onConfirmBtnTap: (){
+                          onConfirmBtnTap: () async{
 
                             print(widget.chatID);
-                            FirebaseFirestore.instance.collection('chatroom').doc(widget.chatID).collection(widget.chatID).get().then((snapshot) {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await FirebaseFirestore.instance.collection('chatroom').doc(widget.chatID).collection(widget.chatID).get().then((snapshot) {
                               for (DocumentSnapshot ds in snapshot.docs) {
                                 ds.reference.delete();
                               }
+                            });
+                            await FirebaseFirestore.instance.collection('users').doc(globalPhoneNo).collection('chatlist').doc(widget.chatID).delete();
+                            setState(() {
+                              isLoading = false;
                             });
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();

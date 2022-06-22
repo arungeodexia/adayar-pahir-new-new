@@ -85,7 +85,8 @@ class CodegenLoader extends AssetLoader{
   "otpverified": "OTP சரிபார்க்கப்பட்டது",
   "next": "அடுத்து",
   "continue": "தொடரவும்",
-  "phone": "தொலைபேசி"
+  "phone": "தொலைபேசி",
+  "chat": "அரட்டை"
 };
 static const Map<String,dynamic> en = {
   "app_name": "Adyar Cancer Institute",
@@ -224,7 +225,8 @@ static const Map<String,dynamic> en = {
   "otpverified": "OTP Verified",
   "next": "Next",
   "continue": "Continue",
-  "phone": "Phone"
+  "phone": "Phone",
+  "chat": "Chat"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ta": ta, "en": en};
 }
