@@ -185,6 +185,7 @@ class _MydashboardState extends State<Mydashboard> {
         print(resourceDetailsResponse['profilePicture']);
         userImage = resourceDetailsResponse['profilePicture'];
       });
+      selectedUserName=selectedUserName.toString().replaceAll("+", " ");
 
       FirebaseController.instanace
           .saveUserDataToFirebaseDatabase(randomIdWithName(selectedUserID),

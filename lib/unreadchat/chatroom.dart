@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -83,6 +84,7 @@ class _ChatRoomState extends State<ChatRoom> {
   String fileName = "";
   File? imageFile;
   bool? isLoading;
+  bool isDelete=false;
   bool isShowSticker=false;
   String? imageUrl;
   final FocusNode focusNode = FocusNode();
@@ -170,7 +172,7 @@ class _ChatRoomState extends State<ChatRoom> {
               CropAspectRatioPreset.ratio16x9
             ],
             androidUiSettings: AndroidUiSettings(
-                toolbarTitle: 'ClariTea Chat',
+                toolbarTitle: tr('chat'),
                 toolbarColor: AppColors.APP_BLUE,
                 toolbarWidgetColor: Colors.white,
                 initAspectRatio: CropAspectRatioPreset.original,
@@ -241,6 +243,15 @@ class _ChatRoomState extends State<ChatRoom> {
     setCurrentChatRoomID(widget.chatID);
     FirebaseController.instanace.getUnreadMSGCount();
     _chatListController.addListener(_scrollListener);
+    Future.delayed(const Duration(milliseconds: 500), () {
+
+// Here you can write your code
+
+      setState(() {
+        // Here you can write your code for open new view
+      });
+
+    });
     super.initState();
   }
 
@@ -302,7 +313,7 @@ class _ChatRoomState extends State<ChatRoom> {
             appBar: AppBar(
               actions: [
 
-                Container(
+                isDelete?Container(
                   width: 35,
                   height: 35,
                   margin: EdgeInsets.only(right: 10),
@@ -322,12 +333,12 @@ class _ChatRoomState extends State<ChatRoom> {
                             setState(() {
                               isLoading = true;
                             });
-                            await FirebaseFirestore.instance.collection('chatroom').doc(widget.chatID).collection(widget.chatID).get().then((snapshot) {
+                            FirebaseFirestore.instance.collection('users').doc(globalPhoneNo).collection('chatlist').doc(widget.chatID).delete();
+                            FirebaseFirestore.instance.collection('chatroom').doc(widget.chatID).collection(widget.chatID).get().then((snapshot) {
                               for (DocumentSnapshot ds in snapshot.docs) {
                                 ds.reference.delete();
                               }
                             });
-                            await FirebaseFirestore.instance.collection('users').doc(globalPhoneNo).collection('chatlist').doc(widget.chatID).delete();
                             setState(() {
                               isLoading = false;
                             });
@@ -348,7 +359,7 @@ class _ChatRoomState extends State<ChatRoom> {
                     },
                     child: Icon(Icons.delete,color: Colors.white,),
                   ),
-                )
+                ):Container()
                 // createEditProfileModel == null
                 //     ? Container()
                 //     : Padding(
@@ -450,6 +461,7 @@ class _ChatRoomState extends State<ChatRoom> {
                     if (!snapshot.hasData) return LinearProgressIndicator();
                     if (snapshot.hasData) {
                       for (var data in snapshot.data!.docs) {
+                        isDelete=true;
                         if (data['idTo'] == widget.myID &&
                             data['isread'] == false) {
                           if (data.reference != null) {
@@ -633,7 +645,18 @@ class _ChatRoomState extends State<ChatRoom> {
                                               color: Colors.black,
                                               fontSize: 18),
                                         )
-                                      : type == 'pdf'
+                                      :  type == 'Sticker'
+                                      ? Container(
+                                    child: Image.asset(
+                                      'assets/images/sticker/${message}.gif',
+                                      width: 100.0,
+                                      height: 100.0,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    margin: EdgeInsets.only(
+                                        bottom: 20.0, right: 10.0),
+                                  )
+                                      :type == 'pdf'
                                       ? Container(
                                     width: 90,
                                     child: Row(
@@ -1133,12 +1156,14 @@ class _ChatRoomState extends State<ChatRoom> {
                   Expanded(
                     child: TextField(
                       controller: _msgTextController,
+                      toolbarOptions: ToolbarOptions(copy: true, cut: true, paste: true),
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.newline,
                       onChanged: (value) {
                         setState(() {
                           msgtxt = value;
                         });
                       },
-                      focusNode: focusNode,
                       decoration: InputDecoration(
                           hintText: "Type Something...",
                           border: InputBorder.none),
@@ -1148,6 +1173,7 @@ class _ChatRoomState extends State<ChatRoom> {
                     icon: Icon(Icons.photo_camera),
                     onPressed: () {
                       setState(() {
+                        _image=null;
                         messageType = 'image';
                         _isLoading = true;
                       });

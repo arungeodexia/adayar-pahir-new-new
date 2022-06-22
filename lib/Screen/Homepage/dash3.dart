@@ -473,7 +473,14 @@ class _DashboardThreePageState extends State<DashboardThreePage> {
                     thickness: 1,
                   ),
                 ),
-          Padding(
+      taskmodel.tasks != null || taskmodel.tasks.toString() != "null"
+          ? Padding(
+        padding: const EdgeInsets.only(
+          left: 10,
+          top: 7,
+          right: 10,
+          bottom: 7,
+        ) ):  Padding(
             padding: EdgeInsets.only(top: 7, bottom: 7),
             child: Container(
                 padding: const EdgeInsets.only(

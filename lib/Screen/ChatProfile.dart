@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cool_alert/cool_alert.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -275,7 +276,7 @@ class _ProfileViewState extends State<ProfileView> {
               CropAspectRatioPreset.ratio16x9
             ],
             androidUiSettings: AndroidUiSettings(
-                toolbarTitle: 'ClariTea Chat',
+                toolbarTitle: tr('chat'),
                 toolbarColor: AppColors.APP_BLUE,
                 toolbarWidgetColor: Colors.white,
                 initAspectRatio: CropAspectRatioPreset.original,

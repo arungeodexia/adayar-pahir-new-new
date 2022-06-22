@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -173,6 +174,10 @@ class EditProfileState extends State<EditProfileView> {
     }
     BlocProvider.of<ProfileBloc>(context)
         .add(ProfileUpdate(createEditProfileModel,_image.path));
+    await FirebaseFirestore.instance
+        .collection('users').doc(globalPhoneNo).update({
+      'name': createEditProfileModel.firstName,
+    });
   }
   Future getImage() async {
     final imageSource = await showDialog<ImageSource>(
