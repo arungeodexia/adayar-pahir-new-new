@@ -372,7 +372,7 @@ static const String isRedirectFromHomeOrFav = "homPageorFav";
   static const String APP_HELP_SUB_TITLE_ONE = "What does ACI Mobile App do?";
   static const String APP_HELP_SUB_CONTENT_ONE = "Adyar Cancer Institute (ACI) mobile application enables care providers to share valuable treatment informations including videos, documents and other instructions on time. Your care providers will be able to collect important health activities, food intakes and other side effect through simple surveys to help assess your health condition and adjust treatments.";
 
-  static const String APP_HELP_SUB_TITLE_TWO = "How do my Care Team share information's?";
+  static const String APP_HELP_SUB_TITLE_TWO = "How do my Care Team share informations?";
   static const String APP_HELP_SUB_CONTENT_TWO = "Your Care Team of Doctors will periodically share instructional videos and other documents directly through this mobile application. You will be notified as soon as an instructional material is shared with you.";
 
   static const String APP_HELP_SUB_TITLE_THREE = "How do I send my health conditions and treatment follow ups to my Doctors?";

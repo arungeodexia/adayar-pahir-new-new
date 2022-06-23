@@ -54,7 +54,7 @@ class HelpState extends State<HelpView>
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      AppStrings.APP_HELP_SUB_TITLE_ONE,
+                      tr('p1'),
                       style: TextStyle(
                         color: AppColors.APP_WHITE,
                           fontSize: 25,
@@ -69,7 +69,7 @@ class HelpState extends State<HelpView>
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      AppStrings.APP_HELP_SUB_CONTENT_ONE,
+                      tr('a1'),
                       style: TextStyle(
                         color: AppColors.APP_WHITE,
                         fontSize: 16,
@@ -83,7 +83,7 @@ class HelpState extends State<HelpView>
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      AppStrings.APP_HELP_SUB_TITLE_TWO,
+                      tr('p2'),
                       style: TextStyle(
                           color: AppColors.APP_WHITE,
                           fontSize: 25,
@@ -98,7 +98,7 @@ class HelpState extends State<HelpView>
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      AppStrings.APP_HELP_SUB_CONTENT_TWO,
+                      tr('a2'),
                       style: TextStyle(
                         color: AppColors.APP_WHITE,
                         fontSize: 16,
@@ -112,7 +112,7 @@ class HelpState extends State<HelpView>
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      AppStrings.APP_HELP_SUB_TITLE_THREE,
+                      tr('p3'),
                       style: TextStyle(
                           color: AppColors.APP_WHITE,
                           fontSize: 25,
@@ -127,7 +127,7 @@ class HelpState extends State<HelpView>
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      AppStrings.APP_HELP_SUB_CONTENT_THREE,
+                      tr('a3'),
                       style: TextStyle(
                         color: AppColors.APP_WHITE,
                         fontSize: 16,
@@ -141,7 +141,7 @@ class HelpState extends State<HelpView>
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      AppStrings.APP_HELP_SUB_TITLE_FOUR,
+                      tr('p4'),
                       style: TextStyle(
                           color: AppColors.APP_WHITE,
                           fontSize: 25,
@@ -156,7 +156,7 @@ class HelpState extends State<HelpView>
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      AppStrings.APP_HELP_SUB_CONTENT_FOUR,
+                      tr('a4'),
                       style: TextStyle(
                         color: AppColors.APP_WHITE,
                         fontSize: 16,

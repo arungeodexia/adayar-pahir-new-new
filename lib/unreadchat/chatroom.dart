@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -83,7 +84,7 @@ class _ChatRoomState extends State<ChatRoom> {
   bool _isImageAvailable = false;
   String fileName = "";
   File? imageFile;
-  bool? isLoading;
+  bool isLoading=false;
   bool isDelete=false;
   bool isShowSticker=false;
   String? imageUrl;
@@ -440,7 +441,13 @@ class _ChatRoomState extends State<ChatRoom> {
               //   ),
               // ],
             ),
-            body: VisibilityDetector(
+            body: isLoading?Center(child:  Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                new CircularProgressIndicator(),
+                new Text("    Loading"),
+              ],
+            ),):VisibilityDetector(
               key: Key("1"),
               onVisibilityChanged: ((visibility) {
                 print('ChatRoom Visibility code is ' +
@@ -570,6 +577,128 @@ class _ChatRoomState extends State<ChatRoom> {
             )),
         onWillPop: onBackPress);
   }
+
+  Widget buildInput() {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          // Button send image
+          Material(
+            child: new Container(
+              margin: new EdgeInsets.symmetric(horizontal: 1.0),
+              child: new IconButton(
+                icon: new Icon(Icons.image),
+                onPressed: () {},
+                color: Colors.blueGrey,
+              ),
+            ),
+            color: Colors.white,
+          ),
+          Material(
+            child: new Container(
+              margin: new EdgeInsets.symmetric(horizontal: 1.0),
+              child: new IconButton(
+                icon: new Icon(Icons.face),
+                onPressed: () {
+                  setState(() {
+                    isShowSticker = !isShowSticker;
+                  });
+                },
+                color: Colors.blueGrey,
+              ),
+            ),
+            color: Colors.white,
+          ),
+
+          // Edit text
+          Flexible(
+            child: Container(
+              child: TextField(
+                onTap: (){
+                  setState(() {
+                    isShowSticker = !isShowSticker;
+                  });
+                  },
+                style: TextStyle(color: Colors.blueGrey, fontSize: 15.0),
+                decoration: InputDecoration.collapsed(
+                  hintText: 'Type your message...',
+                  hintStyle: TextStyle(color: Colors.blueGrey),
+                ),
+              ),
+            ),
+          ),
+
+          // Button send message
+          Material(
+            child: new Container(
+              margin: new EdgeInsets.symmetric(horizontal: 8.0),
+              child: new IconButton(
+                icon: new Icon(Icons.send),
+                onPressed: () {},
+                color: Colors.blueGrey,
+              ),
+            ),
+            color: Colors.white,
+          ),
+        ],
+      ),
+      width: double.infinity,
+      height: 50.0,
+      decoration: new BoxDecoration(
+          border: new Border(
+              top: new BorderSide(color: Colors.blueGrey, width: 0.5)),
+          color: Colors.white),
+    );
+  }
+
+  Widget buildSticker() {
+   return Expanded(
+     child: EmojiPicker(
+        onEmojiSelected: (category, emoji) {
+          _msgTextController
+            ..text += emoji.emoji
+            ..selection = TextSelection.fromPosition(
+                TextPosition(offset: _msgTextController.text.length));          // Do something when emoji is tapped
+        },
+        onBackspacePressed: () {
+          _msgTextController
+            ..text = _msgTextController.text.characters.skipLast(1).toString()
+            ..selection = TextSelection.fromPosition(
+                TextPosition(offset: _msgTextController.text.length));
+          // Backspace-Button tapped logic
+          // Remove this line to also remove the button in the UI
+        },
+        config: Config(
+          columns: 7,
+          emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0), // Issue: https://github.com/flutter/flutter/issues/28894
+          verticalSpacing: 0,
+          horizontalSpacing: 0,
+          gridPadding: EdgeInsets.zero,
+          initCategory: Category.RECENT,
+          bgColor: Color(0xFFF2F2F2),
+          indicatorColor: Colors.blue,
+          iconColor: Colors.grey,
+          iconColorSelected: Colors.blue,
+          progressIndicatorColor: Colors.blue,
+          backspaceColor: Colors.blue,
+          skinToneDialogBgColor: Colors.white,
+          skinToneIndicatorColor: Colors.grey,
+          enableSkinTones: true,
+          showRecentsTab: true,
+          recentsLimit: 28,
+          noRecents: const Text(
+            'No Recents',
+            style: TextStyle(fontSize: 20, color: Colors.black26),
+            textAlign: TextAlign.center,
+          ),
+          tabIndicatorAnimDuration: kTabScrollDuration,
+          categoryIcons: const CategoryIcons(),
+          buttonMode: ButtonMode.MATERIAL,
+        ),
+      ),
+   );
+  }
+
 
   Widget _listItemOther(BuildContext context, String name, String thumbnail,
       String message, String time, String type) {
@@ -737,6 +866,7 @@ class _ChatRoomState extends State<ChatRoom> {
                                             var _openResult = 'Unknown';
                                             final result = await OpenFile.open(f.path);
                                             setState(() {
+
                                               _openResult = "type=${result}  message=${result}";
                                             });
                                             return;
@@ -1062,6 +1192,10 @@ class _ChatRoomState extends State<ChatRoom> {
       final result = await OpenFile.open(f.path);
 
       progressDialog.hide();
+      setState(() {
+        isLoading=false;
+      });
+
 
     }catch( e)
     {
@@ -1151,22 +1285,34 @@ class _ChatRoomState extends State<ChatRoom> {
                   IconButton(
                       icon: Icon(Icons.face),
                       onPressed: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
                         getSticker();
                       }),
+                  SizedBox(width: 20,),
                   Expanded(
-                    child: TextField(
-                      controller: _msgTextController,
-                      toolbarOptions: ToolbarOptions(copy: true, cut: true, paste: true),
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.newline,
-                      onChanged: (value) {
-                        setState(() {
-                          msgtxt = value;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          hintText: "Type Something...",
-                          border: InputBorder.none),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 0.0),
+                      child: TextField(
+                        controller: _msgTextController,
+                        toolbarOptions: ToolbarOptions(copy: true, cut: true, paste: true),
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.newline,
+                        onTap: (){
+                          setState(() {
+                            if(isShowSticker){
+                              isShowSticker=false;
+                            }
+                          });
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            msgtxt = value;
+                          });
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Type Something...",
+                            border: InputBorder.none),
+                      ),
                     ),
                   ),
                   IconButton(
@@ -1200,7 +1346,9 @@ class _ChatRoomState extends State<ChatRoom> {
                         setState(() {
                           isLoading = false;
                         });
-                      } catch (e) {}
+                      } catch (e) {
+                        print(e.toString());
+                      }
                     },
                   )
                 ],
@@ -1345,150 +1493,150 @@ class _ChatRoomState extends State<ChatRoom> {
         });
   }
 
-  Widget buildSticker() {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  onSendMessage('funny4', 2);
-                },
-                child: Image.asset(
-                  'assets/images/sticker/funny4.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => onSendMessage('funny5', 2),
-                child: Image.asset(
-                  'assets/images/sticker/funny5.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => onSendMessage('funny6', 2),
-                child: Image.asset(
-                  'assets/images/sticker/funny6.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          ),
-          Row(
-            children: <Widget>[
-              FlatButton(
-                onPressed: () => onSendMessage('kitty', 2),
-                child: Image.asset(
-                  'assets/images/sticker/kitty.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => onSendMessage('funny', 2),
-                child: Image.asset(
-                  'assets/images/sticker/funny.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => onSendMessage('funny1', 2),
-                child: Image.asset(
-                  'assets/images/sticker/funny1.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          ),
-          Row(
-            children: <Widget>[
-              FlatButton(
-                onPressed: () => onSendMessage('tenor', 2),
-                child: Image.asset(
-                  'assets/images/sticker/tenor.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => onSendMessage('funny2', 2),
-                child: Image.asset(
-                  'assets/images/sticker/funny2.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => onSendMessage('funny3', 2),
-                child: Image.asset(
-                  'assets/images/sticker/funny3.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              )
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          ),
-          Row(
-            children: <Widget>[
-              FlatButton(
-                onPressed: () => onSendMessage('funny7', 2),
-                child: Image.asset(
-                  'assets/images/sticker/funny7.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => onSendMessage('funny8', 2),
-                child: Image.asset(
-                  'assets/images/sticker/funny8.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => onSendMessage('tenor1', 2),
-                child: Image.asset(
-                  'assets/images/sticker/tenor1.gif',
-                  width: 50.0,
-                  height: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              )
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          )
-        ],
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      ),
-      decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.grey, width: 0.5)),
-          color: Colors.white),
-      padding: EdgeInsets.all(3.0),
-      height: 280.0,
-    );
-  }
+  // Widget buildSticker() {
+  //   return Container(
+  //     child: Column(
+  //       children: <Widget>[
+  //         Row(
+  //           children: <Widget>[
+  //             FlatButton(
+  //               onPressed: () {
+  //                 onSendMessage('funny4', 2);
+  //               },
+  //               child: Image.asset(
+  //                 'assets/images/sticker/funny4.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('funny5', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/funny5.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('funny6', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/funny6.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //           ],
+  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         ),
+  //         Row(
+  //           children: <Widget>[
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('kitty', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/kitty.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('funny', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/funny.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('funny1', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/funny1.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //           ],
+  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         ),
+  //         Row(
+  //           children: <Widget>[
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('tenor', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/tenor.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('funny2', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/funny2.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('funny3', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/funny3.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             )
+  //           ],
+  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         ),
+  //         Row(
+  //           children: <Widget>[
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('funny7', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/funny7.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('funny8', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/funny8.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //             FlatButton(
+  //               onPressed: () => onSendMessage('tenor1', 2),
+  //               child: Image.asset(
+  //                 'assets/images/sticker/tenor1.gif',
+  //                 width: 50.0,
+  //                 height: 50.0,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             )
+  //           ],
+  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         )
+  //       ],
+  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //     ),
+  //     decoration: BoxDecoration(
+  //         border: Border(top: BorderSide(color: Colors.grey, width: 0.5)),
+  //         color: Colors.white),
+  //     padding: EdgeInsets.all(3.0),
+  //     height: 280.0,
+  //   );
+  // }
 
   void onSendMessage(String s, int i) {
     setState(() {
