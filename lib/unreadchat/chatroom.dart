@@ -108,6 +108,8 @@ class _ChatRoomState extends State<ChatRoom> {
 
   String progress="";
   Dio? dio;
+
+  var loadertext="Loading";
   _scrollListener() {
     setState(() {
       if (_scrollPosition < _chatListController.position.pixels) {
@@ -209,6 +211,7 @@ class _ChatRoomState extends State<ChatRoom> {
       imageFile = File(_image!.path);
       if (imageFile != null) {
         setState(() {
+          loadertext="Uploading";
           isLoading = true;
         });
         // String los = await fileuploadchat(filePath: _image.path);
@@ -217,6 +220,7 @@ class _ChatRoomState extends State<ChatRoom> {
           _handleSubmitted(los);
         } else {}
         setState(() {
+          loadertext="Loading";
           isLoading = false;
         });
       }
@@ -445,7 +449,7 @@ class _ChatRoomState extends State<ChatRoom> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 new CircularProgressIndicator(),
-                new Text("    Loading"),
+                new Text("    ${loadertext}"),
               ],
             ),):VisibilityDetector(
               key: Key("1"),
@@ -1175,9 +1179,6 @@ class _ChatRoomState extends State<ChatRoom> {
       ProgressDialog progressDialog=ProgressDialog(context,type: ProgressDialogType.Normal);
       progressDialog.style(message: "Downloading File");
       progressDialog.show();
-
-
-
       await dio!.download(url, path,onReceiveProgress: (rec,total){
         setState(() {
           isLoading=true;
@@ -1330,23 +1331,58 @@ class _ChatRoomState extends State<ChatRoom> {
                     icon: Icon(Icons.attach_file),
                     onPressed: () async {
                       try {
+                        setState(() {
+                          isLoading = true;
+                          loadertext="Loading media";
+                        });
                         FilePickerResult? path = await FilePicker.platform.pickFiles(
                             type: FileType.any,
                             allowedExtensions: extensions);
-                        PlatformFile file = path!.files.first;
 
+                        PlatformFile file = path!.files.first;
                         setState(() {
-                          messageType = file.extension!;
-                          isLoading = true;
+                          isLoading = false;
+                          loadertext="Loading";
                         });
-                        String los = await fileimageupload(filePath:file.path! );
-                        if (los != '') {
-                          _handleSubmitted(los);
-                        } else {}
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: Text('Send ${file.name} to ${widget.selectedUserName} ?'),
+                                actions: [
+                                  FlatButton(
+                                    child: Text("CANCEL",style: TextStyle(color: AppColors.APP_BLUE)),
+                                    onPressed:  () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text("SEND",style: TextStyle(color: AppColors.APP_BLUE),),
+                                    onPressed:  () async{
+                                      Navigator.of(context).pop();
+                                      setState(() {
+                                        messageType = file.extension!;
+                                        loadertext="Uploading";
+                                        isLoading = true;
+                                      });
+                                      String los = await fileimageupload(filePath:file.path! );
+                                      if (los != '') {
+                                        _handleSubmitted(los);
+                                      } else {}
+                                      setState(() {
+                                        loadertext="Loading";
+                                        isLoading = false;
+                                      });
+
+                                    },
+                                  )
+                                ],
+                              );
+                            });
+                      } catch (e) {
                         setState(() {
                           isLoading = false;
                         });
-                      } catch (e) {
                         print(e.toString());
                       }
                     },
