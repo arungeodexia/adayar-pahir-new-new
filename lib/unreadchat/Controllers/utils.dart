@@ -86,7 +86,7 @@ void setCurrentChatRoomID(value) async { // To know where I am in chat room. Avo
 
 String checkValidUserData(userImageFile,userImageUrlFromFB,name,intro) {
   String returnString = '';
-  if(userImageFile.path == '' && userImageUrlFromFB == '') {
+  if(userImageFile.file == '' && userImageUrlFromFB == '') {
     returnString = returnString + 'Please select a image.';
   }
 

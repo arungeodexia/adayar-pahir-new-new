@@ -267,7 +267,7 @@ class _ProfileViewState extends State<ProfileView> {
 
       if (file != null) {
         File? croppedFile = await ImageCropper.cropImage(
-            sourcePath: file.path,
+            sourcePath: file.file,
             aspectRatioPresets: [
               CropAspectRatioPreset.square,
               CropAspectRatioPreset.ratio3x2,

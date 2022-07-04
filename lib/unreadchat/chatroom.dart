@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:ACI/Screen/PictureView.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -108,6 +110,9 @@ class _ChatRoomState extends State<ChatRoom> {
 
   String progress="";
   Dio? dio;
+  int total = 0, received = 0;
+  late http.StreamedResponse _response;
+  final List<int> _bytes = [];
 
   var loadertext="Loading";
   _scrollListener() {
@@ -128,6 +133,88 @@ class _ChatRoomState extends State<ChatRoom> {
       isShowSticker = !isShowSticker;
     });
   }
+//   Future<String> fileUploadMultipart(
+//       {File? file}) async {
+//     assert(file != null);
+//
+//
+//     final httpClient = getHttpClient();
+//
+//     // var request = Uri.parse('${AppStrings.BASE_URL}api/v1/chat/user/${globalCountryCode}/${globalPhoneNo}/file');
+//     final request = await httpClient.putUrl(Uri.parse('${AppStrings.BASE_URL}api/v1/chat/user/${globalCountryCode}/${globalPhoneNo}/file'));
+//
+//     int byteCount = 0;
+//
+//
+//     var multipart = await http.MultipartFile.fromPath('picture', file!.path);
+//     // var multipartFile = new http.MultipartFile('picture', stream, length,
+//     //     filename: basename(imageFile.path));
+//     // final fileStreamFile = file.openRead();
+//
+//     // var multipart = MultipartFile("file", fileStreamFile, file.lengthSync(),
+//     //     filename: fileUtil.basename(file.path));
+//
+//     var requestMultipart = http.MultipartRequest("PUT", Uri.parse("uri"));
+//
+//     requestMultipart.files.add(multipart);
+//
+//     var msStream = requestMultipart.finalize();
+//
+//     var totalByteLength = requestMultipart.contentLength;
+//
+//     request.contentLength = totalByteLength;
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     var at =  prefs.getString( "accessToken");
+//     var uph =  prefs.getString( "userFingerprintHash");
+//     request.headers.add("Authorization",  "Bearer " + at!);
+//     request.headers.add("userFingerprintHash",  uph!);
+//     request.headers.add("appcode",  "100000");
+//     request.headers.add("licensekey",  "33783ui7-hepf-3698-tbk9-so69eq185173");
+//     // var at =  prefs.getString( "accessToken");
+//     // var uph =  prefs.getString( "userFingerprintHash");
+//     // if (at != null) {
+//     //   request.headers["Authorization"] = "Bearer " + at;
+//     //   request.headers["userFingerprintHash"] = uph!;
+//     //   request.headers["appcode"] = "100000";
+//     //   request.headers["licensekey"] = "33783ui7-hepf-3698-tbk9-so69eq185173";
+//     // }
+//     total = totalByteLength;
+//
+//     Stream<List<int>> streamUpload = msStream.transform(
+//       new StreamTransformer.fromHandlers(
+//         handleData: (data, sink) {
+//           sink.add(data);
+//           byteCount += data.length;
+//           print(byteCount);
+//           print("${received ~/ 1024}/${total ~/ 1024} KB");
+//           print(received/total *100);
+//           received += data.length;
+//           loadertext="${received ~/ 1024}/${total ~/ 1024} KB";
+//         },
+//         handleError: (error, stack, sink) {
+//           throw error;
+//         },
+//         handleDone: (sink) {
+//
+//           sink.close();
+//           // UPLOAD DONE;
+//         },
+//       ),
+//     );
+//
+//
+//     await request.addStream(streamUpload);
+//
+//     final httpResponse = await request.close();
+// //
+//     var statusCode = httpResponse.statusCode;
+//
+//     if (statusCode ~/ 100 != 2) {
+//       throw Exception('Error uploading file, Status code: ${httpResponse.statusCode}');
+//     } else {
+//       return await readResponseAsString(httpResponse);
+//     }
+//   }
 
   Future getImage() async {
     // var image = await ImagePicker().getImage(source: ImageSource.gallery);
@@ -165,66 +252,41 @@ class _ChatRoomState extends State<ChatRoom> {
       }
 
       if (file != null) {
-        File? croppedFile = await ImageCropper.cropImage(
-            sourcePath: file.path,
-            aspectRatioPresets: [
-              CropAspectRatioPreset.square,
-              CropAspectRatioPreset.ratio3x2,
-              CropAspectRatioPreset.original,
-              CropAspectRatioPreset.ratio4x3,
-              CropAspectRatioPreset.ratio16x9
-            ],
-            androidUiSettings: AndroidUiSettings(
-                toolbarTitle: tr('chat'),
-                toolbarColor: AppColors.APP_BLUE,
-                toolbarWidgetColor: Colors.white,
-                initAspectRatio: CropAspectRatioPreset.original,
-                lockAspectRatio: false),
-            iosUiSettings: IOSUiSettings(
-              minimumAspectRatio: 1.0,
-            ));
-        var tempFileName = (new DateTime.now()).millisecondsSinceEpoch;
-        Directory tempDir = await getTemporaryDirectory();
-        String tempPath = tempDir.path + "/" + tempFileName.toString() + ".jpg";
-        File fileNew = File(tempPath);
-        File? result = await FlutterImageCompress.compressAndGetFile(
-            croppedFile!.absolute.path, tempPath,
-            quality: 50);
-        // File result = croppedFile;
-
-        fileName = tempPath;
-        //print("filePath from ImagePicker :==>" + fileName);
-        if (croppedFile != null) {
+        var result = await  Navigator.push(context, MaterialPageRoute(builder: (context){
+          return PictureView( file:File(file.path),);
+        }));
+        if(result != null){
+          _image=result;
           setState(() {
-            _image = fileNew;
-            _isImageAvailable = true;
-
-            //Clear Edit Resource bytes
-            // editResourceProfImage = "";
-            // widget.editResourceDetail.profilePicture = "";
+            // Here you can write your code for open new view
           });
+
+          if (_image != null) {
+
+            imageFile = File(_image!.path);
+            if (imageFile != null) {
+              setState(() {
+                loadertext="Uploading";
+                isLoading = true;
+              });
+              // String los = await fileuploadchat(filePath: _image.path);
+              String los = await fileimageupload(filePath: _image!.path);
+              // String los1 = await fileUploadMultipart(file: _image!);
+              if (los != '') {
+                _handleSubmitted(los);
+              } else {}
+              setState(() {
+                loadertext="Loading";
+                isLoading = false;
+              });
+            }
+          }
+
         }
       }
     }
 
-    if (_image != null) {
-      imageFile = File(_image!.path);
-      if (imageFile != null) {
-        setState(() {
-          loadertext="Uploading";
-          isLoading = true;
-        });
-        // String los = await fileuploadchat(filePath: _image.path);
-        String los = await fileimageupload(filePath: _image!.path);
-        if (los != '') {
-          _handleSubmitted(los);
-        } else {}
-        setState(() {
-          loadertext="Loading";
-          isLoading = false;
-        });
-      }
-    }
+
   }
 
   void onFocusChange() {
@@ -662,13 +724,17 @@ class _ChatRoomState extends State<ChatRoom> {
           _msgTextController
             ..text += emoji.emoji
             ..selection = TextSelection.fromPosition(
-                TextPosition(offset: _msgTextController.text.length));          // Do something when emoji is tapped
+                TextPosition(offset: _msgTextController.text.length));
+          setState(() {
+          });// Do something when emoji is tapped
         },
         onBackspacePressed: () {
           _msgTextController
             ..text = _msgTextController.text.characters.skipLast(1).toString()
             ..selection = TextSelection.fromPosition(
                 TextPosition(offset: _msgTextController.text.length));
+          setState(() {
+          });
           // Backspace-Button tapped logic
           // Remove this line to also remove the button in the UI
         },
@@ -870,7 +936,6 @@ class _ChatRoomState extends State<ChatRoom> {
                                             var _openResult = 'Unknown';
                                             final result = await OpenFile.open(f.path);
                                             setState(() {
-
                                               _openResult = "type=${result}  message=${result}";
                                             });
                                             return;
@@ -1267,8 +1332,7 @@ class _ChatRoomState extends State<ChatRoom> {
 
   Widget buildInputnew() {
     return Container(
-      margin: EdgeInsets.all(15.0),
-      height: 60,
+      padding: EdgeInsets.all(8),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -1290,29 +1354,73 @@ class _ChatRoomState extends State<ChatRoom> {
                         getSticker();
                       }),
                   SizedBox(width: 20,),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 0.0),
-                      child: TextField(
-                        controller: _msgTextController,
-                        toolbarOptions: ToolbarOptions(copy: true, cut: true, paste: true),
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.newline,
-                        onTap: (){
-                          setState(() {
-                            if(isShowSticker){
-                              isShowSticker=false;
-                            }
-                          });
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            msgtxt = value;
-                          });
-                        },
-                        decoration: InputDecoration(
-                            hintText: "Type Something...",
-                            border: InputBorder.none),
+                  // Expanded(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.only(left: 0.0),
+                  //     child: TextField(
+                  //       controller: _msgTextController,
+                  //       toolbarOptions: ToolbarOptions(copy: true, cut: true, paste: true),
+                  //       keyboardType: TextInputType.text,
+                  //       textInputAction: TextInputAction.newline,
+                  //       autofocus: false,
+                  //       onTap: (){
+                  //         setState(() {
+                  //           if(isShowSticker){
+                  //             isShowSticker=false;
+                  //           }
+                  //         });
+                  //       },
+                  //       onChanged: (value) {
+                  //         setState(() {
+                  //           msgtxt = value;
+                  //         });
+                  //       },
+                  //       decoration: InputDecoration(
+                  //           hintText: "Type Something...",
+                  //           border: InputBorder.none),
+                  //     ),
+                  //   ),
+                  // ),
+                  Flexible(
+                    child: new ConstrainedBox(
+                      constraints: new BoxConstraints(
+                        minWidth: MediaQuery.of(context).size.width,
+                        maxWidth: MediaQuery.of(context).size.width,
+                        minHeight: 25.0,
+                        maxHeight: 135.0,
+                      ),
+                      child: new Scrollbar(
+                        child: new TextField(
+                          cursorColor: AppColors.APP_BLUE,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          onTap: (){
+                            setState(() {
+                              if(isShowSticker){
+                                isShowSticker=false;
+                              }
+                            });
+                          },
+                          controller: _msgTextController,
+                          // _handleSubmitted : null,
+                          onChanged: (value) {
+                            setState(() {
+                              msgtxt = value;
+                            });
+                          },
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                top: 2.0,
+                                left: 0.0,
+                                right: 0.0,
+                                bottom: 2.0),
+                            hintText: "Type your message",
+                            hintStyle: TextStyle(
+                              color:Colors.grey,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -1366,6 +1474,8 @@ class _ChatRoomState extends State<ChatRoom> {
                                         isLoading = true;
                                       });
                                       String los = await fileimageupload(filePath:file.path! );
+                                      // String los1 = await fileUploadMultipart(file: File(file.path!));
+
                                       if (los != '') {
                                         _handleSubmitted(los);
                                       } else {}
@@ -1395,7 +1505,7 @@ class _ChatRoomState extends State<ChatRoom> {
           Container(
             padding: const EdgeInsets.all(15.0),
             decoration: BoxDecoration(
-                color: msgtxt.trim().length != 0 ? Colors.green : Colors.grey,
+                color: _msgTextController.text.trim().length != 0 ? Colors.green : Colors.grey,
                 shape: BoxShape.circle),
             child: InkWell(
               child: Icon(
@@ -1416,7 +1526,13 @@ class _ChatRoomState extends State<ChatRoom> {
       ),
     );
   }
+  static HttpClient getHttpClient() {
+    HttpClient httpClient = new HttpClient()
+      ..connectionTimeout = const Duration(seconds: 10)
+      ..badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
 
+    return httpClient;
+  }
 
 
   _makePostRequest(String msg, String id) async {
@@ -1452,6 +1568,7 @@ class _ChatRoomState extends State<ChatRoom> {
   }
 
   Future<void> _handleSubmitted(String text) async {
+    text=text.trim();
     _msgTextController.clear();
     msgtxt = "";
     try {
@@ -1470,20 +1587,24 @@ class _ChatRoomState extends State<ChatRoom> {
       String cot = '';
       if (messageType == "text") {
         cot = text;
-      } else {
-        cot = 'picture';
+      } else if (messageType == "image") {
+        cot = "picture";
+      }else if (messageType == "mp4") {
+        cot = "Video";
+      }else {
+        cot = 'Document';
       }
       _makePostRequest(cot, widget.chatID);
 
       await FirebaseController.instanace.updateChatRequestField(
           widget.selectedUserID,
-          messageType == 'text' ? text : '(Photo)',
+          cot,
           widget.chatID,
           widget.myID,
           widget.selectedUserID);
       await FirebaseController.instanace.updateChatRequestField(
           widget.myID,
-          messageType == 'text' ? text : '(Photo)',
+          cot,
           widget.chatID,
           widget.myID,
           widget.selectedUserID);
@@ -1679,6 +1800,15 @@ class _ChatRoomState extends State<ChatRoom> {
       messageType = 'Sticker';
     });
     _handleSubmitted(s);
+  }
+
+  static readResponseAsString(HttpClientResponse httpResponse) {
+    print(httpResponse.statusCode);
+    print(httpResponse.transform(utf8.decoder).listen((value) {
+      print(value);
+
+    }));
+    print("FROMUpload");
   }
 }
 
