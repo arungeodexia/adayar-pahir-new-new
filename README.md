@@ -27,3 +27,6 @@ flutter pub run easy_localization:generate -S "assets/translations" -O "lib/tran
 
 
 Is CN=Guna, OU=Software, O=Geodexia, L=Chennai, ST=Tamilnadu, C=91 correct?
+
+
+flutter pub run flutter_launcher_icons:main
