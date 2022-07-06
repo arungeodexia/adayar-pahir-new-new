@@ -638,7 +638,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                     ),
                                                                   ),
                                                                   Expanded(
-                                                                    flex: 1,
+                                                                    flex: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
+                                                                        "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?4:1,
                                                                     child:
                                                                         Container(
                                                                           width:40,
@@ -683,7 +684,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                         ),
                                                                   ),
                                                                   Expanded(
-                                                                    flex: 1,
+                                                                    flex: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
+                                                                        "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?0:1,
                                                                     child:
                                                                         Container(
                                                                       margin: EdgeInsets.only(

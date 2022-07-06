@@ -72,5 +72,14 @@ abstract class  LocaleKeys {
   static const next = 'next';
   static const phone = 'phone';
   static const chat = 'chat';
+  static const nochat = 'nochat';
+  static const p1 = 'p1';
+  static const a1 = 'a1';
+  static const p2 = 'p2';
+  static const a2 = 'a2';
+  static const p3 = 'p3';
+  static const a3 = 'a3';
+  static const p4 = 'p4';
+  static const a4 = 'a4';
 
 }

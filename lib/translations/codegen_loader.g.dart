@@ -86,10 +86,19 @@ class CodegenLoader extends AssetLoader{
   "next": "அடுத்து",
   "continue": "தொடரவும்",
   "phone": "தொலைபேசி",
-  "chat": "அரட்டை"
+  "chat": "உரையாடல்",
+  "nochat": "உரையாடல் எதுவும் இல்லை",
+  "p1": "ACI மொபைல் ஆப் என்ன செய்யும்?",
+  "a1": "அடையார் புற்று நோய் மையத்தின் மொபைல் ஆப், உங்கள் மருத்துவர்கள் குழு சிகிச்சைக்குத் தேவையான தகவல்களை, காணொளிகள், ஆவணங்கள் மற்றும் வழிமுறைகள் மூலம் சரியான சமயத்தில் உங்களுடன் பகிர்ந்து கொள்ள உதவுகிறது. உங்கள் மருத்துவர்கள் குழு, உங்கள் உடல் நலம் தொடர்பான முக்கிய நடவடிக்கைகள், உட்கொள்ளும் உணவுவகைகள், பிற பக்க விளைவுகள் ஆகியவற்றை எளிய சர்வே மூலம் சேகரித்து, உங்களின் உடல் நிலையையும் அதற்குத் தகுந்தவாறு சிகிச்சையையும் அளிக்க உதவுகிறது.",
+  "p2": " மருத்துவர்கள் குழு என்ன தகவல்களை பகிர்ந்து கொள்வார்கள்?",
+  "a2": "உங்கள் மருத்துவர்கள் குழு அவ்வப்போது பயிற்சி காணொளிகள் மற்றும் பிற ஆவணங்களை நேரடியாக இந்த மொபைல் ஆப் வழியாக உங்களுடன் பகிர்ந்து கொள்வார்கள். அந்த தகவல்கள் உங்களுடன் பகிர்ந்த விவரம், உடனடியாக உங்களுக்குத் தெரிவிக்கப்படும்.",
+  "p3": "நான் எப்படி என் உடல் நிலை மற்றும் அது தொடர்பான சிகிச்சை பற்றி என் மருத்துவர்க்குத் தெரிவிப்பது?",
+  "a3": "உங்கள் மருத்துவர் எளிமையான கேள்விகளைத் தொகுத்து உங்களுக்கு இந்த மொபைல் ஆப் வழியாக அனுப்புவார். அந்த கேள்விகளுக்கு நீங்கள தகுந்த பதில் அளிப்பதன் மூலம், உங்களின் தினப்படி உடற் பயிற்சிகள் மற்றும் உட்கொள்ளும் உணவு வகைகள் போன்ற பல விவரங்களை உங்கள் மருத்துவர் அறிந்துகொள்வார்.",
+  "p4": "மருத்துவரின் கேள்விகளுக்கு பதில் அளிக்க நான் மறந்து போனால் என்னவாகும்?",
+  "a4": "உங்களுக்கு அனுப்பப்பட்ட கேள்விகளுக்கு பதில் அளித்து சமர்ப்பிக்க இந்த மொபைல் ஆப் உங்களுக்கு நினைவூட்டும். (நினைவூட்டல்களை அனுப்பி வைக்கும்)"
 };
 static const Map<String,dynamic> en = {
-  "app_name": "Adyar Cancer Institute",
+  "app_name": "Prosperity: Prehabilitation",
   "payment": "Payment",
   "promos": "Promos",
   "notifications": "Notifications",
@@ -161,7 +170,7 @@ static const Map<String,dynamic> en = {
   "logout": "Logout",
   "forgot": "Forgot Password",
   "hello": "HI",
-  "appname": "Adyar Cancer Institute",
+  "appname": "Prosperity: Prehabilitation",
   "myresources": "My Resources",
   "profilesettings": "Profile Settings",
   "privacysecurity": "Privacy & Security",
@@ -226,7 +235,16 @@ static const Map<String,dynamic> en = {
   "next": "Next",
   "continue": "Continue",
   "phone": "Phone",
-  "chat": "Chat"
+  "chat": "Chat",
+  "nochat": "No Chat",
+  "p1": "What does ACI Mobile App do?",
+  "a1": "Adyar Cancer Institute (ACI) mobile application enables care providers to share valuable treatment informations including videos, documents and other instructions on time. Your care providers will be able to collect important health activities, food intakes and other side effect through simple surveys to help assess your health condition and adjust treatments.",
+  "p2": "How do my Care Team share information?",
+  "a2": "Your Care Team of Doctors will periodically share instructional videos and other documents directly through this mobile application. You will be notified as soon as an instructional material is shared with you.",
+  "p3": "How do I send my health conditions and treatment follow ups to my Doctors?",
+  "a3": "Your Doctor will send a set of simple questions through the mobile application. By simply answering those questions your Doctor will know your activities such as daily physical exercises and food intakes.",
+  "p4": "What if I forgot to send the feedback?",
+  "a4": "The system will send reminders to fill and submit the treatment followup questions."
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ta": ta, "en": en};
 }

@@ -447,7 +447,7 @@ class _OTPVerifyFormState extends State<OTPVerifyForm> {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-                title: Text(AppStrings.APP_NAME),
+                title: Text(tr('appname')),
                 backgroundColor: AppColors.APP_BLUE,
                 centerTitle: true,
                 automaticallyImplyLeading: true,

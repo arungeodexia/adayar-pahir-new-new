@@ -1,11 +1,11 @@
 {
-    "name": "Adyar Cancer Institute",
-    "short_name": "Adyar Cancer Institute",
+    "name": "Prosperity: Prehabilitation",
+    "short_name": "Prosperity: Prehabilitation",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Adyar Cancer Institute",
+    "description": "Prosperity: Prehabilitation",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
