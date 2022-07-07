@@ -638,7 +638,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                     ),
                                                                   ),
                                                                   Expanded(
-                                                                    flex: 1,
+                                                                    flex: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
+                                                                        "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?4:1,
                                                                     child:
                                                                         Container(
                                                                           width:40,
@@ -649,6 +650,25 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                                 "Others" ||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"
                                                                             ? TextInputType.name
                                                                             : TextInputType.number,
+                                                                            decoration: InputDecoration(
+                                                                              border: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
+                                                                "Others" ||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"
+                                                                ?UnderlineInputBorder(
+
+                                                                                borderSide: BorderSide(color: Colors.cyan),
+
+                                                                              ):OutlineInputBorder(
+                                                                                borderRadius: BorderRadius.circular(10.0),
+                                                                              ),
+
+                                                                              contentPadding: EdgeInsets.only(
+                                                                                  top: 2.0,
+                                                                                  left: 4.0,
+                                                                                  right: 0.0,
+                                                                                  bottom: 2.0),
+
+                                                                            ),
+                                                                            textAlign: TextAlign.center,
                                                                             inputFormatters:[
                                                                               LengthLimitingTextInputFormatter(surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
                                                                                   "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?300:3),
@@ -683,7 +703,8 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                         ),
                                                                   ),
                                                                   Expanded(
-                                                                    flex: 1,
+                                                                    flex: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
+                                                                        "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?0:1,
                                                                     child:
                                                                         Container(
                                                                       margin: EdgeInsets.only(
