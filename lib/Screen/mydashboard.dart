@@ -6,6 +6,7 @@ import 'package:ACI/Screen/Careteam.dart';
 import 'package:ACI/Screen/Homepage/dash3.dart';
 import 'package:ACI/Screen/otp_verify_form.dart';
 import 'package:ACI/Screen/surveymenu.dart';
+import 'package:ACI/data/api/repository/LoginRepo.dart';
 import 'package:ACI/utils/VideoAppChewie.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -31,6 +32,7 @@ import 'package:ACI/unreadchat/fullphoto.dart';
 import 'package:ACI/utils/Drawer.dart';
 import 'package:ACI/utils/PdfViewer.dart';
 import 'package:ACI/utils/values/app_colors.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -215,6 +217,20 @@ class _MydashboardState extends State<Mydashboard> {
     super.initState();
     _takeUserInformationFromFBDB();
 
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) async{
+      String appName = packageInfo.appName;
+      String packageName = packageInfo.packageName;
+      String version = packageInfo.version;
+      String buildNumber = packageInfo.buildNumber;
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String versionLocal = prefs.getString(APP_VERSION)??'';
+
+      if(version==versionLocal){
+        LoginRepo loginRepo=LoginRepo();
+        loginRepo.sendDeviceInfoVersion(version);
+      }
+    });
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) async {

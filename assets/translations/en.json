@@ -145,7 +145,8 @@
   "p3": "How do I send my health conditions and treatment follow ups to my Doctors?",
   "a3": "Your Doctor will send a set of simple questions through the mobile application. By simply answering those questions your Doctor will know your activities such as daily physical exercises and food intakes.",
   "p4": "What if I forgot to send the feedback?",
-  "a4": "The system will send reminders to fill and submit the treatment followup questions."
+  "a4": "The system will send reminders to fill and submit the treatment followup questions.",
+  "thankssurvey": "Thanks for completing the survey!"
 
 
 

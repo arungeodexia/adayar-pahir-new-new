@@ -7,7 +7,7 @@ class AppStrings {
   
   //static const String DEV_URL = "http://ishare-dev.us-east-1.elasticbeanstalk.com/"; //Old 
   //static const String DEV_URL = "https://www.pahir.com/"; //Current - Master / Phase-1 Url
-  static const String DEV_URL = "https://api.aci.pahir.com/"; //Current - Master / Phase-1 Url
+  static const String DEV_URL = "https://api.ci-wia.pahir.com/"; //Current - Master / Phase-1 Url
   //static const String DEV_URL = "http://pahirphase2-env.eba-38dsipeh.us-east-1.elasticbeanstalk.com/"; // Phase-2 Url
 
   // static const String DEV_URL = "http://ishare-new.us-east-1.elasticbeanstalk.com/";

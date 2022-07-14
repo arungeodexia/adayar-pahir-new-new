@@ -192,6 +192,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
   @override
   void dispose() {
     super.dispose();
+
     videoPlayerController.dispose();
     chewieController.dispose();
   }
@@ -581,7 +582,108 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                       context,
                                                                   int index1) {
                                                             return ListTile(
-                                                              title: Row(
+                                                              title: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].largeText! ?
+
+                                                              Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                children: [
+                                                                  // Container( height:40, width:40,child: Text(surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString(),style:TextStyle(fontFamily: "Poppins", fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black),)),
+                                                                  // Container(
+                                                                  //   height:40,
+                                                                  //   width:50,
+                                                                  //   child: TextField(
+                                                                  //     keyboardType: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
+                                                                  //         "Others"
+                                                                  //         ? TextInputType.name
+                                                                  //         : TextInputType.number,
+                                                                  //     controller: surveyDetailsModel
+                                                                  //         .question!
+                                                                  //         .optionGroup![index]
+                                                                  //         .optionGroups![index1]
+                                                                  //         .textEditingController,
+                                                                  //
+                                                                  //   ),
+                                                                  // ),
+                                                                  // Container( height:40, width:40,child: Text(surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionSuffix.toString(),style:TextStyle(fontFamily: "Poppins", fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black),)),
+                                                                  SizedBox(height: 10,),
+
+                                                                  Container(
+                                                                    child: Text(
+                                                                      surveyDetailsModel
+                                                                          .question!
+                                                                          .optionGroup![
+                                                                      index]
+                                                                          .optionGroups![
+                                                                      index1]
+                                                                          .optionPrefix
+                                                                          .toString(),
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                          "Poppins",
+                                                                          fontSize:
+                                                                          15,
+                                                                          fontWeight: FontWeight
+                                                                              .w500,
+                                                                          color:
+                                                                          Colors.black),
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(height: 8,),
+                                                                  Container(
+                                                                    padding: EdgeInsets.all(10),
+                                                                    height:60,
+                                                                    child: TextField(
+                                                                      keyboardType: TextInputType.name,
+                                                                                  decoration: InputDecoration(
+                                                                                    hintText: 'Type Here',
+                                                                                    // border: InputBorder.none,
+                                                                                    border: OutlineInputBorder(
+
+                                                                                      borderRadius: BorderRadius.circular(10.0),
+                                                                                      gapPadding: 10,
+                                                                                      borderSide: BorderSide(width: 0.2),
+
+                                                                                    ),
+
+                                                                                    contentPadding: EdgeInsets.only(
+                                                                                        top: 2.0,
+                                                                                        left: 10.0,
+                                                                                        right: 0.0,
+                                                                                        bottom: 2.0),
+
+                                                                                  ),
+                                                                                  textAlign: TextAlign.start,
+                                                                      controller: surveyDetailsModel
+                                                                          .question!
+                                                                          .optionGroup![index]
+                                                                          .optionGroups![index1]
+                                                                          .textEditingController,
+                                                                      onChanged: (_){
+                                                                        var text=false;
+                                                                        for (int i = 0; i < surveyDetailsModel.question!.optionGroup!.length; i++) {
+                                                                          for (int j = 0; j < surveyDetailsModel.question!.optionGroup![i].optionGroups!.length; j++) {
+                                                                            if(surveyDetailsModel.question!.optionGroup![i].optionGroups![j].textEditingController!.text.trim().toString().length!=0){
+                                                                              text=true;
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                        if(text){
+                                                                          setState(() {
+                                                                            isFullNameChangeBtnState=true;
+                                                                          });
+                                                                        }else{
+                                                                          setState(() {
+                                                                            isFullNameChangeBtnState=false;
+                                                                          });
+                                                                        }
+
+
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ):Row(
                                                                 children: [
 
                                                                   // Container( height:40, width:40,child: Text(surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString(),style:TextStyle(fontFamily: "Poppins", fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black),)),
@@ -638,40 +740,17 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                     ),
                                                                   ),
                                                                   Expanded(
-                                                                    flex: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
-                                                                        "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?4:1,
+                                                                    flex: 1,
                                                                     child:
                                                                         Container(
                                                                           width:40,
-                                                                          height:surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
-                                                                              "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?60:40,
+                                                                          height:40,
                                                                           child: TextField(
-                                                                          keyboardType: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
-                                                                                "Others" ||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"
-                                                                            ? TextInputType.name
-                                                                            : TextInputType.number,
-                                                                            decoration: InputDecoration(
-                                                                              border: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
-                                                                "Others" ||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"
-                                                                ?UnderlineInputBorder(
-
-                                                                                borderSide: BorderSide(color: Colors.cyan),
-
-                                                                              ):OutlineInputBorder(
-                                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                              ),
-
-                                                                              contentPadding: EdgeInsets.only(
-                                                                                  top: 2.0,
-                                                                                  left: 4.0,
-                                                                                  right: 0.0,
-                                                                                  bottom: 2.0),
-
-                                                                            ),
+                                                                          keyboardType:  TextInputType.number,
+                                                                //
                                                                             textAlign: TextAlign.center,
                                                                             inputFormatters:[
-                                                                              LengthLimitingTextInputFormatter(surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
-                                                                                  "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?300:3),
+                                                                              LengthLimitingTextInputFormatter(3),
                                                                             ],
                                                                           controller: surveyDetailsModel
                                                                             .question!
@@ -703,8 +782,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                         ),
                                                                   ),
                                                                   Expanded(
-                                                                    flex: surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() ==
-                                                                        "Others"||surveyDetailsModel.question!.optionGroup![index].optionGroups![index1].optionPrefix.toString() == "மற்றவை"?0:1,
+                                                                         flex:1,
                                                                     child:
                                                                         Container(
                                                                       margin: EdgeInsets.only(
@@ -891,12 +969,12 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                         surveyDetailsModel
                                                             .question!
                                                             .options![j]
-                                                            .selct = -1;
+                                                            .select = -1;
                                                       }
                                                       surveyDetailsModel
                                                           .question!
                                                           .options![index]
-                                                          .selct = 0;
+                                                          .select = 0;
                                                       setState(() {});
                                                     },
                                                     child: GestureDetector(
@@ -913,12 +991,12 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                           surveyDetailsModel
                                                               .question!
                                                               .options![j]
-                                                              .selct = -1;
+                                                              .select = -1;
                                                         }
                                                         surveyDetailsModel
                                                             .question!
                                                             .options![index]
-                                                            .selct = 0;
+                                                            .select = 0;
                                                         setState(() {});
                                                       },
                                                       child: Container(
@@ -1080,7 +1158,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                       return InkWell(
                                                         onTap: () {
                                                           // for (int j = 0;j < surveyDetailsModel.question!.options!.length; j++) {
-                                                          //   surveyDetailsModel.question!.options![j].selct = -1;
+                                                          //   surveyDetailsModel.question!.options![j].select = -1;
                                                           // }
                                                           if (surveyDetailsModel
                                                                   .question!
@@ -1090,12 +1168,30 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                             surveyDetailsModel
                                                                 .question!
                                                                 .options![index]
-                                                                .selct = -1;
+                                                                .select = -1;
                                                           } else {
+                                                            if(surveyDetailsModel
+                                                                .question!
+                                                                .options![index].nilValue!){
+                                                              print("clicks");
+                                                              surveyDetailsModel
+                                                                  .question!
+                                                                  .options!.forEach((element) {
+                                                                element.select=-1;
+                                                              });
+                                                            }else{
+                                                              surveyDetailsModel
+                                                                  .question!
+                                                                  .options!.forEach((element) {
+                                                                    if(element.nilValue!){
+                                                                      element.select=-1;
+                                                                    }
+                                                              });
+                                                            }
                                                             surveyDetailsModel
                                                                 .question!
                                                                 .options![index]
-                                                                .selct = 0;
+                                                                .select = 0;
                                                           }
 
                                                           int check = 0;
@@ -1128,7 +1224,7 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                         child: GestureDetector(
                                                           onTap: () {
                                                             // for (int j = 0;j < surveyDetailsModel.question!.options!.length; j++) {
-                                                            //   surveyDetailsModel.question!.options![j].selct = -1;
+                                                            //   surveyDetailsModel.question!.options![j].select = -1;
                                                             // }
                                                             if (surveyDetailsModel
                                                                     .question!
@@ -1139,12 +1235,31 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                               surveyDetailsModel
                                                                   .question!
                                                                   .options![index]
-                                                                  .selct = -1;
+                                                                  .select = -1;
                                                             } else {
+
+                                                              if(surveyDetailsModel
+                                                                  .question!
+                                                                  .options![index].nilValue!){
+                                                                print("clicks");
+                                                                surveyDetailsModel
+                                                                    .question!
+                                                                    .options!.forEach((element) {
+                                                                      element.select=-1;
+                                                                });
+                                                              }else{
+                                                                surveyDetailsModel
+                                                                    .question!
+                                                                    .options!.forEach((element) {
+                                                                  if(element.nilValue!){
+                                                                    element.select=-1;
+                                                                  }
+                                                                });
+                                                              }
                                                               surveyDetailsModel
                                                                   .question!
                                                                   .options![index]
-                                                                  .selct = 0;
+                                                                  .select = 0;
                                                             }
 
                                                             int check = 0;
@@ -1391,9 +1506,9 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                         //             onTap: () {
                                                         //               setState(() {
                                                         //                 for (int j = 0; j < surveyDetailsModel.question!.choices![index].options!.length; j++) {
-                                                        //                   surveyDetailsModel.question!.choices![index].options![j].selct = -1;
+                                                        //                   surveyDetailsModel.question!.choices![index].options![j].select = -1;
                                                         //                 }
-                                                        //                 surveyDetailsModel.question!.choices![index].options![i].selct = 0;
+                                                        //                 surveyDetailsModel.question!.choices![index].options![i].select = 0;
                                                         //                 int selection=0;
                                                         //                 for(int k = 0; k < surveyDetailsModel.question!.choices!.length; k++){
                                                         //                   for(int l = 0; l < surveyDetailsModel.question!.choices![k].options!.length; l++){
@@ -1511,13 +1626,13 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                                 .question!
                                                                                 .choices![index]
                                                                                 .options![j]
-                                                                                .selct = -1;
+                                                                                .select = -1;
                                                                           }
                                                                           surveyDetailsModel
                                                                               .question!
                                                                               .choices![index]
                                                                               .options![i]
-                                                                              .selct = 0;
+                                                                              .select = 0;
                                                                           int selection =
                                                                               0;
                                                                           for (int k =
@@ -1590,9 +1705,9 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                               for (int j = 0;
                                                                                   j < surveyDetailsModel.question!.choices![index].options!.length;
                                                                                   j++) {
-                                                                                surveyDetailsModel.question!.choices![index].options![j].selct = -1;
+                                                                                surveyDetailsModel.question!.choices![index].options![j].select = -1;
                                                                               }
-                                                                              surveyDetailsModel.question!.choices![index].options![i].selct =
+                                                                              surveyDetailsModel.question!.choices![index].options![i].select =
                                                                                   0;
                                                                               int selection =
                                                                                   0;
@@ -1713,13 +1828,25 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                                 () {
                                                                               setState(() {
                                                                                 // for (int j = 0; j < surveyDetailsModel.question!.choices![index].options!.length; j++) {
-                                                                                //   surveyDetailsModel.question!.choices![index].options![j].selct = -1;
+                                                                                //   surveyDetailsModel.question!.choices![index].options![j].select = -1;
                                                                                 // }
-                                                                                // surveyDetailsModel.question!.choices![index].options![i].selct = 0;
+                                                                                // surveyDetailsModel.question!.choices![index].options![i].select = 0;
                                                                                 if (surveyDetailsModel.question!.choices![index].options![i].select == 0) {
-                                                                                  surveyDetailsModel.question!.choices![index].options![i].selct = -1;
+                                                                                  surveyDetailsModel.question!.choices![index].options![i].select = -1;
                                                                                 } else {
-                                                                                  surveyDetailsModel.question!.choices![index].options![i].selct = 0;
+                                                                                  if(surveyDetailsModel.question!.choices![index].options![i].nilValue!){
+                                                                                    surveyDetailsModel.question!.choices![index].options!.forEach((element) {
+                                                                                      element.select=-1;
+                                                                                    });
+                                                                                  }else{
+                                                                                    surveyDetailsModel.question!.choices![index].options!.forEach((element) {
+                                                                                      if(element.nilValue!){
+                                                                                        element.select=-1;
+                                                                                      }
+                                                                                    });
+
+                                                                                  }
+                                                                                  surveyDetailsModel.question!.choices![index].options![i].select = 0;
                                                                                 }
                                                                                 int selection = 0;
                                                                                 for (int k = 0; k < surveyDetailsModel.question!.choices!.length; k++) {
@@ -1756,13 +1883,25 @@ class _SurveymenuDetailsState extends State<SurveymenuDetails> {
                                                                                   () {
                                                                                 setState(() {
                                                                                   // for (int j = 0; j < surveyDetailsModel.question!.choices![index].options!.length; j++) {
-                                                                                  //   surveyDetailsModel.question!.choices![index].options![j].selct = -1;
+                                                                                  //   surveyDetailsModel.question!.choices![index].options![j].select = -1;
                                                                                   // }
-                                                                                  // surveyDetailsModel.question!.choices![index].options![i].selct = 0;
+                                                                                  // surveyDetailsModel.question!.choices![index].options![i].select = 0;
                                                                                   if (surveyDetailsModel.question!.choices![index].options![i].select == 0) {
-                                                                                    surveyDetailsModel.question!.choices![index].options![i].selct = -1;
+                                                                                    surveyDetailsModel.question!.choices![index].options![i].select = -1;
                                                                                   } else {
-                                                                                    surveyDetailsModel.question!.choices![index].options![i].selct = 0;
+                                                                                    if(surveyDetailsModel.question!.choices![index].options![i].nilValue!){
+                                                                                      surveyDetailsModel.question!.choices![index].options!.forEach((element) {
+                                                                                        element.select=-1;
+                                                                                      });
+                                                                                    }else{
+                                                                                      surveyDetailsModel.question!.choices![index].options!.forEach((element) {
+                                                                                        if(element.nilValue!){
+                                                                                          element.select=-1;
+                                                                                        }
+                                                                                      });
+
+                                                                                    }
+                                                                                    surveyDetailsModel.question!.choices![index].options![i].select = 0;
                                                                                   }
                                                                                   int selection = 0;
                                                                                   for (int k = 0; k < surveyDetailsModel.question!.choices!.length; k++) {

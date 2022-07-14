@@ -253,7 +253,7 @@ class _ScreenCheckState extends State<ScreenCheck> {
                                 bottom: 15,
                               ),
                               child: Text(
-                                taskDetails.expiryText??'',
+                                widget.page == "1"? tr('thankssurvey'): taskDetails.expiryText??'',
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: false,
                                 maxLines: 3,

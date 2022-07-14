@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 /// userId : 57
@@ -285,47 +287,104 @@ class Choices {
 /// option : "Yes"
 /// url : null
 
+// class Options {
+//   dynamic? _optionId;
+//   String? _option;
+//   dynamic? _url;
+//   int? _select=-1;
+//
+//   dynamic? get optionId => _optionId;
+//   String? get option => _option;
+//   int? get select => _select;
+//   dynamic? get url => _url;
+//
+//   set selct(int val) => _select = val; // optionally perform validation, etc
+//
+//   Options({
+//       String? optionId,
+//       String? option,
+//       int? select,
+//       dynamic? url}){
+//     _optionId = optionId;
+//     _option = option;
+//     _select = select;
+//     _url = url;
+// }
+//
+//   Options.fromJson(dynamic json) {
+//     _optionId = json['optionId'];
+//     _option = json['option'];
+//     _url = json['url'];
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     var map = <String, dynamic>{};
+//     map['optionId'] = _optionId;
+//     map['option'] = _option;
+//     map['url'] = _url;
+//     return map;
+//   }
+//
+//
+//
+// }
+
+// To parse this JSON data, do
+//
+//     final options = optionsFromJson(jsonString);
+
+
+Options optionsFromJson(String str) => Options.fromJson(json.decode(str));
+
+String optionsToJson(Options data) => json.encode(data.toJson());
+
 class Options {
-  dynamic? _optionId;
-  String? _option;
-  dynamic? _url;
-  int? _select=-1;
-
-  dynamic? get optionId => _optionId;
-  String? get option => _option;
-  int? get select => _select;
-  dynamic? get url => _url;
-
-  set selct(int val) => _select = val; // optionally perform validation, etc
-
   Options({
-      String? optionId,
-      String? option,
-      int? select,
-      dynamic? url}){
-    _optionId = optionId;
-    _option = option;
-    _select = select;
-    _url = url;
+    this.optionId,
+    this.option,
+    this.optionPrefix,
+    this.optionSuffix,
+    this.optionGroup,
+    this.largeText,
+    this.nilValue,
+    this.url,
+    this.select,
+  });
+
+  int? optionId;
+  String? option;
+  dynamic optionPrefix;
+  dynamic optionSuffix;
+  dynamic optionGroup;
+  bool? largeText;
+  bool? nilValue;
+  dynamic url;
+    int? select=-1;
+
+
+  factory Options.fromJson(Map<String, dynamic> json) => Options(
+    optionId: json["optionId"],
+    option: json["option"],
+    optionPrefix: json["optionPrefix"],
+    optionSuffix: json["optionSuffix"],
+    optionGroup: json["optionGroup"],
+    largeText: json["largeText"],
+    nilValue: json["nilValue"],
+    url: json["url"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "optionId": optionId,
+    "option": option,
+    "optionPrefix": optionPrefix,
+    "optionSuffix": optionSuffix,
+    "optionGroup": optionGroup,
+    "largeText": largeText,
+    "nilValue": nilValue,
+    "url": url,
+  };
 }
 
-  Options.fromJson(dynamic json) {
-    _optionId = json['optionId'];
-    _option = json['option'];
-    _url = json['url'];
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['optionId'] = _optionId;
-    map['option'] = _option;
-    map['url'] = _url;
-    return map;
-  }
-
-
-
-}
 class OptionGroup {
   OptionGroup({
     this.optionGroup,
@@ -355,6 +414,8 @@ class OptionText {
     this.optionGroup,
     this.url,
     this.textEditingController,
+    this.largeText,
+    this.nilValue,
   });
 
   int? optionId;
@@ -364,6 +425,8 @@ class OptionText {
   String? optionGroup;
   dynamic? url;
   TextEditingController? textEditingController;
+  bool? largeText;
+  bool? nilValue;
 
   factory OptionText.fromJson(Map<String, dynamic> json) => OptionText(
     optionId: json["optionId"],
@@ -372,6 +435,8 @@ class OptionText {
     optionSuffix: json["optionSuffix"],
     optionGroup: json["optionGroup"],
     url: json["url"],
+    largeText: json["largeText"],
+    nilValue: json["nilValue"],
     textEditingController: TextEditingController(),
   );
 
@@ -382,5 +447,7 @@ class OptionText {
     "optionSuffix": optionSuffix,
     "optionGroup": optionGroup,
     "url": url,
+    "largeText": largeText,
+    "nilValue": nilValue,
   };
 }

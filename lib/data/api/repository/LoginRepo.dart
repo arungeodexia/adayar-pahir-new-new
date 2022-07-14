@@ -186,6 +186,39 @@ class LoginRepo{
     else
       return false;
   }
+  Future<bool> sendDeviceInfoVersion(String version) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String countryCode = prefs.getString(USER_COUNTRY_CODE) ?? "";
+    String mobileNo = prefs.getString(USER_MOBILE_NUMBER) ?? "";
+
+    final response = await client.post(Uri.parse('${AppStrings.BASE_URL}api/v2/user/${countryCode}/${mobileNo}/appVersion/${version}'),);
+    // final res=dio.post('${AppStrings.BASE_URL}api/v1/user/device/${countryCode}/${mobileNo}',data: requestHeadersnew);
+    // print(res.toString());
+    print("SendDeviceInfo UserRepos request :==>"+response.request.toString());
+    print("SendDeviceInfo UserRepos Response :==>"+response.body.toString());
+    print("SendDeviceInfo UserRepos Response :==>"+response.statusCode.toString());
+    if (response.statusCode == 200){
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString(APP_VERSION, version??'');
+
+
+      //SharedPreferences prefs = await SharedPreferences.getInstance();
+      // String prefAppName = prefs.getString(APP_NAME) ?? "";
+      // String prefAppVersion = prefs.getString(APP_VERSION) ?? "";
+      // String prefBuildNumber = prefs.getString(BUILD_NUMBER) ?? "";
+      // String prefOSName = prefs.getString(OS_NAME) ?? "";
+      // String prefOSVersion = prefs.getString(OS_VERSION) ?? "";
+      // String prefDeviceToken = prefs.getString(FCM_TOKEN) ?? "";
+
+      // print("RESPONSE Pref Details In USER_REPO :==>"+prefAppName+","+prefAppVersion+","+prefBuildNumber+","+prefOSName+","+prefOSVersion);//+","+prefDeviceToken
+      // toastMessage("RESPONSE Pref Details In USER_REPO :==>"+prefAppName+","+prefAppVersion+","+prefBuildNumber+","+prefOSName+","+prefOSVersion);//+","+prefDeviceToken
+
+
+      return true;
+    }
+    else
+      return false;
+  }
 
   void firebaseCloudMessagingListeners() async{
 

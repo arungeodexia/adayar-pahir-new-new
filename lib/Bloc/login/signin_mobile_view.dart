@@ -1,3 +1,4 @@
+import 'package:ACI/Screen/Webview.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -58,13 +59,8 @@ class SigninState extends State<SigninView> {
   Widget build(BuildContext context) {
     globalcontext = context;
     _launchURL() async {
-      const url =
-          "https://dlaggtcll95tc.cloudfront.net/app/acipolicy.html";
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => WebViewExample()));
     }
 
     return BlocListener<LoginBloc, LoginState>(
